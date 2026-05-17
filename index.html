@@ -12,11 +12,11 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
 
 /* ===== HEADER ===== */
-.hd{position:fixed;top:0;left:0;right:0;height:var(--hh);background:var(--card);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 12px;z-index:1000;gap:8px;backdrop-filter:blur(8px);background:rgba(255,255,255,.85)}
-[data-theme=dark] .hd{background:rgba(26,32,48,.85)}
+.hd{position:fixed;top:0;left:0;right:0;height:var(--hh);background:var(--pri);color:#fff;display:flex;align-items:center;padding:0 12px;z-index:1000;gap:8px}
+[data-theme=dark] .hd{background:var(--pri2)}
 .hd-logo{display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:var(--rs);cursor:default;user-select:none}
 .hd-logo svg{width:22px;height:22px;flex-shrink:0}
-.hd-logo .hd-t{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.hd-logo .hd-t{font-size:15px;font-weight:700;color:inherit;letter-spacing:-.3px}
 .hd-logo .hd-dot{width:4px;height:4px;border-radius:50%;background:var(--pri);display:inline-block;margin:0 2px}
 
 /* ===== SVG Icons ===== */
@@ -24,15 +24,15 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
 .icn-sm{width:14px;height:14px}
 .icn-lg{width:20px;height:20px}
 .icn-xl{width:28px;height:28px}
-.hb{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--rs);border:1px solid var(--bdr);background:var(--card);cursor:pointer;color:var(--text2);transition:.15s;flex-shrink:0;user-select:none}
-.hb:hover{background:var(--bg2);color:var(--text)}
+.hb{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--rs);border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);cursor:pointer;color:rgba(255,255,255,.9);transition:.15s;flex-shrink:0;user-select:none}
+.hb:hover{background:rgba(255,255,255,.18);color:#fff}
 .hb svg{width:16px;height:16px;fill:currentColor}
 
 .sch-w{position:relative;flex:1;max-width:260px}
-.sch-w .sch-i{position:absolute;left:9px;top:50%;transform:translateY(-50%);display:flex;align-items:center;color:var(--text3);font-size:13px;pointer-events:none;line-height:1}
-.sch-w input{width:100%;padding:5px 10px 5px 30px;border:1px solid var(--bdr);border-radius:var(--rs);font-size:12.5px;background:var(--bg2);color:var(--text);outline:none;transition:.15s}
-.sch-w input::placeholder{color:var(--text3)}
-.sch-w input:focus{border-color:var(--pri);background:var(--card)}
+.sch-w .sch-i{position:absolute;left:9px;top:50%;transform:translateY(-50%);display:flex;align-items:center;color:rgba(255,255,255,.5);font-size:13px;pointer-events:none;line-height:1}
+.sch-w input{width:100%;padding:5px 10px 5px 30px;border:1px solid rgba(255,255,255,.2);border-radius:var(--rs);font-size:12.5px;background:rgba(255,255,255,.1);color:#fff;outline:none;transition:.15s}
+.sch-w input::placeholder{color:rgba(255,255,255,.5)}
+.sch-w input:focus{border-color:var(--acc);background:rgba(255,255,255,.15)}
 
 .hd-r{display:flex;gap:4px;margin-left:auto;align-items:center}
 .hd-r .hb{font-size:16px;line-height:1}
@@ -105,7 +105,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
     <svg viewBox="0 0 20 20"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg>
   </button>
   <div class="hd-logo">
-    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="var(--pri)"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="var(--acc)"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="var(--acc)" opacity=".7"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="var(--pri)" opacity=".7"/></svg>
+    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="rgba(255,255,255,.85)"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="var(--acc)"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="var(--acc)" opacity=".7"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="rgba(255,255,255,.85)" opacity=".7"/></svg>
     <span class="hd-t">书籍导航</span>
   </div>
   <div class="sch-w">
