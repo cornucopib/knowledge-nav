@@ -7,55 +7,68 @@
 <style>
 :root{--bg:#f4f6f9;--bg2:#e8ecf1;--card:#ffffff;--card2:#f9fafb;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;--pri:#2563eb;--pri2:#60a5fa;--acc:#c9a55a;--acc2:#d4af5e;--acc-bg:#fef9f0;--ok:#16a34a;--ok-bg:#f0fdf4;--warn:#b45309;--warn-bg:#fff7ed;--err:#dc2626;--err-bg:#fef2f2;--info:#2563eb;--info-bg:#eff6ff;--bdr:#e2e8f0;--sh:rgba(0,0,0,.06);--sh1:0 1px 2px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.04);--sh2:0 4px 6px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.04);--ease:cubic-bezier(.4,0,.2,1);--r:10px;--rs:6px;--sw:280px;--hh:56px;--pri-bg:#eff6ff;--sh3:0 10px 20px rgba(0,0,0,.04),0 4px 8px rgba(0,0,0,.03);--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;--serif:Georgia,"Noto Serif SC",serif}
 [data-theme=dark]{--bg:#0f1419;--bg2:#1a2030;--card:#1e2738;--card2:#243044;--text:#e0ddd5;--text2:#a0a0a0;--text3:#707070;--pri:#c9a55a;--pri2:#3a5a8a;--acc:#c9a55a;--acc2:#c9a55a;--ok:#2d8a4e;--err:#c0392b;--warn:#b8860b;--info:#2980b9;--bdr:#2a3548;--sh:rgba(0,0,0,.3);--acc-bg:#2a2518;--ok-bg:#1a2e20;--warn-bg:#2e2a18;--err-bg:#2e1a18;--info-bg:#182a2e;--pri-bg:#2a2518;--sh1:0 1px 3px rgba(0,0,0,.3),0 1px 2px rgba(0,0,0,.2);--sh2:0 4px 6px rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.15);--sh3:0 10px 25px rgba(0,0,0,.3),0 4px 10px rgba(0,0,0,.2)}
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}.hd-t,.hero h1,.hero p,.hero .h-stats,.sec-h,.ft{user-select:none}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
-
-/* ===== HEADER ===== */
-.hd{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;background:var(--pri);color:#fff;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.hd-l{display:flex;align-items:center;gap:10px}
-.hd-l svg{width:24px;height:24px;flex-shrink:0}
-.hd-t{font-size:16px;font-weight:700;letter-spacing:-.3px}
-.hd-t span{color:var(--acc)}
+/* HEADER */
+.hd{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;background:var(--pri);color:#fff;user-select:none}
+.hd-l{display:flex;align-items:center;gap:10px}.hd-l svg{width:26px;height:26px;flex-shrink:0}
+.hd-t{font-size:16px;font-weight:700;letter-spacing:-.3px}.hd-t span{color:var(--acc)}
 .hd-r{display:flex;align-items:center;gap:8px}
-.hb{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;user-select:none}
+.hb{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
 .hb:hover{background:rgba(255,255,255,.18)}.hb:active{transform:scale(.92)}
 .hb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* ===== HERO ===== */
-.mn{flex:1;margin-top:56px;display:flex;flex-direction:column;align-items:center;padding:0 20px}
-.hero{text-align:center;padding:60px 0 40px;max-width:640px}
-.hero .h-icon{width:64px;height:64px;border-radius:16px;background:var(--pri-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px}
-.hero h1{font-size:28px;font-weight:700;color:var(--text);margin-bottom:10px;letter-spacing:-.5px}
-.hero p{font-size:15px;color:var(--text2);line-height:1.8}
-.hero .h-stats{display:flex;gap:24px;justify-content:center;margin-top:24px}
-.hero .h-stats div{text-align:center}
-.hero .h-stats .n{font-size:24px;font-weight:700;color:var(--pri);font-family:var(--serif)}
-.hero .h-stats .l{font-size:12px;color:var(--text3);margin-top:2px}
-
-/* ===== BOOK CARDS ===== */
-.sec{width:100%;max-width:960px;padding-bottom:60px}
-.sec-h{display:flex;align-items:center;gap:10px;padding:0 4px 16px;font-size:13px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--bdr);margin-bottom:16px}
-.sec-h svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-
-.bk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.bk{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;cursor:pointer;transition:.2s var(--ease);user-select:none;text-decoration:none;color:inherit;display:block;position:relative;overflow:hidden}
-.bk::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc);opacity:0;transition:opacity .2s}
-.bk:hover{box-shadow:var(--sh2);transform:translateY(-2px);border-color:var(--acc)}
-.bk:hover::before{opacity:1}.bk:active{transform:scale(.98)}
-.bk .bk-ic{width:40px;height:40px;border-radius:10px;background:var(--pri-bg);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
-.bk .bk-t{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
-.bk .bk-d{font-size:13px;color:var(--text2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.bk .bk-m{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--text3)}
-.bk .bk-m svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* ===== FOOTER ===== */
-.ft{text-align:center;padding:24px;font-size:12px;color:var(--text3);border-top:1px solid var(--bdr)}
-
-/* ===== RESPONSIVE ===== */
+/* HERO */
+.hero{position:relative;width:100%;overflow:hidden}.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-bg::before,.hero-bg::after{content:'';position:absolute;border-radius:50%}
+.hero-bg::before{width:500px;height:500px;top:-200px;left:-150px;background:radial-gradient(circle,var(--pri-bg),transparent 70%);filter:blur(60px)}
+.hero-bg::after{width:400px;height:400px;bottom:-180px;right:-120px;background:radial-gradient(circle,var(--acc-bg),transparent 70%);filter:blur(60px)}
+.mn{flex:1;margin-top:56px;display:flex;flex-direction:column;align-items:center}
+.hero-in{padding:56px 20px 36px;max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.hero .hi{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--pri-bg),var(--acc-bg));display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.hero .hi svg{width:34px;height:34px;color:var(--pri);fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.hero h1{font-size:30px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.5px}
+.hero p{font-size:15px;color:var(--text2);line-height:1.7}
+.hs{display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.hs-ic{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rs);box-shadow:var(--sh1)}
+.hs-ic .n{font-size:20px;font-weight:700;color:var(--pri);font-family:var(--serif)}
+.hs-ic .l{font-size:12px;color:var(--text3)}
+/* SEARCH */
+.sb-c{max-width:440px;margin:20px auto 0;position:relative}
+.sb-c .si{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text3);pointer-events:none}
+.sb-c input{width:100%;padding:10px 14px 10px 38px;border:1px solid var(--bdr);border-radius:var(--r);font-size:13px;background:var(--card);color:var(--text);box-shadow:var(--sh1);transition:.2s;outline:none}
+.sb-c input:focus{border-color:var(--pri);box-shadow:var(--sh2)}
+/* CONTENT */
+.sc{width:100%;max-width:960px;padding:0 20px 56px}
+.sc-h{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;margin-bottom:14px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh1)}
+.sc-h-l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--text)}
+.sc-h-l svg{width:16px;height:16px;flex-shrink:0}
+.sc-h-r{font-size:11px;padding:2px 10px;border-radius:10px;background:var(--pri-bg);color:var(--pri);font-weight:600;white-space:nowrap}
+/* BOOK GRID */
+.bg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.bk{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:.2s var(--ease);user-select:none;animation:fI .45s ease both}
+.bk::after{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--acc);opacity:0;transition:opacity .2s}
+.bk:hover{box-shadow:var(--sh2);transform:translateY(-2px);border-color:var(--acc)}.bk:hover::after{opacity:1}.bk:active{transform:scale(.97)}
+.bk-top{display:flex;gap:12px}.bk-ic{width:40px;height:40px;border-radius:10px;background:var(--pri-bg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.bk-i{flex:1;min-width:0}.bk-t{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk-d{font-size:12px;color:var(--text2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bk-tg{display:flex;gap:4px;flex-wrap:wrap}
+.bk-tg span{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--acc-bg);color:var(--acc);font-weight:600}
+.bk-ft{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.bk-p{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.bk-arrow{width:28px;height:28px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--text3);transition:.2s;flex-shrink:0;margin-left:8px}
+.bk:hover .bk-arrow{background:var(--pri-bg);color:var(--pri)}
+/* EMPTY */
+.emp{text-align:center;padding:60px 20px;color:var(--text3)}.emp p:first-child{font-size:40px;margin-bottom:12px}
+/* FOOTER */
+.ft{text-align:center;padding:20px;font-size:12px;color:var(--text3);border-top:1px solid var(--bdr);user-select:none}
+/* ANIMATIONS */
+@keyframes fI{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* RESPONSIVE */
 @media(max-width:640px){
-  .hd{padding:0 14px}.hero{padding:40px 0 28px}.hero h1{font-size:24px}
-  .bk-grid{grid-template-columns:1fr}.hero .h-stats{gap:16px}
-  .sec{max-width:100%}
+  .hd{padding:0 14px}.hero-in{padding:36px 14px 28px}.hero h1{font-size:26px}
+  .bg{grid-template-columns:1fr}.sc{padding:0 14px 40px}
+  .hs{gap:8px}.hs-ic{padding:6px 12px}
+  .bk-ft{flex-direction:column;align-items:flex-start;gap:4px}.bk-arrow{display:none}
 }
 </style>
 </head>
@@ -63,99 +76,55 @@
 
 <header class="hd">
   <div class="hd-l">
-    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="var(--acc)"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="var(--pri)"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="var(--pri)" opacity=".5"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="var(--acc)" opacity=".5"/></svg>
+    <svg viewBox="0 0 28 28" fill="none">
+      <rect x="4" y="4" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" opacity=".25"/>
+      <rect x="8" y="8" width="15" height="15" rx="4" fill="currentColor" opacity=".9"/>
+      <circle cx="8" cy="8" r="2.5" fill="currentColor" opacity=".5"/>
+    </svg>
     <span class="hd-t">知识<span>库</span></span>
   </div>
   <div class="hd-r">
-    <button class="hb" onclick="tgTh()" title="切换主题" id="thBtn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
+    <button class="hb" onclick="tgTh()" title="切换主题"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
   </div>
 </header>
 
 <main class="mn">
   <section class="hero">
-    <div class="h-icon">📖</div>
-    <h1>知识库</h1>
-    <p>精选技术书籍与学习资料，系统化掌握核心知识。<br>选择一个分类开始探索。</p>
-    <div class="h-stats"><div><div class="n" id="stG">0</div><div class="l">分类</div></div><div><div class="n" id="stB">0</div><div class="l">书籍</div></div></div>
+    <div class="hero-bg"></div>
+    <div class="hero-in">
+      <div class="hi">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 8h6M9 12h4"/></svg>
+      </div>
+      <h1>知识库</h1>
+      <p>精选技术书籍与学习资料，系统化掌握核心知识。</p>
+      <div class="hs">
+        <div class="hs-ic"><span class="n" id="stG">0</span><span class="l">分类</span></div>
+        <div class="hs-ic"><span class="n" id="stB">0</span><span class="l">书籍</span></div>
+      </div>
+      <div class="sb-c">
+        <svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="sI" placeholder="搜索书籍..." oninput="fB(this.value)">
+      </div>
+    </div>
   </section>
 
-  <section class="sec" id="secList"></section>
+  <section class="sc" id="sc"></section>
 </main>
 
-<footer class="ft">© 知识库 · 持续更新中</footer>
+<footer class="ft">&copy; 知识库</footer>
 
 <script>
-const THEME_KEY = 'wk-nav-theme';
-let THEME = localStorage.getItem(THEME_KEY) || 'light';
-if (THEME === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-
-function tgTh() {
-  THEME = THEME === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', THEME === 'dark' ? 'dark' : '');
-  localStorage.setItem(THEME_KEY, THEME);
-}
-
-const SITEMAP_PATH = './sitemap.json';
-
-// Group → book name/desc mapping
-const BOOK_META = {
-  '股票交易': { icon: '📈', desc: '股票交易技术分析方法与实战策略' }
-};
-
-function descFor(name) {
-  return BOOK_META[name]?.desc || '';
-}
-
-function iconFor(name) {
-  return BOOK_META[name]?.icon || '📄';
-}
-
-async function init() {
-  try {
-    const res = await fetch(SITEMAP_PATH);
-    const sitemap = await res.json();
-    renderHeroStats(sitemap);
-    renderSections(sitemap);
-  } catch (e) {
-    document.getElementById('secList').innerHTML =
-      `<div style="text-align:center;padding:60px 20px;color:var(--text3)"><p style="font-size:40px;margin-bottom:12px">📭</p><p>暂无内容，请先添加书籍</p></div>`;
-  }
-}
-
-function renderHeroStats(sitemap) {
-  const groups = sitemap.length;
-  const books = sitemap.reduce((s, g) => s + g.files.length, 0);
-  document.getElementById('stG').textContent = groups;
-  document.getElementById('stB').textContent = books;
-}
-
-function renderSections(sitemap) {
-  let h = '';
-  sitemap.forEach(g => {
-    h += `<div style="margin-bottom:28px">`;
-    h += `<div class="sec-h"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>${g.name}</div>`;
-    h += `<div class="bk-grid">`;
-    g.files.forEach(f => {
-      const desc = descFor(g.name);
-      h += `<a class="bk" href="${escAttr(f.path)}">`;
-      h += `<div class="bk-ic">${iconFor(g.name)}</div>`;
-      h += `<div class="bk-t">${escHtml(f.name)}</div>`;
-      h += `<div class="bk-d">${desc || '点击进入学习'}</div>`;
-      h += `<div class="bk-m"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>${f.path}</div>`;
-      h += `</a>`;
-    });
-    h += `</div></div>`;
-  });
-  document.getElementById('secList').innerHTML = h;
-}
-
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function escAttr(s) {
-  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-
+const THEME_KEY='wk-nav-theme';let THEME=localStorage.getItem(THEME_KEY)||'light';if(THEME==='dark')document.documentElement.setAttribute('data-theme','dark');
+function tgTh(){THEME=THEME==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',THEME==='dark'?'dark':'');localStorage.setItem(THEME_KEY,THEME);}
+const SITEMAP_PATH='./sitemap.json';
+const BM={'股票交易':{ic:'📈',dsc:'股票交易技术分析方法与实战策略'}};
+let _sm=[],_all='';
+async function init(){try{const r=await fetch(SITEMAP_PATH);const sm=await r.json();_sm=sm;rh(sm);rS(sm);_all=document.getElementById('sc').innerHTML;}catch(e){document.getElementById('sc').innerHTML='<div class="emp"><p>📭</p><p>暂无内容</p></div>';}}
+function rh(sm){document.getElementById('stG').textContent=sm.length;document.getElementById('stB').textContent=sm.reduce((s,g)=>s+g.files.length,0);}
+function rS(sm){let h='';sm.forEach(g=>{const mt=BM[g.name]||{};h+=`<div style="margin-bottom:28px"><div class="sc-h"><div class="sc-h-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>${esc(g.name)}</div><div class="sc-h-r">${g.files.length} 本</div></div><div class="bg">`;g.files.forEach(f=>{const d=mt.dsc||'';h+=`<a class="bk" href="${escA(f.path)}"><div class="bk-top"><div class="bk-ic">${mt.ic||'📄'}</div><div class="bk-i"><div class="bk-t">${esc(f.name)}</div><div class="bk-d">${d||'点击进入学习'}</div></div></div><div class="bk-tg"><span>${esc(g.name)}</span></div><div class="bk-ft"><span class="bk-p">${f.path}</span><span class="bk-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div></a>`;});h+=`</div></div>`;});document.getElementById('sc').innerHTML=h||'<div class="emp"><p>🔍</p><p>未找到匹配的书籍</p></div>';}
+function fB(v){const q=v.toLowerCase().trim();if(!q){rS(_sm);return;}const sm=_sm.map(g=>({...g,files:g.files.filter(f=>f.name.toLowerCase().includes(q)||g.name.toLowerCase().includes(q))})).filter(g=>g.files.length);rS(sm);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function escA(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 init();
 </script>
 </body>
