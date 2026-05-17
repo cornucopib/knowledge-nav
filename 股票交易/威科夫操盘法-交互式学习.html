@@ -72,6 +72,7 @@
 </head>
 <body>
 <header class="hd">
+<button class="hb" onclick="goBack()" title="返回首页"><svg class="icn" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
 <button class="hb" onclick="tgSb()"><svg viewBox="0 0 20 20" class="icn"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg></button>
 <div class="hd-t">威科夫操盘法 <i>|</i> 深度学习</div>
 <div class="pw"><small>进度 <span id="pp">0%</span></small><div class="pb"><div class="pf" id="pf"></div></div></div>
@@ -454,7 +455,7 @@ const QUIZ=[
 ];
 
 // === STATE ===
-let S=JSON.parse(localStorage.getItem('wk_s2')||'null')||{m:{},n:{},t:'light',min:0};
+let S=JSON.parse(localStorage.getItem('wk_s2')||'null')||{m:{},n:{},t:'light',min:0};const ST=localStorage.getItem('wk-nav-theme');if(ST)S.t=ST;
 const save=()=>localStorage.setItem('wk_s2',JSON.stringify(S));
 const allL=[...CH0,...CH1,...CH2,...CH3,...CH4,...CH5,...CH6];
 
@@ -552,7 +553,9 @@ function renderNl(){let h='';allL.forEach(l=>{if(S.n[l.id]&&S.n[l.id].trim())h+=
 let tmR=false,tmS=25*60,tmI;
 function tgTm(){if(tmR){clearInterval(tmI);tmR=false;document.getElementById('tb').classList.remove('on');}else{tmR=true;document.getElementById('tb').classList.add('on');tmI=setInterval(()=>{tmS--;if(tmS<=0){clearInterval(tmI);tmR=false;tmS=25*60;document.getElementById('tb').classList.remove('on');S.min+=25;save();updDash();alert('25分钟学习完成！休息5分钟。');}updTd();},1000);}updTd();}
 function updTd(){const m=Math.floor(tmS/60),s=tmS%60;document.getElementById('td').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
-function tgTh(){S.t=S.t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',S.t==='dark'?'dark':'');save();}
+function goBack(){location.href='../index.html';}
+function tgTh(){S.t=S.t==='dark'?'light':'dark';applyWkTheme();}
+function applyWkTheme(){document.documentElement.setAttribute('data-theme',S.t==='dark'?'dark':'');save();localStorage.setItem('wk-nav-theme',S.t);}
 function updDash(){const t=allL.length,d=allL.filter(l=>S.m[l.id]).length;document.getElementById('dT').textContent=t;document.getElementById('dD').textContent=d;document.getElementById('dC').textContent=concepts.length;document.getElementById('dM').textContent=S.min;const p=t>0?Math.round(d/t*100):0;document.getElementById('pp').textContent=p+'%';document.getElementById('pf').style.width=p+'%';}
 
 init();

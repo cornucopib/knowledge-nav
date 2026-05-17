@@ -3,279 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>书籍知识导航</title>
+<title>知识库</title>
 <style>
-:root{--bg:#f5f3ef;--bg2:#eae7e0;--card:#fff;--card2:#fafaf8;--text:#2c2c2c;--text2:#5a5a5a;--text3:#8a8a8a;--pri:#1a2742;--pri2:#2a3f6a;--pri-bg:#fdf8ed;--acc:#c9a55a;--acc2:#e0c882;--acc-bg:#fdf8ed;--ok:#2d8a4e;--ok-bg:#e8f5ec;--err:#c0392b;--err-bg:#fdecea;--warn:#b8860b;--warn-bg:#fef9e7;--info:#2980b9;--info-bg:#e8f4fd;--bdr:#d8d4cc;--sh:rgba(0,0,0,.08);--sh1:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);--sh2:0 4px 6px rgba(0,0,0,.1),0 2px 4px rgba(0,0,0,.06);--ease:cubic-bezier(.4,0,.2,1);--r:10px;--rs:6px;--sw:280px;--hh:56px;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;--serif:Georgia,"Noto Serif SC",serif}
-[data-theme=dark]{--bg:#0f1419;--bg2:#1a2030;--card:#1e2738;--card2:#243044;--text:#e0ddd5;--text2:#a0a0a0;--text3:#707070;--pri:#c9a55a;--pri2:#3a5a8a;--pri-bg:#2a2518;--acc:#c9a55a;--acc2:#c9a55a;--acc-bg:#2a2518;--ok:#2d8a4e;--ok-bg:#1a2e20;--err:#c0392b;--err-bg:#2e1a18;--warn:#b8860b;--warn-bg:#2e2a18;--info:#2980b9;--info-bg:#182a2e;--bdr:#2a3548;--sh:rgba(0,0,0,.3)}
-*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+:root{--bg:#f5f3ef;--bg2:#eae7e0;--card:#fff;--card2:#fafaf8;--text:#2c2c2c;--text2:#5a5a5a;--text3:#8a8a8a;--pri:#1a2742;--pri2:#2a3f6a;--pri-bg:#fdf8ed;--acc:#c9a55a;--acc2:#e0c882;--acc-bg:#fdf8ed;--bdr:#d8d4cc;--sh1:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);--sh2:0 4px 6px rgba(0,0,0,.1),0 2px 4px rgba(0,0,0,.06);--sh3:0 10px 25px rgba(0,0,0,.08),0 4px 10px rgba(0,0,0,.05);--ease:cubic-bezier(.4,0,.2,1);--r:10px;--rs:6px;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;--serif:Georgia,"Noto Serif SC",serif}
+[data-theme=dark]{--bg:#0f1419;--bg2:#1a2030;--card:#1e2738;--card2:#243044;--text:#e0ddd5;--text2:#a0a0a0;--text3:#707070;--pri:#c9a55a;--pri2:#3a5a8a;--pri-bg:#2a2518;--acc:#c9a55a;--acc2:#c9a55a;--acc-bg:#2a2518;--bdr:#2a3548;--sh1:0 1px 3px rgba(0,0,0,.3),0 1px 2px rgba(0,0,0,.2);--sh2:0 4px 6px rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.15);--sh3:0 10px 25px rgba(0,0,0,.3),0 4px 10px rgba(0,0,0,.2)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
 
 /* ===== HEADER ===== */
-.hd{position:fixed;top:0;left:0;right:0;height:var(--hh);background:var(--pri);color:#fff;display:flex;align-items:center;padding:0 12px;z-index:1000;gap:8px;box-shadow:var(--sh2)}
-[data-theme=dark] .hd{background:var(--pri2)}
-.hd-logo{display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:var(--rs);cursor:default;user-select:none}
-.hd-logo svg{width:22px;height:22px;flex-shrink:0}
-.hd-logo .hd-t{font-size:15px;font-weight:700;color:inherit;letter-spacing:-.3px}
-.hd-logo .hd-dot{width:4px;height:4px;border-radius:50%;background:var(--acc);display:inline-block;margin:0 2px}
+.hd{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;background:var(--card);border-bottom:1px solid var(--bdr);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hd-l{display:flex;align-items:center;gap:10px}
+.hd-l svg{width:24px;height:24px;flex-shrink:0}
+.hd-t{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.hd-t span{color:var(--acc)}
+.hd-r{display:flex;align-items:center;gap:8px}
+.hb{width:34px;height:34px;border-radius:8px;border:1px solid var(--bdr);background:var(--card);color:var(--text2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;user-select:none}
+.hb:hover{background:var(--bg2);color:var(--text)}.hb:active{transform:scale(.92)}
+.hb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
-/* ===== SVG Icons ===== */
-.icn{width:16px;height:16px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.icn-sm{width:14px;height:14px}
-.icn-lg{width:20px;height:20px}
-.icn-xl{width:28px;height:28px}
-.hb{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--rs);border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);cursor:pointer;color:rgba(255,255,255,.9);transition:.15s;flex-shrink:0;user-select:none}
-.hb:hover{background:rgba(255,255,255,.18);color:#fff}.hb:active{transform:scale(.92)}
-.hb svg{width:16px;height:16px;fill:currentColor}
+/* ===== HERO ===== */
+.mn{flex:1;margin-top:56px;display:flex;flex-direction:column;align-items:center;padding:0 20px}
+.hero{text-align:center;padding:60px 0 40px;max-width:640px}
+.hero .h-icon{width:64px;height:64px;border-radius:16px;background:var(--pri-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px}
+.hero h1{font-size:28px;font-weight:700;color:var(--text);margin-bottom:10px;letter-spacing:-.5px}
+.hero p{font-size:15px;color:var(--text2);line-height:1.8}
+.hero .h-stats{display:flex;gap:24px;justify-content:center;margin-top:24px}
+.hero .h-stats div{text-align:center}
+.hero .h-stats .n{font-size:24px;font-weight:700;color:var(--pri);font-family:var(--serif)}
+.hero .h-stats .l{font-size:12px;color:var(--text3);margin-top:2px}
 
-.sch-w{position:relative;flex:1;max-width:260px}
-.sch-w .sch-i{position:absolute;left:9px;top:50%;transform:translateY(-50%);display:flex;align-items:center;color:rgba(255,255,255,.5);font-size:13px;pointer-events:none;line-height:1}
-.sch-w input{width:100%;padding:5px 10px 5px 30px;border:1px solid rgba(255,255,255,.2);border-radius:var(--rs);font-size:12.5px;background:rgba(255,255,255,.1);color:#fff;outline:none;transition:.15s}
-.sch-w input::placeholder{color:rgba(255,255,255,.5)}
-.sch-w input:focus{border-color:var(--acc);background:rgba(255,255,255,.15)}
+/* ===== BOOK CARDS ===== */
+.sec{width:100%;max-width:960px;padding-bottom:60px}
+.sec-h{display:flex;align-items:center;gap:10px;padding:0 4px 16px;font-size:13px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--bdr);margin-bottom:16px}
+.sec-h svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
-.hd-r{display:flex;gap:4px;margin-left:auto;align-items:center}
-.hd-r .hb{font-size:16px;line-height:1}
+.bk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.bk{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;cursor:pointer;transition:.2s var(--ease);user-select:none;text-decoration:none;color:inherit;display:block;position:relative;overflow:hidden}
+.bk::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc);opacity:0;transition:opacity .2s}
+.bk:hover{box-shadow:var(--sh2);transform:translateY(-2px);border-color:var(--acc)}
+.bk:hover::before{opacity:1}.bk:active{transform:scale(.98)}
+.bk .bk-ic{width:40px;height:40px;border-radius:10px;background:var(--pri-bg);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+.bk .bk-t{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.bk .bk-d{font-size:13px;color:var(--text2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bk .bk-m{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--text3)}
+.bk .bk-m svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
-/* ===== SIDEBAR ===== */
-.sb{position:fixed;top:var(--hh);left:0;bottom:0;width:var(--sw);background:var(--card);border-right:1px solid var(--bdr);z-index:900;display:flex;flex-direction:column;transition:transform .25s var(--ease);box-shadow:2px 0 12px rgba(0,0,0,.05)}
-.sb.hide{transform:translateX(-100%)}
-.sb-h{padding:10px 14px 8px;border-bottom:1px solid var(--bdr);font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;user-select:none}
-.sb-b{flex:1;overflow-y:auto;padding:4px 0 20px}
-
-/* Folder Group */
-.fg{margin:0}
-.fg-h{display:flex;align-items:center;padding:7px 14px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--text2);transition:.1s;gap:6px;user-select:none}
-.fg-h:hover{color:var(--text)}.fg-h:active{transform:scale(.98)}
-.fg-h .fg-i{flex-shrink:0;font-size:14px}
-.fg-h .fg-a{font-size:10px;transition:transform .2s;margin-left:auto;color:var(--text3)}
-.fg.op .fg-h .fg-a{transform:rotate(90deg)}
-.fg-h .fg-c{font-size:10px;font-weight:500;color:var(--text3);background:var(--bg2);padding:0 7px;border-radius:8px;min-width:18px;text-align:center}
-.fg-b{display:none;padding:0 0 2px}
-.fg.op .fg-b{display:block}
-
-/* File Item */
-.fi{display:flex;align-items:center;padding:5px 14px 5px 32px;cursor:pointer;font-size:12.5px;color:var(--text2);transition:.1s;gap:7px;border-left:2px solid transparent;margin:0 6px;border-radius:4px;user-select:none}
-.fi:hover{background:var(--bg2);color:var(--text)}.fi:active{transform:scale(.98)}
-.fi.act{background:rgba(26,39,66,.06);color:var(--pri);border-left-color:var(--pri);font-weight:600}
-[data-theme=dark] .fi.act{background:rgba(201,165,90,.08)}
-.fi .fi-i{flex-shrink:0;font-size:14px;opacity:.5}
-.fi.act .fi-i{opacity:1}
-.fi .fi-t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-/* ===== CONTENT ===== */
-.ct{margin-top:var(--hh);margin-left:var(--sw);min-height:calc(100vh - var(--hh));display:flex;flex-direction:column;transition:margin-left .25s ease;position:relative}
-.sb.hide ~ .ct{margin-left:0}
-
-/* Welcome */
-.wl{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;user-select:none}
-.wl .wl-i{width:80px;height:80px;border-radius:20px;background:var(--pri-bg);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:24px}
-.wl h2{font-size:26px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.5px}
-.wl p{font-size:14px;color:var(--text2);max-width:380px;line-height:1.8}
-.wl p strong{color:var(--pri)}
-.wl .wl-feats{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;justify-content:center}
-.wl .wf{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;background:var(--card);border:1px solid var(--bdr);box-shadow:var(--sh1);font-size:11.5px;color:var(--text2);transition:box-shadow .2s var(--ease),transform .2s var(--ease)}.wl .wf:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
-.wl .wf span{font-size:14px}
-
-/* Content Bar */
-.ifr-c{flex:1;display:none;flex-direction:column;height:calc(100vh - var(--hh))}
-.ifr-c.show{display:flex}
-.ifr-c iframe{flex:1;width:100%;border:none;background:#fff}
-[data-theme=dark] .ifr-c iframe{background:#1a2030}
-.ifr-h{padding:8px 16px;background:var(--card);border-bottom:1px solid var(--bdr);border-top:2px solid var(--acc);display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text2);flex-shrink:0;user-select:none}
-.ifr-h .ih-b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ifr-h .ih-b strong{color:var(--text);font-weight:600}
-.ifr-h .ih-t{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;padding:2px 8px;border-radius:10px;background:var(--bg2);color:var(--text3)}
+/* ===== FOOTER ===== */
+.ft{text-align:center;padding:24px;font-size:12px;color:var(--text3);border-top:1px solid var(--bdr)}
 
 /* ===== RESPONSIVE ===== */
-@media(max-width:860px){
-  .sb{transform:translateX(-100%);width:100%;max-width:320px;box-shadow:4px 0 20px var(--sh)}
-  .sb.show{transform:translateX(0)}
-  .ct{margin-left:0!important}
-  .sch-w{max-width:140px}
-  .hd-logo .hd-t{font-size:13px}
-  .wl h2{font-size:22px}.wl .wl-i{width:64px;height:64px;font-size:28px}
+@media(max-width:640px){
+  .hd{padding:0 14px}.hero{padding:40px 0 28px}.hero h1{font-size:24px}
+  .bk-grid{grid-template-columns:1fr}.hero .h-stats{gap:16px}
+  .sec{max-width:100%}
 }
 </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="hd">
-  <button class="hb" onclick="tgSb()" title="切换侧栏">
-    <svg viewBox="0 0 20 20"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg>
-  </button>
-  <div class="hd-logo">
-    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="rgba(255,255,255,.85)"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="var(--acc)"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="var(--acc)" opacity=".7"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="rgba(255,255,255,.85)" opacity=".7"/></svg>
-    <span class="hd-t">书籍导航</span>
-  </div>
-  <div class="sch-w">
-    <span class="sch-i"><svg class="icn" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></span>
-    <input type="text" placeholder="搜索文件..." id="searchInput" oninput="onSearch(this.value)" spellcheck="false">
+  <div class="hd-l">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="var(--acc)"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="var(--pri)"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="var(--pri)" opacity=".5"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="var(--acc)" opacity=".5"/></svg>
+    <span class="hd-t">知识<span>库</span></span>
   </div>
   <div class="hd-r">
-    <button class="hb" onclick="tgTh()" title="切换主题"><svg class="icn" id="themeIcn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
+    <button class="hb" onclick="tgTh()" title="切换主题" id="thBtn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
   </div>
 </header>
 
-<!-- ===== SIDEBAR ===== -->
-<nav class="sb" id="sb">
-  <div class="sb-h"><span>目录</span><span id="fileCount"></span></div>
-  <div class="sb-b" id="nav"></div>
-</nav>
+<main class="mn">
+  <section class="hero">
+    <div class="h-icon">📖</div>
+    <h1>知识库</h1>
+    <p>精选技术书籍与学习资料，系统化掌握核心知识。<br>选择一个分类开始探索。</p>
+    <div class="h-stats"><div><div class="n" id="stG">0</div><div class="l">分类</div></div><div><div class="n" id="stB">0</div><div class="l">书籍</div></div></div>
+  </section>
 
-<!-- ===== CONTENT ===== -->
-<main class="ct" id="ct">
-  <!-- Welcome -->
-  <div class="wl" id="wl">
-    <div class="wl-i"><svg class="icn-xl" viewBox="0 0 24 24" stroke-width="1.2" style="color:var(--pri)"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 7h7M9 11h7M9 15h4"/></svg></div>
-    <h2>欢迎使用知识导航</h2>
-    <p>从左侧目录选择一个文件开始阅读。<br>系统已加载 <strong id="wlCount">0</strong> 个文件供您查阅。</p>
-    <div class="wl-feats">
-      <div class="wf"><svg class="icn icn-sm" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01"/></svg> 快捷键 <kbd>/</kbd> 搜索</div>
-      <div class="wf"><svg class="icn icn-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg> 切换主题</div>
-      <div class="wf"><svg class="icn icn-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> iframe 完整渲染</div>
-    </div>
-  </div>
-  <!-- Iframe -->
-  <div class="ifr-c" id="ifrC">
-    <div class="ifr-h">
-      <span class="ih-b">当前: <strong id="curTitle"></strong></span>
-      <span class="ih-t" id="curPath"></span>
-    </div>
-    <iframe id="contentFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" loading="lazy"></iframe>
-  </div>
+  <section class="sec" id="secList"></section>
 </main>
 
+<footer class="ft">© 知识库 · 持续更新中</footer>
+
 <script>
-let SITEMAP = [];
-let THEME = localStorage.getItem('wk-nav-theme') || 'light';
+const THEME_KEY = 'wk-nav-theme';
+let THEME = localStorage.getItem(THEME_KEY) || 'light';
 if (THEME === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-
-async function init() {
-  try {
-    const res = await fetch('./sitemap.json');
-    SITEMAP = await res.json();
-    renderNav();
-    renderCount();
-    if (location.hash) {
-      const path = decodeURIComponent(location.hash.slice(1));
-      const found = findFile(path);
-      if (found) openFile(found.name, found.path, found.group);
-    }
-  } catch (e) {
-    document.getElementById('nav').innerHTML = `<div style="padding:28px 20px;color:var(--err);text-align:center;font-size:13px">
-      <p><svg class="icn" viewBox="0 0 24 24" style="vertical-align:middle"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> 无法加载 sitemap.json</p>
-      <p style="margin-top:8px;color:var(--text3)">请先运行 <code style="background:var(--bg2);padding:1px 6px;border-radius:3px;font-size:12px">node generate-sitemap.js</code></p>
-    </div>`;
-  }
-}
-
-function findFile(path) {
-  for (const g of SITEMAP) {
-    for (const f of g.files) {
-      if (f.path === path) return { ...f, group: g.name };
-    }
-  }
-  return null;
-}
-
-function renderCount() {
-  let total = 0;
-  SITEMAP.forEach(g => total += g.files.length);
-  document.getElementById('fileCount').textContent = total + ' 项';
-  document.getElementById('wlCount').textContent = total;
-}
-
-function renderNav(filter) {
-  const nav = document.getElementById('nav');
-  let h = '';
-  SITEMAP.forEach((g, gi) => {
-    const files = filter
-      ? g.files.filter(f => f.name.includes(filter) || g.name.includes(filter))
-      : g.files;
-    if (files.length === 0) return;
-    const actClass = gi === 0 ? ' op' : '';
-    h += `<div class="fg${actClass}" data-g="${gi}">`;
-    h += `<div class="fg-h" onclick="tgFg(${gi})">`;
-    h += `<span class="fg-i"><svg class="icn icn-sm" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span><span>${g.name}</span>`;
-    h += `<span class="fg-c">${g.files.length}</span>`;
-    h += `<span class="fg-a"><svg class="icn icn-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div>`;
-    h += `<div class="fg-b">`;
-    files.forEach(f => {
-      const curPath = location.hash ? decodeURIComponent(location.hash.slice(1)) : '';
-      const act = f.path === curPath ? ' act' : '';
-      h += `<div class="fi${act}" onclick="openFile('${esc(f.name)}','${esc(f.path)}','${esc(g.name)}')" data-path="${esc(f.path)}">`;
-      h += `<span class="fi-i"><svg class="icn icn-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>`;
-      h += `<span class="fi-t">${f.name}</span></div>`;
-    });
-    h += `</div></div>`;
-  });
-  nav.innerHTML = h || '<div style="padding:28px 20px;text-align:center;color:var(--text3);font-size:13px">无匹配结果</div>';
-}
-
-function esc(s) {
-  return s.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-}
-
-function tgFg(gi) {
-  const el = document.querySelector(`[data-g="${gi}"]`);
-  if (el) el.classList.toggle('op');
-}
-
-function openFile(name, path, group) {
-  document.querySelectorAll('.fi').forEach(el => el.classList.remove('act'));
-  const fi = document.querySelector(`.fi[data-path="${esc(path)}"]`);
-  if (fi) fi.classList.add('act');
-
-  document.getElementById('curTitle').textContent = name;
-  document.getElementById('curPath').textContent = group;
-
-  document.getElementById('wl').style.display = 'none';
-  const ifrC = document.getElementById('ifrC');
-  ifrC.classList.add('show');
-
-  const iframe = document.getElementById('contentFrame');
-  iframe.src = path;
-
-  location.hash = path;
-
-  if (window.innerWidth < 860) {
-    document.getElementById('sb').classList.remove('show');
-  }
-}
-
-let searchTimer;
-function onSearch(val) {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => renderNav(val.trim()), 200);
-}
-
-function tgSb() {
-  const sb = document.getElementById('sb');
-  if (window.innerWidth < 860) {
-    sb.classList.toggle('show');
-  } else {
-    sb.classList.toggle('hide');
-  }
-}
 
 function tgTh() {
   THEME = THEME === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', THEME === 'dark' ? 'dark' : '');
-  localStorage.setItem('wk-nav-theme', THEME);
+  localStorage.setItem(THEME_KEY, THEME);
 }
 
-document.addEventListener('keydown', e => {
-  if (e.key === '/' && e.target.tagName !== 'INPUT') {
-    e.preventDefault();
-    document.getElementById('searchInput').focus();
+const SITEMAP_PATH = './sitemap.json';
+
+// Group → book name/desc mapping
+const BOOK_META = {
+  '股票交易': { icon: '📈', desc: '股票交易技术分析方法与实战策略' }
+};
+
+function descFor(name) {
+  return BOOK_META[name]?.desc || '';
+}
+
+function iconFor(name) {
+  return BOOK_META[name]?.icon || '📄';
+}
+
+async function init() {
+  try {
+    const res = await fetch(SITEMAP_PATH);
+    const sitemap = await res.json();
+    renderHeroStats(sitemap);
+    renderSections(sitemap);
+  } catch (e) {
+    document.getElementById('secList').innerHTML =
+      `<div style="text-align:center;padding:60px 20px;color:var(--text3)"><p style="font-size:40px;margin-bottom:12px">📭</p><p>暂无内容，请先添加书籍</p></div>`;
   }
-  if (e.key === 'Escape') {
-    document.getElementById('searchInput').blur();
-    if (window.innerWidth < 860) document.getElementById('sb').classList.remove('show');
-  }
-});
+}
+
+function renderHeroStats(sitemap) {
+  const groups = sitemap.length;
+  const books = sitemap.reduce((s, g) => s + g.files.length, 0);
+  document.getElementById('stG').textContent = groups;
+  document.getElementById('stB').textContent = books;
+}
+
+function renderSections(sitemap) {
+  let h = '';
+  sitemap.forEach(g => {
+    h += `<div style="margin-bottom:28px">`;
+    h += `<div class="sec-h"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>${g.name}</div>`;
+    h += `<div class="bk-grid">`;
+    g.files.forEach(f => {
+      const desc = descFor(g.name);
+      h += `<a class="bk" href="${escAttr(f.path)}">`;
+      h += `<div class="bk-ic">${iconFor(g.name)}</div>`;
+      h += `<div class="bk-t">${escHtml(f.name)}</div>`;
+      h += `<div class="bk-d">${desc || '点击进入学习'}</div>`;
+      h += `<div class="bk-m"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>${f.path}</div>`;
+      h += `</a>`;
+    });
+    h += `</div></div>`;
+  });
+  document.getElementById('secList').innerHTML = h;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
 
 init();
 </script>
