@@ -5,80 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>书籍知识导航</title>
 <style>
-:root{--bg:#f5f3ef;--bg2:#eae7e0;--card:#fff;--card2:#fafaf8;--text:#2c2c2c;--text2:#5a5a5a;--text3:#8a8a8a;--pri:#1a2742;--pri2:#2a3f6a;--acc:#c9a55a;--acc2:#e0c882;--acc-bg:#fdf8ed;--ok:#2d8a4e;--warn:#b8860b;--err:#c0392b;--info:#2980b9;--bdr:#d8d4cc;--sh:rgba(0,0,0,.08);--r:10px;--rs:6px;--sw:300px;--hh:56px;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;--serif:Georgia,"Noto Serif SC",serif}
-[data-theme=dark]{--bg:#0f1419;--bg2:#1a2030;--card:#1e2738;--card2:#243044;--text:#e0ddd5;--text2:#a0a0a0;--text3:#707070;--pri:#c9a55a;--pri2:#3a5a8a;--bdr:#2a3548;--sh:rgba(0,0,0,.3);--acc-bg:#2a2518;--ok-bg:#1a2e20;--warn-bg:#2e2a18;--err-bg:#2e1a18;--info-bg:#182a2e}
+:root{--bg:#f8fafc;--bg2:#f1f5f9;--card:#fff;--card2:#fafbfc;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--pri:#0d9488;--pri2:#14b8a6;--pri-bg:#f0fdfa;--acc:#06b6d4;--acc-bg:#ecfeff;--ok:#16a34a;--err:#dc2626;--warn:#d97706;--bdr:#e2e8f0;--sh:rgba(0,0,0,.06);--r:10px;--rs:6px;--sw:280px;--hh:52px;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif}
+[data-theme=dark]{--bg:#0f172a;--bg2:#1e293b;--card:#1e293b;--card2:#334155;--text:#f1f5f9;--text2:#cbd5e1;--text3:#64748b;--pri:#2dd4bf;--pri2:#5eead4;--pri-bg:#134e4a;--acc:#22d3ee;--acc-bg:#164e63;--ok:#4ade80;--err:#f87171;--warn:#fbbf24;--bdr:#334155;--sh:rgba(0,0,0,.3)}
 *{margin:0;padding:0;box-sizing:border-box}html,body{height:100%}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;display:flex;flex-direction:column}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
 
 /* ===== HEADER ===== */
-.hd{position:fixed;top:0;left:0;right:0;height:var(--hh);background:var(--pri);color:#fff;display:flex;align-items:center;padding:0 16px;z-index:1000;gap:10px;flex-shrink:0}
-.hd-t{font-family:var(--serif);font-size:17px;font-weight:600;white-space:nowrap}
-.hd-t i{color:var(--acc);font-style:normal;margin:0 4px}
-.hb{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;padding:5px 12px;border-radius:var(--rs);cursor:pointer;font-size:13px;transition:.2s;white-space:nowrap;display:flex;align-items:center;gap:4px}
-.hb:hover{background:rgba(255,255,255,.18)}.hb.on{background:var(--acc);color:var(--pri);border-color:var(--acc)}.hb svg{width:16px;height:16px;fill:currentColor}
-.sch-w{position:relative;flex:1;max-width:280px}
-.sch-w input{width:100%;padding:6px 10px 6px 28px;border:1px solid rgba(255,255,255,.2);border-radius:var(--rs);font-size:12px;background:rgba(255,255,255,.08);color:#fff;outline:none;transition:.2s}
-.sch-w input::placeholder{color:rgba(255,255,255,.4)}
-.sch-w input:focus{border-color:var(--acc);background:rgba(255,255,255,.14)}
-.sch-w .sch-i{position:absolute;left:8px;top:50%;transform:translateY(-50%);opacity:.5;pointer-events:none}
-.hd-r{display:flex;gap:6px;margin-left:auto;align-items:center}
+.hd{position:fixed;top:0;left:0;right:0;height:var(--hh);background:var(--card);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 12px;z-index:1000;gap:8px;backdrop-filter:blur(8px);background:rgba(255,255,255,.85)}
+[data-theme=dark] .hd{background:rgba(30,41,59,.85)}
+.hd-logo{display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:var(--rs);cursor:default}
+.hd-logo svg{width:22px;height:22px;flex-shrink:0}
+.hd-logo .hd-t{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.hd-logo .hd-dot{width:4px;height:4px;border-radius:50%;background:var(--pri);display:inline-block;margin:0 2px}
+.hb{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--rs);border:1px solid var(--bdr);background:var(--card);cursor:pointer;color:var(--text2);transition:.15s;flex-shrink:0}
+.hb:hover{background:var(--bg2);color:var(--text)}
+.hb svg{width:16px;height:16px;fill:currentColor}
+
+.sch-w{position:relative;flex:1;max-width:260px}
+.sch-w .sch-i{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:13px;pointer-events:none}
+.sch-w input{width:100%;padding:5px 10px 5px 30px;border:1px solid var(--bdr);border-radius:var(--rs);font-size:12.5px;background:var(--bg2);color:var(--text);outline:none;transition:.15s}
+.sch-w input::placeholder{color:var(--text3)}
+.sch-w input:focus{border-color:var(--pri);background:var(--card)}
+
+.hd-r{display:flex;gap:4px;margin-left:auto;align-items:center}
+.hd-r .hb{font-size:16px;line-height:1}
 
 /* ===== SIDEBAR ===== */
-.sb{position:fixed;top:var(--hh);left:0;bottom:0;width:var(--sw);background:var(--card);border-right:1px solid var(--bdr);overflow-y:auto;z-index:900;transition:transform .3s,width .3s;display:flex;flex-direction:column}
+.sb{position:fixed;top:var(--hh);left:0;bottom:0;width:var(--sw);background:var(--card);border-right:1px solid var(--bdr);z-index:900;display:flex;flex-direction:column;transition:transform .25s ease}
 .sb.hide{transform:translateX(-100%)}
-.sb-h{padding:10px 14px;border-bottom:1px solid var(--bdr);font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.sb-b{flex:1;overflow-y:auto;padding:6px 0}
+.sb-h{padding:10px 14px 8px;border-bottom:1px solid var(--bdr);font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sb-b{flex:1;overflow-y:auto;padding:4px 0 20px}
 
 /* Folder Group */
 .fg{margin:0}
-.fg-h{display:flex;align-items:center;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);transition:.12s;gap:6px;user-select:none}
-.fg-h:hover{color:var(--text);background:var(--bg)}
-.fg-h .fg-a{font-size:11px;transition:transform .2s;margin-left:auto;color:var(--text3)}
+.fg-h{display:flex;align-items:center;padding:7px 14px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--text2);transition:.1s;gap:6px;user-select:none}
+.fg-h:hover{color:var(--text)}
+.fg-h .fg-i{flex-shrink:0;font-size:14px}
+.fg-h .fg-a{font-size:10px;transition:transform .2s;margin-left:auto;color:var(--text3)}
 .fg.op .fg-h .fg-a{transform:rotate(90deg)}
-.fg-h .fg-c{font-size:10px;color:var(--text3);background:var(--bg2);padding:0 6px;border-radius:8px;margin-left:4px}
-.fg-b{display:none;padding:0 0 4px}
+.fg-h .fg-c{font-size:10px;font-weight:500;color:var(--text3);background:var(--bg2);padding:0 7px;border-radius:8px;min-width:18px;text-align:center}
+.fg-b{display:none;padding:0 0 2px}
 .fg.op .fg-b{display:block}
 
 /* File Item */
-.fi{display:flex;align-items:center;padding:6px 14px 6px 28px;cursor:pointer;font-size:13px;color:var(--text2);transition:.12s;gap:8px;border-left:3px solid transparent}
-.fi:hover{background:var(--bg);color:var(--text)}
-.fi.act{background:var(--acc-bg);color:var(--acc);border-left-color:var(--acc);font-weight:600}
-.fi .fi-i{flex-shrink:0;font-size:15px;opacity:.6}
+.fi{display:flex;align-items:center;padding:5px 14px 5px 32px;cursor:pointer;font-size:12.5px;color:var(--text2);transition:.1s;gap:7px;border-left:2px solid transparent;margin:0 6px;border-radius:4px}
+.fi:hover{background:var(--bg2);color:var(--text)}
+.fi.act{background:var(--pri-bg);color:var(--pri);border-left-color:var(--pri);font-weight:600}
+.fi .fi-i{flex-shrink:0;font-size:14px;opacity:.5}
+.fi.act .fi-i{opacity:1}
 .fi .fi-t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* ===== CONTENT ===== */
-.ct{flex:1;margin-top:var(--hh);margin-left:var(--sw);display:flex;flex-direction:column;transition:margin-left .3s;position:relative}
+.ct{margin-top:var(--hh);margin-left:var(--sw);min-height:calc(100vh - var(--hh));display:flex;flex-direction:column;transition:margin-left .25s ease;position:relative}
 .sb.hide ~ .ct{margin-left:0}
 
 /* Welcome */
-.wl{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center}
-.wl .wl-i{font-size:64px;margin-bottom:20px;opacity:.4}
-.wl h2{font-family:var(--serif);font-size:28px;color:var(--pri);margin-bottom:8px}
-.wl p{font-size:14px;color:var(--text2);max-width:400px;line-height:1.8}
+.wl{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center}
+.wl .wl-i{width:80px;height:80px;border-radius:20px;background:var(--pri-bg);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:24px}
+.wl h2{font-size:26px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.5px}
+.wl p{font-size:14px;color:var(--text2);max-width:380px;line-height:1.8}
+.wl p strong{color:var(--pri)}
+.wl .wl-feats{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;justify-content:center}
+.wl .wf{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;background:var(--card);border:1px solid var(--bdr);font-size:11.5px;color:var(--text2)}
+.wl .wf span{font-size:14px}
 
-/* Iframe Container */
-.ifr-c{flex:1;display:none;position:relative}
-.ifr-c.show{display:block}
-.ifr-c iframe{width:100%;height:100%;border:none;background:#fff}
-.ifr-l{position:absolute;top:0;left:0;right:0;padding:8px 16px;background:var(--card);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);z-index:10;flex-shrink:0}
-.ifr-l .il-b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ifr-l .il-b strong{color:var(--text)}
-.ifr-l .il-n{font-size:11px;color:var(--text3)}
+/* Content Bar */
+.ifr-c{flex:1;display:none;flex-direction:column;height:calc(100vh - var(--hh))}
+.ifr-c.show{display:flex}
+.ifr-c iframe{flex:1;width:100%;border:none;background:#fff}
+[data-theme=dark] .ifr-c iframe{background:#1e2938}
+.ifr-h{padding:8px 16px;background:var(--card);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text2);flex-shrink:0}
+.ifr-h .ih-b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ifr-h .ih-b strong{color:var(--text);font-weight:600}
+.ifr-h .ih-t{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;padding:2px 8px;border-radius:10px;background:var(--bg2);color:var(--text3)}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:860px){
-  .sb{transform:translateX(-100%);width:100%;max-width:320px}
+  .sb{transform:translateX(-100%);width:100%;max-width:320px;box-shadow:4px 0 20px var(--sh)}
   .sb.show{transform:translateX(0)}
   .ct{margin-left:0!important}
-  .sch-w{max-width:160px}
-  .hd-t{font-size:14px}
-  .wl h2{font-size:22px}
-  .wl .wl-i{font-size:44px}
+  .sch-w{max-width:140px}
+  .hd-logo .hd-t{font-size:13px}
+  .wl h2{font-size:22px}.wl .wl-i{width:64px;height:64px;font-size:28px}
 }
-
-/* ===== SCROLLBAR ===== */
-.sb-b::-webkit-scrollbar{width:4px}
 </style>
 </head>
 <body>
@@ -88,10 +98,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
   <button class="hb" onclick="tgSb()" title="切换侧栏">
     <svg viewBox="0 0 20 20"><rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/></svg>
   </button>
-  <div class="hd-t">书籍知识 <i>·</i> 导航</div>
+  <div class="hd-logo">
+    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="var(--pri)"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="var(--acc)"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="var(--acc)" opacity=".7"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="var(--pri)" opacity=".7"/></svg>
+    <span class="hd-t">书籍导航</span>
+  </div>
   <div class="sch-w">
     <span class="sch-i">&#128269;</span>
-    <input type="text" placeholder="搜索文件..." id="searchInput" oninput="onSearch(this.value)">
+    <input type="text" placeholder="搜索文件..." id="searchInput" oninput="onSearch(this.value)" spellcheck="false">
   </div>
   <div class="hd-r">
     <button class="hb" onclick="tgTh()" title="切换主题">&#9790;</button>
@@ -100,7 +113,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
 
 <!-- ===== SIDEBAR ===== -->
 <nav class="sb" id="sb">
-  <div class="sb-h"><span>目录导航</span><span id="fileCount"></span></div>
+  <div class="sb-h"><span>目录</span><span id="fileCount"></span></div>
   <div class="sb-b" id="nav"></div>
 </nav>
 
@@ -110,41 +123,43 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
   <div class="wl" id="wl">
     <div class="wl-i">&#128218;</div>
     <h2>欢迎使用知识导航</h2>
-    <p>从左侧侧栏选择一个文件开始阅读。<br>系统已加载 <strong id="wlCount">0</strong> 个文件供您查阅。</p>
+    <p>从左侧目录选择一个文件开始阅读。<br>系统已加载 <strong id="wlCount">0</strong> 个文件供您查阅。</p>
+    <div class="wl-feats">
+      <div class="wf"><span>&#8981;</span> 快捷键 <kbd>/</kbd> 搜索</div>
+      <div class="wf"><span>&#9790;</span> 切换主题</div>
+      <div class="wf"><span>&#128196;</span> iframe 完整渲染</div>
+    </div>
   </div>
   <!-- Iframe -->
   <div class="ifr-c" id="ifrC">
-    <div class="ifr-l">
-      <span class="il-b">当前阅读: <strong id="curTitle"></strong></span>
-      <span class="il-n" id="curPath"></span>
+    <div class="ifr-h">
+      <span class="ih-b">当前: <strong id="curTitle"></strong></span>
+      <span class="ih-t" id="curPath"></span>
     </div>
     <iframe id="contentFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" loading="lazy"></iframe>
   </div>
 </main>
 
 <script>
-// === STATE ===
 let SITEMAP = [];
 let THEME = localStorage.getItem('wk-nav-theme') || 'light';
 if (THEME === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 
-// === INIT ===
 async function init() {
   try {
     const res = await fetch('./sitemap.json');
     SITEMAP = await res.json();
     renderNav();
     renderCount();
-    // Check URL hash for direct linking
     if (location.hash) {
       const path = decodeURIComponent(location.hash.slice(1));
       const found = findFile(path);
       if (found) openFile(found.name, found.path, found.group);
     }
   } catch (e) {
-    document.getElementById('nav').innerHTML = `<div style="padding:20px;color:var(--err);text-align:center">
-      <p>❌ 无法加载 sitemap.json</p>
-      <p style="font-size:12px;margin-top:8px">请先运行 <code>node generate-sitemap.js</code> 生成站点地图</p>
+    document.getElementById('nav').innerHTML = `<div style="padding:28px 20px;color:var(--err);text-align:center;font-size:13px">
+      <p>&#10060; 无法加载 sitemap.json</p>
+      <p style="margin-top:8px;color:var(--text3)">请先运行 <code style="background:var(--bg2);padding:1px 6px;border-radius:3px;font-size:12px">node generate-sitemap.js</code></p>
     </div>`;
   }
 }
@@ -161,11 +176,10 @@ function findFile(path) {
 function renderCount() {
   let total = 0;
   SITEMAP.forEach(g => total += g.files.length);
-  document.getElementById('fileCount').textContent = total + ' 个文件';
+  document.getElementById('fileCount').textContent = total + ' 项';
   document.getElementById('wlCount').textContent = total;
 }
 
-// === NAVIGATION ===
 function renderNav(filter) {
   const nav = document.getElementById('nav');
   let h = '';
@@ -176,24 +190,21 @@ function renderNav(filter) {
     if (files.length === 0) return;
     const actClass = gi === 0 ? ' op' : '';
     h += `<div class="fg${actClass}" data-g="${gi}">`;
-    h += `<div class="fg-h" onclick="tgFg(${gi})">
-      <span>&#128193;</span>
-      <span>${g.name}</span>
-      <span class="fg-c">${g.files.length}</span>
-      <span class="fg-a">&#9654;</span>
-    </div>`;
+    h += `<div class="fg-h" onclick="tgFg(${gi})">`;
+    h += `<span class="fg-i">&#128193;</span><span>${g.name}</span>`;
+    h += `<span class="fg-c">${g.files.length}</span>`;
+    h += `<span class="fg-a">&#9654;</span></div>`;
     h += `<div class="fg-b">`;
     files.forEach(f => {
       const curPath = location.hash ? decodeURIComponent(location.hash.slice(1)) : '';
       const act = f.path === curPath ? ' act' : '';
-      h += `<div class="fi${act}" onclick="openFile('${esc(f.name)}','${esc(f.path)}','${esc(g.name)}')" data-path="${esc(f.path)}">
-        <span class="fi-i">&#128196;</span>
-        <span class="fi-t">${f.name}</span>
-      </div>`;
+      h += `<div class="fi${act}" onclick="openFile('${esc(f.name)}','${esc(f.path)}','${esc(g.name)}')" data-path="${esc(f.path)}">`;
+      h += `<span class="fi-i">&#128196;</span>`;
+      h += `<span class="fi-t">${f.name}</span></div>`;
     });
     h += `</div></div>`;
   });
-  nav.innerHTML = h || '<div style="padding:20px;text-align:center;color:var(--text3)">无匹配结果</div>';
+  nav.innerHTML = h || '<div style="padding:28px 20px;text-align:center;color:var(--text3);font-size:13px">无匹配结果</div>';
 }
 
 function esc(s) {
@@ -205,43 +216,34 @@ function tgFg(gi) {
   if (el) el.classList.toggle('op');
 }
 
-// === FILE OPENING ===
 function openFile(name, path, group) {
-  // Update sidebar active
   document.querySelectorAll('.fi').forEach(el => el.classList.remove('act'));
   const fi = document.querySelector(`.fi[data-path="${esc(path)}"]`);
   if (fi) fi.classList.add('act');
 
-  // Update title
   document.getElementById('curTitle').textContent = name;
-  document.getElementById('curPath').textContent = group + ' / ' + name;
+  document.getElementById('curPath').textContent = group;
 
-  // Show iframe, hide welcome
   document.getElementById('wl').style.display = 'none';
   const ifrC = document.getElementById('ifrC');
   ifrC.classList.add('show');
 
-  // Load file
   const iframe = document.getElementById('contentFrame');
   iframe.src = path;
 
-  // Update hash
   location.hash = path;
 
-  // Mobile: close sidebar
   if (window.innerWidth < 860) {
     document.getElementById('sb').classList.remove('show');
   }
 }
 
-// === SEARCH ===
 let searchTimer;
 function onSearch(val) {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(() => renderNav(val.trim()), 200);
 }
 
-// === SIDEBAR TOGGLE ===
 function tgSb() {
   const sb = document.getElementById('sb');
   if (window.innerWidth < 860) {
@@ -251,14 +253,12 @@ function tgSb() {
   }
 }
 
-// === THEME TOGGLE ===
 function tgTh() {
   THEME = THEME === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', THEME === 'dark' ? 'dark' : '');
   localStorage.setItem('wk-nav-theme', THEME);
 }
 
-// === KEYBOARD ===
 document.addEventListener('keydown', e => {
   if (e.key === '/' && e.target.tagName !== 'INPUT') {
     e.preventDefault();
