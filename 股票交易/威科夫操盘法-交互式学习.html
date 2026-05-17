@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>威科夫操盘法 - 全书交互式深度学习系统</title>
+<style>
+:root{--bg:#f5f3ef;--bg2:#eae7e0;--card:#fff;--card2:#fafaf8;--text:#2c2c2c;--text2:#5a5a5a;--text3:#8a8a8a;--pri:#1a2742;--pri2:#2a3f6a;--acc:#c9a55a;--acc2:#e0c882;--acc-bg:#fdf8ed;--ok:#2d8a4e;--ok-bg:#e8f5ec;--warn:#b8860b;--warn-bg:#fef9e7;--err:#c0392b;--err-bg:#fdecea;--info:#2980b9;--info-bg:#e8f4fd;--bdr:#d8d4cc;--sh:rgba(0,0,0,.08);--r:10px;--rs:6px;--sw:280px;--hh:56px;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;--serif:Georgia,"Noto Serif SC",serif}
+[data-theme=dark]{--bg:#0f1419;--bg2:#1a2030;--card:#1e2738;--card2:#243044;--text:#e0ddd5;--text2:#a0a0a0;--text3:#707070;--pri:#c9a55a;--pri2:#3a5a8a;--bdr:#2a3548;--sh:rgba(0,0,0,.3);--acc-bg:#2a2518;--ok-bg:#1a2e20;--warn-bg:#2e2a18;--err-bg:#2e1a18;--info-bg:#182a2e}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.75;font-size:15px}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+.hd{position:fixed;top:0;left:0;right:0;height:var(--hh);background:var(--pri);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:1000;gap:12px}
+.hd-t{font-family:var(--serif);font-size:16px;font-weight:600;white-space:nowrap}.hd-t i{color:var(--acc);font-style:normal}
+.pw{flex:1;max-width:240px}.pw .pb{height:5px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden}.pw .pf{height:100%;background:var(--acc);border-radius:3px;transition:width .5s;width:0}
+.pw small{font-size:10px;opacity:.6}
+.hd-r{display:flex;gap:6px;margin-left:auto}.hb{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;padding:5px 12px;border-radius:var(--rs);cursor:pointer;font-size:12px;transition:.2s}.hb:hover{background:rgba(255,255,255,.18)}.hb.on{background:var(--acc);color:var(--pri);border-color:var(--acc)}
+#td{font-family:monospace;min-width:44px;text-align:center}
+.sb{position:fixed;top:var(--hh);left:0;bottom:0;width:var(--sw);background:var(--card);border-right:1px solid var(--bdr);overflow-y:auto;z-index:900;transition:transform .3s}.sb.hide{transform:translateX(-100%)}
+.sb-s{padding:12px;border-bottom:1px solid var(--bdr)}.sb-s h3{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:8px}
+.sb input{width:100%;padding:7px 10px;border:1px solid var(--bdr);border-radius:var(--rs);font-size:12px;background:var(--bg);color:var(--text)}.sb input:focus{outline:none;border-color:var(--acc)}
+.ni{display:flex;align-items:center;padding:6px 10px;margin:1px 0;border-radius:var(--rs);cursor:pointer;font-size:12.5px;color:var(--text2);transition:.12s;gap:6px}.ni:hover{background:var(--bg);color:var(--text)}.ni.act{background:var(--acc-bg);color:var(--acc);font-weight:600}
+.ni .ck{width:14px;height:14px;border-radius:50%;border:2px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px}.ni.dn .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.ng{font-size:10px;font-weight:700;color:var(--text3);padding:10px 10px 3px;text-transform:uppercase;letter-spacing:1px}
+.mn{margin-left:var(--sw);margin-top:var(--hh);min-height:calc(100vh - var(--hh));padding:28px;max-width:900px}
+.sb.hide~.mn{margin-left:0;max-width:940px;margin-inline:auto}
+.sec{display:none}.sec.act{display:block}
+.dg{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:20px 0}
+.dc{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;text-align:center}.dc .n{font-size:32px;font-weight:700;font-family:var(--serif);color:var(--pri)}.dc .l{font-size:12px;color:var(--text2);margin-top:2px}
+.wb{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border-radius:var(--r);padding:28px;margin-bottom:20px}.wb h1{font-family:var(--serif);font-size:22px;margin-bottom:6px}.wb h1 i{color:var(--acc2);font-style:normal}.wb p{opacity:.8;font-size:13px;line-height:1.8}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:20px}
+.mc{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px}.mc h4{font-size:14px;color:var(--pri);margin-bottom:4px}.mc p{font-size:12px;color:var(--text2)}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.cc{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;cursor:pointer;transition:.2s}.cc:hover{border-color:var(--acc);transform:translateY(-1px);box-shadow:0 3px 10px var(--sh)}
+.cc .ct{font-size:15px;font-weight:700;color:var(--pri)}.cc .cf{font-size:11px;color:var(--acc);margin-top:1px}.cc .cd{font-size:13px;color:var(--text2);margin-top:6px;display:none}.cc.op .cd{display:block}
+.lc{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:16px;overflow:hidden;transition:.2s}
+.lh{padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.12s}.lh:hover{background:var(--card2)}
+.ln{background:var(--pri);color:#fff;min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}.ln.ok{background:var(--ok)}
+.lt{flex:1}.lt h3{font-size:14px;font-weight:600}.lt .tg{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
+.tg span{font-size:10px;padding:1px 7px;border-radius:10px;background:var(--acc-bg);color:var(--acc)}
+.lv{font-size:16px;color:var(--text3);transition:.3s}.lc.op .lv{transform:rotate(180deg)}
+.lb{display:none;padding:0 16px 16px}.lc.op .lb{display:block}
+.bb{margin:10px 0;padding:12px;border-radius:var(--rs)}.bb h4{font-size:12px;font-weight:700;margin-bottom:6px}
+.bq{background:var(--info-bg);border-left:3px solid var(--info)}.bc{background:var(--bg);border-left:3px solid var(--pri)}.bp{background:var(--ok-bg);border-left:3px solid var(--ok)}.br{background:var(--err-bg);border-left:3px solid var(--err)}.bz{background:var(--warn-bg);border-left:3px solid var(--warn)}.bn{background:var(--bg2);border-left:3px solid var(--text3)}
+.bb p,.bb li{font-size:13px;color:var(--text2);line-height:1.8}.bb ul{padding-left:16px}.bb li{margin:2px 0}
+.qo{list-style:none;padding:0}.qo li{padding:7px 12px;margin:3px 0;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rs);cursor:pointer;font-size:12.5px;transition:.12s}.qo li:hover{border-color:var(--acc)}.qo li.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}.qo li.no{background:var(--err-bg);border-color:var(--err);color:var(--err)}.qo li.dis{pointer-events:none;opacity:.5}
+.qr{margin-top:6px;font-size:12px;font-weight:600;display:none}
+.na{width:100%;min-height:50px;border:1px solid var(--bdr);border-radius:var(--rs);padding:8px;font-size:12px;font-family:var(--sans);resize:vertical;background:var(--card);color:var(--text)}.na:focus{outline:none;border-color:var(--acc)}
+.lf{padding:0 16px 12px;display:none;justify-content:flex-end;gap:6px}.lc.op .lf{display:flex}
+.btn{padding:6px 14px;border-radius:var(--rs);border:1px solid var(--bdr);cursor:pointer;font-size:12px;transition:.2s;background:var(--card);color:var(--text)}.btn:hover{background:var(--bg)}
+.btn-ok{background:var(--ok);color:#fff;border-color:var(--ok)}.btn-ok:hover{opacity:.85}.btn-ok.dn{background:var(--text3);border-color:var(--text3)}
+.ch{margin-bottom:20px}.ch h2{font-family:var(--serif);font-size:22px;color:var(--pri)}.ch p{font-size:13px;color:var(--text2);margin-top:4px}
+.sr{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}.sb2{padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600}
+.st{background:var(--info-bg);color:var(--info)}.sd{background:var(--ok-bg);color:var(--ok)}.srem{background:var(--warn-bg);color:var(--warn)}
+.fc-c{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px}
+.fc{width:100%;max-width:440px;min-height:200px;background:var(--card);border:2px solid var(--bdr);border-radius:var(--r);display:flex;align-items:center;justify-content:center;padding:28px;cursor:pointer;transition:.3s;text-align:center}.fc:hover{border-color:var(--acc);box-shadow:0 6px 20px var(--sh)}
+.fc .ff{font-size:26px;font-weight:700;color:var(--pri);font-family:var(--serif)}.fc .fb{display:none}.fc.fl .ff{display:none}.fc.fl .fb{display:block}
+.fc .fb .bf{font-size:13px;color:var(--acc);margin-bottom:6px}.fc .fb .bd{font-size:15px;color:var(--text);line-height:1.7}
+.fcr{display:flex;gap:10px}.fcb{padding:8px 20px;border-radius:var(--rs);border:none;cursor:pointer;font-size:13px;font-weight:600;transition:.2s;color:#fff}
+.fcg{background:var(--ok)}.fcn{background:var(--err)}.fcp{background:var(--pri)}
+.ic{background:var(--card);border-left:4px solid var(--acc);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;margin:10px 0}.ic h4{font-size:13px;color:var(--pri);margin-bottom:4px}.ic p{font-size:13px;color:var(--text2)}
+.ig{margin:12px 0;padding:10px;background:var(--bg);border-radius:var(--r);border:1px solid var(--bdr)}.ig h4{font-size:12px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:6px}.ig-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}.ig-g.single{grid-template-columns:1fr}.ig-g img{width:100%;border-radius:var(--rs);cursor:pointer;transition:.2s;border:1px solid var(--bdr)}.ig-g img:hover{transform:scale(1.02);box-shadow:0 4px 12px var(--sh);border-color:var(--acc)}
+.img-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}.img-modal.show{display:flex}.img-modal img{max-width:95%;max-height:92%;object-fit:contain;border-radius:var(--rs)}.img-modal .im-nav{position:absolute;bottom:20px;display:flex;gap:12px}.img-modal .im-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 18px;border-radius:var(--rs);cursor:pointer;font-size:13px}.img-modal .im-btn:hover{background:rgba(255,255,255,.25)}.img-cap{position:absolute;top:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.8);font-size:13px;background:rgba(0,0,0,.5);padding:4px 14px;border-radius:var(--rs)}
+.np{position:fixed;right:-380px;top:var(--hh);bottom:0;width:360px;background:var(--card);border-left:1px solid var(--bdr);z-index:950;transition:right .3s;overflow-y:auto;padding:16px}.np.op{right:0}
+.np h3{font-size:15px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}.np .cb{background:none;border:none;font-size:18px;cursor:pointer;color:var(--text3)}
+.ne{padding:10px;background:var(--bg);border-radius:var(--rs);margin-bottom:6px}.ne .nt{font-size:11px;font-weight:600;color:var(--acc)}.ne .nx{font-size:12px;color:var(--text2);margin-top:2px;white-space:pre-wrap}
+.qs{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;margin-bottom:14px}.qs h3{font-size:15px;margin-bottom:10px}
+.qsc{font-size:42px;font-weight:700;font-family:var(--serif);color:var(--pri);text-align:center;padding:20px}.qsc span{font-size:16px;color:var(--text2)}
+@media(max-width:860px){.sb{transform:translateX(-100%)}.sb.show{transform:translateX(0)}.mn{margin-left:0!important;padding:16px}.hd-t{display:none}.np{width:100%;right:-100%}}
+@media print{.hd,.sb,.np,.hb,.lf,.bz,.bn{display:none!important}.mn{margin:0!important;padding:12px!important}.lc,.lb,.sec{display:block!important}}
+</style>
+</head>
+<body>
+<header class="hd">
+<button class="hb" onclick="tgSb()">&#9776;</button>
+<div class="hd-t">威科夫操盘法 <i>|</i> 深度学习</div>
+<div class="pw"><small>进度 <span id="pp">0%</span></small><div class="pb"><div class="pf" id="pf"></div></div></div>
+<div class="hd-r">
+<button class="hb" id="tb" onclick="tgTm()"><span id="td">25:00</span></button>
+<button class="hb" onclick="tgNp()">&#128221;</button>
+<button class="hb" onclick="tgTh()">&#9790;</button>
+</div>
+</header>
+<nav class="sb" id="sb"><div class="sb-s"><input type="text" placeholder="搜索..." oninput="fNav(this.value)"></div><div class="sb-s" id="nav"></div></nav>
+<div class="np" id="np"><h3>&#128221; 学习笔记 <button class="cb" onclick="tgNp()">&times;</button></h3><div id="nl"></div></div>
+<div class="img-modal" id="imgM" onclick="closeImg(event)"><span class="img-cap" id="imgCap"></span><img id="imgFull" src="" alt=""><div class="im-nav"><button class="im-btn" onclick="event.stopPropagation();navImg(-1)">&#9664; 上一张</button><button class="im-btn" onclick="event.stopPropagation();navImg(1)">下一张 &#9654;</button></div></div>
+<div class="mn">
+<div class="sec act" id="s-dash">
+<div class="wb"><h1>威科夫操盘法 <i>全书深度学习系统</i></h1><p>整合SQ3R阅读法、主动回忆、间隔重复、费曼学习法等科学方法，系统掌握威科夫交易理论全部6章内容。覆盖从基础概念到实战分析的完整知识体系。</p></div>
+<div class="dg"><div class="dc"><div class="n" id="dT">0</div><div class="l">总课程</div></div><div class="dc"><div class="n" id="dD">0</div><div class="l">已掌握</div></div><div class="dc"><div class="n" id="dC">0</div><div class="l">核心概念</div></div><div class="dc"><div class="n" id="dM">0</div><div class="l">学习分钟</div></div></div>
+<h3 style="margin:20px 0 10px;font-family:var(--serif);color:var(--pri)">科学学习方法</h3>
+<div class="mg"><div class="mc"><h4>SQ3R 阅读法</h4><p>每课按 提问-精读-复述-复习 结构编排</p></div><div class="mc"><h4>主动回忆</h4><p>内嵌测试题+闪卡概念记忆训练</p></div><div class="mc"><h4>费曼学习法</h4><p>用自己语言复述，发现知识盲点</p></div><div class="mc"><h4>番茄工作法</h4><p>25分钟专注计时器，保持高效节奏</p></div></div>
+</div>
+<div class="sec" id="s-concepts"><div class="ch"><h2>核心概念体系</h2><p>威科夫方法的25+核心术语。点击展开详解，或进入闪卡模式训练记忆。</p></div><button class="btn" onclick="goSec('s-fc')" style="background:var(--acc);color:#fff;border-color:var(--acc);margin-bottom:14px">&#127183; 闪卡模式</button><div class="cg" id="cgd"></div></div>
+<div class="sec" id="s-fc"><div class="ch"><h2>&#127183; 闪卡记忆训练</h2></div><div class="fc-c"><small id="fcp"></small><div class="fc" id="fcd" onclick="flipFc()"><div class="ff" id="fcf"></div><div class="fb"><div class="bf" id="fcfl"></div><div class="bd" id="fcds"></div></div></div><div class="fcr"><button class="fcb fcn" onclick="fcN(0)">&#10060; 不熟</button><button class="fcb fcg" onclick="fcN(1)">&#9989; 掌握</button><button class="fcb fcp" onclick="goSec('s-concepts')">返回</button></div></div></div>
+<div class="sec" id="s-ch0"><div class="ch"><h2>前言：核心理念</h2><p>威科夫方法的哲学基础：用市场自身行为判断走势，识别主力意图。</p></div><div id="ch0L"></div></div>
+<div class="sec" id="s-ch1"><div class="ch"><h2>第一章 聪明钱解读市场的工具</h2><p>价格、成交量、走势速度 - 供求关系是解读走势的理论基础。</p></div><div class="sr" id="ch1S"></div><div id="ch1L"></div></div>
+<div class="sec" id="s-ch2"><div class="ch"><h2>第二章 怎么知道主力开始接盘了</h2><p>趋势底部的市场行为与吸筹过程的四个阶段。</p></div><div class="sr" id="ch2S"></div><div id="ch2L"></div></div>
+<div class="sec" id="s-ch3"><div class="ch"><h2>第三章 威氏逃顶策略</h2><p>如何识别主力的派发意图，保护资本全身而退。</p></div><div class="sr" id="ch3S"></div><div id="ch3L"></div></div>
+<div class="sec" id="s-ch4"><div class="ch"><h2>第四章 弹簧效应(Spring)交易法</h2><p>Spring的定义、位置、种类、成功与失败的判断。</p></div><div class="sr" id="ch4S"></div><div id="ch4L"></div></div>
+<div class="sec" id="s-ch5"><div class="ch"><h2>第五章 综合分析：交易机会与进场点</h2><p>24个实战图表分析案例，含交易计划和危机管理。</p></div><div class="sr" id="ch5S"></div><div id="ch5L"></div></div>
+<div class="sec" id="s-ch6"><div class="ch"><h2>第六章 综合分析结果</h2><p>24个综合分析案例的后续走势验证。</p></div><div class="sr" id="ch6S"></div><div id="ch6L"></div></div>
+<div class="sec" id="s-end"><div class="ch"><h2>后记：学习要诀</h2><p>作者总结的交易智慧与学习建议。</p></div><div id="endC"></div></div>
+<div class="sec" id="s-quiz"><div class="ch"><h2>综合知识测验</h2><p>检验全书核心知识掌握程度。</p></div><div id="quizC"></div><div class="qs" id="quizR" style="display:none;text-align:center"><h3>测验结果</h3><div class="qsc" id="quizSc">0<span>/15</span></div><p id="quizMsg" style="color:var(--text2);margin-top:6px"></p><button class="btn" onclick="rstQuiz()" style="margin-top:12px">重新测验</button></div></div>
+</div>
+<script>
+// === DATA ===
+const IMGS={
+'p2':["images/efa2dc9870f6b5373a9c518c896ef81a08993a7c4e268485e00886a5ea1b3b83.jpg"],
+'1-1':["images/ffdabda7271f033b5ea82d43b4c819ed379b740c75c7c0ad995419c849c7f439.jpg","images/5cc43e680c3516ad890fc974b2e7be254a5373073945f525d18b5376280022d1.jpg","images/706dda53b5196a195e4328f28d34bd16bc7a51e78ccbf38d6b19d9794323931c.jpg","images/3333036dab56af4a525de60c0c896c3cc82f80a8172d4617e6a811e4b438393f.jpg"],
+'1-2':["images/4acf19ca64ab8b746255fd048904b206a7dbaf60d15f1782168faa355a2f3cbc.jpg","images/193471c33ab5eb2ad0063564d0f79afd444821a1c159cf74d7c545d76544b5d3.jpg","images/cc007013bede2cd73a28bd1129abeef48d37da59bf981bfc6a63a990ee450583.jpg","images/90e22c422503df0d6247519e9e641bf9e65c5646a260550732f620a853cffdb3.jpg"],
+'1-3':["images/d407230dcb4346e7f51b69051bb097350e0ee3ef467962edc6d4afd9c0a85b32.jpg","images/c1cf2b6e96a490d5c6ea80aabeeeabaa985e80b32da7c8e184a1327605710df7.jpg","images/b979e3c85dad1b79f995b8dca633c3df3e9c28c6e30687dbbcb34b6c01ee0780.jpg","images/1d27ae1f1de19471bdaa5fa3a7da95355ca278b7bf74ad2678ac374152af3272.jpg","images/e3c1803f25cf905722ae33afa631414c527fe88ab94c7a8f0a8221cc694da67f.jpg"],
+'1-4':["images/95407358dd7f7ceaf4a07a47582563891e7965e62335d2fee442e2e73c6817d9.jpg","images/9c1163a65e9183ecffe48908c84e2dc079299466684c44f0d7d0b0c78b4ec600.jpg","images/c55ff617fa6b39d2d44fa948ad1caf50dd951d2485e06384ac811e30ab62119c.jpg","images/edf90ea47609303cd706c3ae840553735926ad3ea625ad582d12c6a132386a64.jpg"],
+'1-5':["images/ea4fe8f7b9daf9854b296b09b4bfb682a365e97c4632c4d842ac113728265125.jpg","images/861cd1a15e74cffef100541a8c234e5dbeee0a9e55571c18ea993267ecd6a01a.jpg"],
+'1-6':["images/1aea5ac0006071915ec2eb8c9e2433e41875bf4e8737c9e7748489eee56b8a04.jpg","images/508fa9cc0eb3d59a650d542dd3708cfb17869a752586f315e4fb1711b33513f5.jpg"],
+'2-1':["images/22f60d65733cc8a3866fdf3627fac6aa5d205ddad4f1e3ab0eeca3736759d6f9.jpg","images/a553736111c193e930085b926650110fb5cfd96da14e54661e505d616fb8d9a5.jpg","images/64159e358c51e5ade757badb3347c0ce805510177dbbefe7a5e04ddc79b23f14.jpg","images/77ae430e71a4dd41446c06af8c18eee0a459ae7af51ccaeccbddcb0ea3e7d2dd.jpg","images/69b1c07d103a68ffa31f865918a4643a51004057ed00dd8b40ea5158ea99734a.jpg","images/4da7853a861b5435c33f2455f72a7d0ba8623ecb5101db9fbc69c790d5e8836b.jpg"],
+'2-2':["images/8dcf1b1d15026e947bf708ee0e578a47cb2aad09442b112ae0a235ed88077403.jpg","images/bf40b3aa68b39dc7b4a69c40a993bb07275e4a0aa9344655e6c8cd2782dc4205.jpg","images/4ea80ae663eaa9b8907960a6771c96aef2c47edd197d53e702131c6f2f87044c.jpg","images/eb40db755e00ee5c119bfdf8f4dc7d5055e22cb82ecce0ff3314cf8c4a15bb7d.jpg","images/e0af0755ef65e5f977e5778a5f48c6eb6196a41e5d1efeb32811bfa15c17c054.jpg","images/26e3736abe426ef571a4054ade304a02529bb79ed2c52d243aeeec75ab810237.jpg"],
+'2-3':["images/510534015d982947db70dd4304417c3d50964ce1063e47526c4737cc340d088f.jpg","images/3b04147b47474211867068b61fa87c4a51a07f636c016f942441ad811d28af5f.jpg","images/d58c5011a2155c2bc44e98c6d567dca72006f033f98177484ea72b435aaf2bd3.jpg","images/d7a2a5a53ef9e9f80b191f26b4d461c851826f8b0a883dee5789588a93fc7899.jpg","images/6a5f750585d6c2de29a64ede359794bfd37db9fe6e61ea317d366f8e9b712d5b.jpg","images/d2e56f9f2ba824fa5b24771bf7c9dd825734d0c8d61c31411072b3d6e6bf8a66.jpg"],
+'2-4':["images/662a68983136f8112ddf6ce00fb3f7ef2694c84c4afd2c114c65a70156f8fcd9.jpg","images/abefac029d23a63cf06301c2300e61284e7396e382f722f33f854783c5c5fcf0.jpg","images/441b7279d3f24bc3fc61bcc3560ef2577633204461319bd65fe8a89b3f55ae95.jpg","images/628fd98ab743ed29872bac6193449966d37dcb179238c7ee69f728abb6d59c94.jpg","images/5f4f020f5d4f13e0c2445cfa6141f41302467c90fbbf1d35bb8ddb59908ced99.jpg","images/89e398c8624ca8404ff827377ce83f69903b728eb372af1ac0472ee1a2e1fa26.jpg","images/4e9dd889d1fb85ef6c154e5de573e52415937ba59a58263eda39180d438dd0e2.jpg"],
+'2-5':["images/c85da5332593fdf3a788566c97ad55a2da5c303c73f812418d986a14108e0ddf.jpg","images/9b2581c7e381b00b9b94c103e849fb2ed2f3c4e48841e3bfee36845c30cd366f.jpg","images/e07a17ac84e2f77f74a6b8cc883d097fefed6fe95120cffd51133037d71eeaf9.jpg","images/3f5127361a82c65cf6903e5bd14146d0c847270b1f73f816170530ca551ebac6.jpg","images/a97b3dd06edbd900376ecd5bbe13b1b8a082c6bb286d060da23d7ccb3b6a18ec.jpg","images/bc99ba0ef6d20afa519682c8f07b26474839efc44a5be4efae576563764a81a3.jpg"],
+'3-1':["images/bd3d4116e8be13ff5a515bd1e3acf9f5c3ee1b09c84cada54bb261f9e854b366.jpg","images/dfb4523e5bdf5710a3982f83b0fbcbfcc4f0d0bb4d8aa24478c3055f2cfb6cef.jpg","images/3176934bd3ca2d69b34c15f0322b3e8a911e784fbd6edc26e55d98c0a8168d0e.jpg","images/53b13b661d0742c3904a79f7b01085a51c1ee4ef970dc41c617fbd7a5e20e668.jpg","images/78b482cf200befd668b4dab75412d4f65014fa31e27e9d0cb0f3b343bf428e77.jpg","images/415a9590e64755709887cfba5cc3ae16be984ff42c1ed333294696dd383d003a.jpg"],
+'3-2':["images/3204a615b4b67c295505b587af474a18ee43b2627f0440305077acdac5336726.jpg","images/1152d3200ec76f9bbf076c12eba4e2a1f1f1ad28515f39b5a0b75f8ccf02dc17.jpg","images/f9862bc07d90419955d8ce5ed8922a5c9681e4a1414475ce4211b26ca4e5dbff.jpg","images/7543977ce0b33be14e9b70155c35bf7d34274851fcf9d3be399f98d03bc220c0.jpg","images/d6efabcac2717edb1a21c15135ed5219d7aa46f5a8d4148ebdc55d0f6bcffcc2.jpg","images/fe02de233ebfa84606d6287905e3e590ba50a5872e411400252a8f5c9f1e1085.jpg","images/9ec3bdeb07656d03af1980e9842b9120e524edc8b816812c91e526509d448f2f.jpg"],
+'3-3':["images/5f387911a0aea20289e3f16195a4334956196c59741f941571b1fbf383e63478.jpg","images/679a00af31b6ba7ad2d939b859dec35b5925a53403ff5a28172598649046dc6d.jpg","images/0a9ed89226a238bc601f78c04795608134e33447a6e780551b7b13060c544076.jpg","images/27e7686ed55e1f3969806eef0b7345a0a148cc593bc0a6301ac622d032f9c999.jpg","images/058b653f48837bd940e1b786cafe7f6e77de1efb4432ce022c3da57d221e4483.jpg","images/ef6660145e759212265ced3b222db37eae3554c15f67ff7a826651500306ae96.jpg","images/0a4d01451cac6fab02a5cce3f9041cc606b3ffc6ce2750696874c72e81044071.jpg"],
+'3-4':["images/b37ab5c9d17e59200248ad8d408f9bc91623667fe0f125f2db06f78038487263.jpg","images/98a4dfe83ec5172175ac875af6b60812182492e12d83393ca96c03831aaa6dca.jpg","images/d16be76cda0837ba9177a3de4306151daf766364fefdc04f88a1625b1dc790ea.jpg","images/887f9b2b376524955baad0871fc640f3aeb7e9e9f254fb7b13452a2c5f1966a1.jpg","images/b9cde8b7f43a061bdcc3e4291cae3e79c83e51daea164b1dc15b23f15a53fe19.jpg","images/b952ad477132ad8ecf7798a76fde2d541f4fffb44f9d26b087ba42fb44b82d72.jpg"],
+'4-1':["images/dd5bb44f9a91971b88efbe44dd9a4b0dc855a4ae111c86a6364f581696935705.jpg","images/e5d561172bf24802edfba8a03677c2c53bd1562d7ecf66d409eec40a215431cc.jpg","images/3a6f0bf01db69f0e75dff9dc4cef05d6c056a2b9df7fbe4a6c49966208e1521f.jpg","images/3d8fd290a5c93541a7aeec200cfcc7592fc6a8ce094111b951d21c5e071e434c.jpg","images/d739f27b7fe9b34e970467f57be36760ed27606265319cf4fcd0f7c3d3d21862.jpg"],
+'4-2':["images/6e8747b74656a1eea4ccaccd166921449c95ddf01780acd6bce8f7269191bff8.jpg","images/81787d1831fad603621ae7f0f8c88dae1a98a1004c0cb28b70dc7311530654ae.jpg","images/7c58fe350de7c93d685e6462081e3adfb14638a4debe6adbd50d4269a6f76d6b.jpg","images/d2d0b34d06a741cd66fed877bd410f89220d0b1bc3671977dda1522282ec4dcb.jpg","images/e19cf88bfec1cef6190622af700fa556ded0d8dd1f621f0a4e88e48a1fb54748.jpg"],
+'4-3':["images/8a0a7757be927627a8e64a49417a740814adc48cb592d4b95e73304e32fce718.jpg","images/0dae5b488513d93c066e1fdb607fa64f45fc530d7066075348720697bbccd67a.jpg","images/4abf2ba42dd3f9680d3cd2847469ab3bf7a7daa6cdc5397b5a5ebfd7fde48f02.jpg","images/1d7d226ad7e17bb9b5c4325e21dff095ad7a16a8b3698d681f6335250314d161.jpg","images/35e742b7ab4df3f6eaf19040434cc50524bce835822ef9eac2eef9ca85c109d0.jpg"],
+'4-4':["images/508dca9164d4f8d93cde1eb3a0d89043046fbb225be0725dcd3d27de0376b1c2.jpg","images/6de8367cd7d057e9e144a212a313d18b6d9f4754f6286554ebc33b751ccefc40.jpg","images/36211daafd6a526f17b757d9412bc8fdd77c2f75e9b3692c99a7979ba17a2356.jpg","images/b00dcc361ca895fcf34f8fdefa35d57ef99fe99361e13dcc2334c4cfbaaacd37.jpg","images/3859f28450dbd63dbe4bb5db83fcc8e657c09aca75d8852cf07ac8620802acf8.jpg","images/0a3c312a1c695cf2d5ff96bb6b45f2612ba87f8fd85c21ab4b9a743977e8f1e6.jpg"],
+'5-1':["images/fdb49c7ee71c1cbf78896e04992fee4a1c90a42ba9a3e84a9078c1dfeb102a69.jpg","images/be201e92d5742fc32bfcddb375eaa019600ac961abed2fe16b95aee48840c09e.jpg"],
+'5-2':["images/736d0390b9ceb05dd71f1ef503f2ebcecf03492786cf3ef5daf218e633347d15.jpg","images/8e69965e872f3bc0a829ef971c4ee332b6340cc6f562499934294a81a913a451.jpg"],
+'5-3':["images/ed3a3528731573c7f20f2644f1cd0560ef31252ca9962e70a20c4c697aeee3f1.jpg","images/989152be83cc37c3a345301dcff97a1d7ecf44d57b8272e277dd115814ba47b5.jpg"],
+'5-4':["images/9c18bb1eec4ff0ac75ebcb45715a40911cd70f63d75cf882ad88eb2d5f5eb1ba.jpg","images/89733dd80184b4cf0d55c2125f1fc816f4816766f15d3b3246a9cd3ac143c8e5.jpg"],
+'5-5':["images/9e08c71973385402243ed9d4e1b45c8cb0983eff8e8157e850d287c3ae08f1f5.jpg","images/9a592bdf93dc3c8c647f488ff5614de9951cd103a0d90e1d8f9ffb13ebf7f959.jpg"],
+'5-6':["images/3f2c0958d2667b8f229111091f9f316bc8206624ba3b348ce299f60946332915.jpg","images/28e0ad6e9db45e8ae5cf6d7fade3e06ca2de605048ab6d8f47bf7a3fa096cabc.jpg"],
+'5-7':["images/b8ed5ee3272d246ae0ea42c2ebedf279de6f02fcde7aba6bb0addd969ccc2c66.jpg","images/4e733c00e70aaf0eab879e0ee4c0160fd1f6779736e01e08ff9b20ce6c01252c.jpg"],
+'5-8':["images/b7cc13732ba323cee438ef1b25cf2c991c8a279e867a9745ea9ad8835ad522eb.jpg","images/45d60ca39feb520eed73e20f0eb44c4db21a1794240f419423a4c0221742d8da.jpg"],
+'5-9':["images/67c9399359bcc11c441b1fae7f63c7af8878a6c6a7c07f5feb2b44a7c5bc55dd.jpg","images/46fb4969ea01fdda2e52bdc9defc3cf941cc60077e72bc21fcc9df3c9a078836.jpg"],
+'5-10':["images/8ec2853ee94049028d1b024056745adc33b2a9a468455cdf8aa834f306dea546.jpg","images/20dde5bb35cfeed8ab48a10a936059c09ee48480d76e9da5df1aad1b2f37b12d.jpg"],
+'5-11':["images/71450b65b089a426b4529f55e6112163e1c9c9acaac0584858ed77100811890a.jpg","images/390c9bbf5b6212e511b962ecc590e95dc40bcb5fe614af1c5f96f002c2be3185.jpg"],
+'5-12':["images/a713211d25657f03def2eef98eb80e03a7a5aa2b2b9a0505f9676727313648b9.jpg","images/8e3590beac80206b39180e86e3e71231b85ce4f829605bbcaa86c8e7f4893c87.jpg"],
+'6-1':["images/986bd0085f9905ec3050fd1098b2b6779992ad7d82cd6bd49c3fe080a5def17d.jpg","images/c7a20231a5e0cac39d8d2ac470e68b5c933509ae0b1370d4a85180f5d61d2de0.jpg","images/32ef717055641eba6447d60ea4fe825fdb4a5266ca0469bb180cc3dbc59b5561.jpg","images/3e040916c752875e82f41531b1e9fe56ee351b0fd339e14a5634cf33f6060080.jpg","images/56c049e81c517105abf7935b09eb826a2f72fb42a4ac5997f750c1f1bfa319b7.jpg"],
+'6-2':["images/86fc7b0a28f71ba9bbb06f1199348ab9fc691acd241c583cbec09dff171a1439.jpg","images/0deed18b312b7afaf11837def968f749f6e8412bf7c1f916e19274f0df9e5e03.jpg","images/21e572931f6f8ec20950e823d621d0c223c5f738cdcb4759798ddb8850a5bb13.jpg","images/3369c20ccc41b327b675f9e64b6e54be0a849458e0306b8d500b51cfceb9800f.jpg","images/5be31fd6f54013820a1c4615c005b0ac0e889c8b9b4c97639af4dc47d7dd983e.jpg"],
+'6-3':["images/310a3f03e3d693b20cccfa8db48f61e29b7fa21d5f98064fe0e92386a4a0ff83.jpg","images/17e2e201e3afc6edb2512cab83b3c7c685b183dca6788d3f7d3b7b8b9252522a.jpg","images/34c7be0d87f45a6571694ee4acbb676689d9d2b84014387a722a8cd4c62ee6b3.jpg","images/400484116cfa61c928a8bc9dc6e303d13b550711610403c68c3d49e2202a56fa.jpg","images/83eeaa63b4bca497ef82cf531429656b4db774539f141332f312c63bdf03588b.jpg"],
+'6-4':["images/02a56a406324d4b5b85ab1a6a8736d9db105ecad867407aee352bffd1fd722c8.jpg","images/8914c5119e9ad39e8cffc04a0e78a1de344bdb665c81020e8cf36c66245c4a8f.jpg","images/1d024b78fa03effa101a819ba0a456d9fbb726d18680610a1ddedbba1a09d526.jpg","images/f7825d6f0683a372078480fd9cce5f1056e7f89e24f6c8ed343538f3ee2cdc28.jpg","images/8add9ef8ceb12ea41d9b3e7d3a1eca13d0a07a5509feda72b33f4b0ddb628996.jpg"],
+'6-5':["images/6276536a891bafa8de23182d70af33a586b0e1ece3ea9d6fc2b55302b07bec61.jpg","images/1cb5987d3c3abae15c5bd84b85f84e5ddb0cfe8602f0c5710d6066562a3aabe9.jpg","images/65f0372e748d3338d4dc0f85a50438640c5ecab8919fb11030a73a96ec6861df.jpg","images/5730a3a0b28673f58db10d9688439b19c8012609ea9538c61a52f4a348f37ae1.jpg","images/d9c1fb9c2ccefe161b58b88d2c17cc27ef5639ce31c1981fc7bc112076193639.jpg"],
+'6-6':["images/e30d376c59f87f030af5166caddd13b7779b0d8bf9f92d5eea18518efea1988b.jpg","images/10c7fb0c4f7783c0c8125e01c080b633e533cf193e6fee3d641386b5c70bdd28.jpg","images/653f433aafd472dfad209fb9cbfa94a103c930bea94b7758196489d3efbb6d07.jpg","images/f1ec13998cee1a47460c2f799a9fd1855dd629388edf85415ad130cf0e21f4a3.jpg","images/59f9a01e3633030919c1482d75ffc29bcebf04912864e3d4a8e44fbbd8a34fe1.jpg"]
+};
+const IMGD={
+'images/efa2dc9870f6b5373a9c518c896ef81a08993a7c4e268485e00886a5ea1b3b83.jpg':'公众经常被套在顶部之后，不要指望 CM 会发善心来解救自己。他们一定要使用疲劳战术，让套在山顶上的买家在底部价位（他们吸筹的价格区）卖掉，他们对付盲目抄底的公众，也是用同样的办法，逼迫公众卖掉筹码，以便他们吸收更多的股票。',
+'images/ffdabda7271f033b5ea82d43b4c819ed379b740c75c7c0ad995419c849c7f439.jpg':'图1-1：形态：A 到 B 是牛市，成交量递增。蜡烛 1 之后的回调，无论是蜡烛还是成交量都递减。 性质：价格回落的力度很弱。 结论和预测：小蜡烛和小成交量回调，说明供应没有进入市场，价格还会尝试上涨。',
+'images/5cc43e680c3516ad890fc974b2e7be254a5373073945f525d18b5376280022d1.jpg':'图1-2：性质：回调力度比上涨力度大，不是牛市的特征。 结论和预测：相对扩大的成交量和价格的高低范围，说明市场上供应在扩大。 措施和行动：这个回调不能做多，要耐心等待供应枯竭后再进场。',
+'images/706dda53b5196a195e4328f28d34bd16bc7a51e78ccbf38d6b19d9794323931c.jpg':'图1-3：下面我们看一个稍微复杂点的整体分析：',
+'images/3333036dab56af4a525de60c0c896c3cc82f80a8172d4617e6a811e4b438393f.jpg':'图1-4：趋势线 BC 和阻力线交叉形成死角 $^{①}$ 。现在背景是供应大于需求，只要回调再稍稍努力就能突破趋势线，价格会进一步大幅下跌。预测：如果价格下跌，我们期待蜡烛 4 的支撑能够挺住。一旦蜡烛 4 失守，我们期待恐慌抛售产生的支撑能挺住。',
+'images/4acf19ca64ab8b746255fd048904b206a7dbaf60d15f1782168faa355a2f3cbc.jpg':'图1-5：阻力就是在某个价位，买方不愿意按照卖方的出价交易；支撑就是在某个价位，卖方不愿意降价出售。下面我们用图解释供求关系在支撑上的应用。',
+'images/193471c33ab5eb2ad0063564d0f79afd444821a1c159cf74d7c545d76544b5d3.jpg':'图1-6：还没离场，现在必须清仓；千万不能再去买入，你要买就等于帮助 CM 派发 $^{①}$ ，套牢是肯定的事。',
+'images/cc007013bede2cd73a28bd1129abeef48d37da59bf981bfc6a63a990ee450583.jpg':'图1-7：（三）阻力位置上如何应用供求关系进场 如图1-7所示，目前市场背景是下降趋势，供应控制市场。图中，下轨是超卖线。',
+'images/90e22c422503df0d6247519e9e641bf9e65c5646a260550732f620a853cffdb3.jpg':'图1-8：在阻力区的供求关系如何确定突破结果？这里最重要的是观察价格走 势的终止行为。因为终止行为意味着需求的减弱或供应的增强，这些行为确认阻力的有效性。在阻力区，如果看到一系列的蜡烛收盘都相近，这说明需求减弱。',
+'images/d407230dcb4346e7f51b69051bb097350e0ee3ef467962edc6d4afd9c0a85b32.jpg':'图1-9：① JOC: Jump over the Creek, 这是一个 SOS 信号。价格强烈上涨突破了前期的关键阻力位置或者突破了交易区间的上边界，特征是高成交量和非常宽的振幅。',
+'images/c1cf2b6e96a490d5c6ea80aabeeeabaa985e80b32da7c8e184a1327605710df7.jpg':'图1-10：在阻力位置，我们如何判断价格是突破还是反转向下？向上突破的理论基础是阻力位置没有供应扩大出现，同时需求积极吸收阻力上的供应。向下反转的理论基础是阻力位产生大量的供应（有大量卖单流入市场），需求无力吸收这些供应。下面我们看图1-10的分析。',
+'images/b979e3c85dad1b79f995b8dca633c3df3e9c28c6e30687dbbcb34b6c01ee0780.jpg':'图1-11：8号蜡烛：我们看7号蜡烛之前的两天成交量扩大，说明买方的努力在增强，但是价格依然没有冲出震荡区，这说明市场上的供应还很多。从8号蜡烛的成交量来看，市场没有足够的需求来吸收阻力上的供应，虽然价格突破，但是没有吸引到大量买家跟随。需求的匮乏会导致价格会继续跌。',
+'images/1d27ae1f1de19471bdaa5fa3a7da95355ca278b7bf74ad2678ac374152af3272.jpg':'图1-12：如图 1-11 所示，从背景看，这是明显的熊市。从蜡烛 1 开始，下跌加速，伴随明显的放量。说明供求都在扩大，但是供应来自公众的恐慌抛售；需求来自 CM 的收购，所以需求的质量好于供应。在熊市中，需求的扩大是牛市出现的前提。蜡烛 3 是下跌以来第一次猛烈上涨。',
+'images/e3c1803f25cf905722ae33afa631414c527fe88ab94c7a8f0a8221cc694da67f.jpg':'图1-13：如图 1-12 所示。市场背景是熊市。价格从蜡烛 1 开始出现价量大幅扩大的现象，这属于恐慌抛售。市场的背景可能开始改变。蜡烛 2 同样是放量，但是蜡烛长度却相对减小，而且下跌幅度大幅减小。',
+'images/95407358dd7f7ceaf4a07a47582563891e7965e62335d2fee442e2e73c6817d9.jpg':'图1-14：一、趋势的形成和因果关系 研究因果关系的目的是判断趋势的反转，从而使我们在趋势的最初期介入市场，达到降低风险的目的。从字面上讲，这里的“因”是指趋势出现前的准备过程，“果”是指趋势形成。',
+'images/9c1163a65e9183ecffe48908c84e2dc079299466684c44f0d7d0b0c78b4ec600.jpg':'图1-15：如图 1-14 所示，这是 2015 年的 A 股行情。7 月初的长下影线和扩大的成交量，告诉我们市场出现抄底行为。虽然抄底前的跌势非常猛，属于超卖状态。但是不能看到大跌就立刻抄底，牛市的开始需要准备过程。',
+'images/c55ff617fa6b39d2d44fa948ad1caf50dd951d2485e06384ac811e30ab62119c.jpg':'图1-16：公众喜欢抄底的原因：一是怕错过趋势的大底；二是缺乏市场行为方面的知识；三是缺乏耐心。如图1-15所示，当价格跌到CM满意的成本价位时，他们开始吸筹（图中吸筹阶段）。',
+'images/edf90ea47609303cd706c3ae840553735926ad3ea625ad582d12c6a132386a64.jpg':'图1-17：的浮动供应已经耗尽，我们应该毫不犹豫地开始建多仓。蜡烛3是SOS（强势出现），它是需求吸收全部供应后，并占上风的体现。它的出现，标志着趋势的开始。 三、短暂的准备过程 有时准备过程较短，这经常发生在短线反转过程中。',
+'images/ea4fe8f7b9daf9854b296b09b4bfb682a365e97c4632c4d842ac113728265125.jpg':'图1-18：图 1-18 是同一阶段的 3 小时图。从 3 小时图上，可以看出明显的震荡区，这是趋势反转必备的过程。安全的进场位置在区间的右手边。',
+'images/861cd1a15e74cffef100541a8c234e5dbeee0a9e55571c18ea993267ecd6a01a.jpg':'图1-19：1号蜡烛：这是供应初次进入市场。长上影线配上成交量扩大，说明价格上涨吸引了大量卖单出现。市场的需求必须再次扩大，把这些卖单吸收掉，然后恢复牛市。',
+'images/1aea5ac0006071915ec2eb8c9e2433e41875bf4e8737c9e7748489eee56b8a04.jpg':'图1-20：第八节 努力和结局关系 努力就是指成交量，结局就是这种努力下，价格的上涨或下跌幅度。国内一些机构把这种行为称作放量滞涨和放量滞跌。比如，当公众的购买力扩大后，相应的价格涨幅应该增加。如果价格没有出现大幅上涨，说明努力没有产生应该有的结果。',
+'images/508fa9cc0eb3d59a650d542dd3708cfb17869a752586f315e4fb1711b33513f5.jpg':'图1-21：通过波段交易量，也可以观察努力没有结果。这种交易量不是某一根蜡烛的成交量，而是一波的累积成交量。这种方法更能体现出市场的努力程度。 如图 1-21: 第一个画阴影的一波上涨, 总成交量是 146。它远远大于前几波的成交量, 说明购买力在随着这一波价格上涨增加。',
+'images/22f60d65733cc8a3866fdf3627fac6aa5d205ddad4f1e3ab0eeca3736759d6f9.jpg':'图2-1：自动反弹是继恐慌抛售之后的一个正常市场行为，我们不必太在意。这里要提醒大家，不要在这里抄底。因为这个反弹经常是空头回补，上涨不会持续太久。 从理论上讲，二次测试是 CM 想知道市场上是否还有清仓行为，或者说市场上的供应是否恢复力量，使熊市继续。',
+'images/a553736111c193e930085b926650110fb5cfd96da14e54661e505d616fb8d9a5.jpg':'图2-2：在看盘的时候，人们经常太注重眼前直观的走势图形或者某根蜡烛，这种做法又回到了表象交易。比如恐慌抛售之后，市场的背景是市场出现了大量需求。接下来我们要关注的是：需求必须保持优势，供应逐渐稀少。从量价上能够得出上述理论根据成立的结论，我们就可以抄底了。',
+'images/64159e358c51e5ade757badb3347c0ce805510177dbbefe7a5e04ddc79b23f14.jpg':'图2-3：在判断走势过程中，停止行为是看盘应注意的细节，有时我们会忽视，所以这里我们着重讲解一下。 第一种停止行为：下跌过程中的比较大的下影线+扩大的成交量；或者上升过程中比较大的上影线+扩大的成交量。这种行为属于价格涨跌过程中的暂时停止行为。',
+'images/77ae430e71a4dd41446c06af8c18eee0a459ae7af51ccaeccbddcb0ea3e7d2dd.jpg':'图2-4：二、吸筹过程中的供求关系 在第一阶段，供应大于需求，但是恐慌抛售已经表明需求在慢慢吸收供应。成功的二次测试说明股票的供应在慢慢耗尽，而需求一直保持优势，熊市到这里暂时中止。在第二和第三阶段，供求基本处于平衡状态。',
+'images/69b1c07d103a68ffa31f865918a4643a51004057ed00dd8b40ea5158ea99734a.jpg':'图2-5：三、为什么 CM 会在第二阶段使用疲劳战术 在震荡区中，CM要竭尽全力建仓，为了能够吸筹更多的股票，他们在正常市场交易无法满足自己的情况下，开始使用一些他们的技巧。这个阶段我们要注意的一个现象就是CM的疲劳战术。',
+'images/4da7853a861b5435c33f2455f72a7d0ba8623ecb5101db9fbc69c790d5e8836b.jpg':'图2-6：四、第二阶段案例（一） 如图 2-6 所示，蜡烛 1 是供应以压倒性的力度使价格离开震荡区。这 个下跌是超卖行为，因为中间没有碰到任何反抗（没有大幅的反弹）。这种急速下跌，我们也可以称为恐慌抛售。',
+'images/8dcf1b1d15026e947bf708ee0e578a47cb2aad09442b112ae0a235ed88077403.jpg':'图2-7：当 CM 收购战役快结束的时候，他们要使用一些策略来探明市场的供应情况。他们要知道是否市面上的股票已经全部被他们吸收，如果是，他们会允许市场进入牛市，否则，CM 将继续打压价格，以便继续低价收购股票。',
+'images/bf40b3aa68b39dc7b4a69c40a993bb07275e4a0aa9344655e6c8cd2782dc4205.jpg':'图2-8：2. 震仓可以继续迫使弱者卖掉手里的股票，然后 CM 全部吸收。 3. 在最终市场进入牛市之前，震仓可以造成继续下跌的假象。 如图 2-8 所示，终极震仓的表现形式是：深度跌破吸筹区间底部支撑，这是 CM 惯用的一个手段，目的是使公众因恐慌而清仓。',
+'images/4ea80ae663eaa9b8907960a6771c96aef2c47edd197d53e702131c6f2f87044c.jpg':'图2-9：第五节 吸筹过程的第四阶段：进入牛市 通过测试阶段，CM认为市面上的股票供应已经耗尽，他们准备允许价格上涨，并进入牛市。在这个阶段，有两个重要市场行为告诉我们牛市开始了。他们分别是强势出现（SOS）+测试，和跳离震荡区（JOC）+测试。为了叙述的一致性。',
+'images/eb40db755e00ee5c119bfdf8f4dc7d5055e22cb82ecce0ff3314cf8c4a15bb7d.jpg':'图2-10：强势出现（SOS）如果突破震荡区顶部，我们把这种 SOS 叫作 JOC。JOC 是威科夫学生伊文斯先生总结出来的，英文是 Jump over Creek，意思是越过小溪（供应区），后面我们会对 JOC 做详细介绍。',
+'images/e0af0755ef65e5f977e5778a5f48c6eb6196a41e5d1efeb32811bfa15c17c054.jpg':'图2-11：（二）强势出现（SOS）案例（二） 有时 SOS 不是由一根蜡烛完成，而是由一个上升波完成。当我们看到连续 2~3 根的阳线出现，而且出现更高的最低价、收盘价和最高价（如图 2-11 所示），伴随递增的成交量。',
+'images/26e3736abe426ef571a4054ade304a02529bb79ed2c52d243aeeec75ab810237.jpg':'图2-12：JOC 的特点是价格快速突破震荡区顶部，图上表现为放量长阳突破阻力区。JOC 之后，价格就告别了吸筹区，开始了牛市旅程。我们所关注的是价格上涨后，再次回测 JOC 突破点。如果测试过程是缩小的蜡烛和成交量，我们将在测试时入场参与牛市。',
+'images/510534015d982947db70dd4304417c3d50964ce1063e47526c4737cc340d088f.jpg':'图2-13：价格涨到5之后回落，又形成了新的小溪线。7号尝试越过小溪失败，然后退到8的位置并准备再次冲锋。9号柱吸收了小溪中的卖单并越过了小溪，等于再一次给我们搭建了进场平台，然后等待价格缩量回落。10号柱的成交量递减并且测试了小溪，这正是我们要等的进场信号。',
+'images/3b04147b47474211867068b61fa87c4a51a07f636c016f942441ad811d28af5f.jpg':'图2-14：第二，通道的上轨属于超买线，但是关键要看在这里是否有大量卖单 流入市场（供应的出现），如果有供应扩大的现象，价格会返回通道中。但是在这个窄幅盘整中，我们没有看到供应的出现，相反，需求依然保持优势，因为很多蜡烛收盘价格都收于中部或中部以上位置。',
+'images/d58c5011a2155c2bc44e98c6d567dca72006f033f98177484ea72b435aaf2bd3.jpg':'图2-15：四、跳离震荡区（JOC）案例（一） 蜡烛 1: 如图 2-15 所示, 蜡烛属于 JOC, 它的形态是长阳伴随高成交量突破震荡区顶部。在震荡区顶部是供应区。价格要想突破这个供应区, 需要强劲的需求来吸收顶部遇到的供应（阻力）。',
+'images/d7a2a5a53ef9e9f80b191f26b4d461c851826f8b0a883dee5789588a93fc7899.jpg':'图2-16：一旦JOC形成，等于市场给我们提供了进场信号。当价格回落到原阻力位置（现支撑位）的时候，如果成交量减少，或者有反弹，我们可以进 场。蜡烛 X 是价格回测，虽然成交量相对大些，但是蜡烛的高低范围减小。这是停止行为，表明需求正在吸收供应。',
+'images/6a5f750585d6c2de29a64ede359794bfd37db9fe6e61ea317d366f8e9b712d5b.jpg':'图2-17：牛市的回调出现震荡区，蜡烛1和2都是牛市中的JOC。JOC之后的回测出现停止行为（弹簧效应），这是我们应该进场的最佳时机。但是测试JOC的时候供应不能扩大，从价量关系上看成交量和蜡烛必须缩小和递减，否则，我们必须等待新的二次测试来证明供应已经耗尽。',
+'images/d2e56f9f2ba824fa5b24771bf7c9dd825734d0c8d61c31411072b3d6e6bf8a66.jpg':'图2-18：5号区间：首先看这个价格回调的过程有没有供应出现，因为全部是小幅蜡烛，这是再次吸筹现象。需求控制的背景下供应的枯竭给我们提供了好的进场时机。这是专业操盘手的进场点，我们也应该随着他们买入。 6号蜡烛：与4号的作用一样，强力需求柱，关键看回调。',
+'images/662a68983136f8112ddf6ce00fb3f7ef2694c84c4afd2c114c65a70156f8fcd9.jpg':'图2-19：一、吸筹过程较短 恐慌抛售：如图2-19所示，初次支撑之后是恐慌抛售，这里的抛售方是恐慌的公众，原因是受悲观的市场情绪和坏消息影响。接盘方是CM， CM 的介入使市场的需求开始扩大，并且需求正在吸收供应。',
+'images/abefac029d23a63cf06301c2300e61284e7396e382f722f33f854783c5c5fcf0.jpg':'图2-20：下面的图 2-20 是上图 2-19 的延续。 我们看蜡烛 18 的需求努力有了很好的结果，价格持续创新高。贴这个 图的另一原因是最后部分。我们看价格上涨中，成交量突然大幅增加，这对很多公众来说是个令人兴奋的利好行情，这种行为可以引诱更多公众上车。',
+'images/441b7279d3f24bc3fc61bcc3560ef2577633204461319bd65fe8a89b3f55ae95.jpg':'图2-21：二、长期吸筹 吸筹时间长短不一，有的超过几年。下面的图2-21里面包含的细节很多，对每一个解释要认真思考，到底要不要抄底？在哪里抄？哪些细节告诉我们熊市结束和牛市的开始？ AB：这是一个小型交易区间，价格以高成交量突破支撑后，进入超卖行情（垂直下跌到蜡烛1），...',
+'images/628fd98ab743ed29872bac6193449966d37dcb179238c7ee69f728abb6d59c94.jpg':'图2-22：二次测试: 这是最关键的一步, 主要是看下跌力度是否和恐慌抛售时一样。从 2、3、4 开始的下跌, 告诉我们市场的浮动供应还大量存在, CM 需要把这些浮动供应吸收后, 才能允许价格上涨。',
+'images/5f4f020f5d4f13e0c2445cfa6141f41302467c90fbbf1d35bb8ddb59908ced99.jpg':'图2-23：新高突破幅度缩小：看9、10、11、12四次的上涨努力，虽然成交量还保持幅度（努力在持续），但是每次突破都没有实际的进展，这是明显的熊市特征（威科夫称之为SOT $^{①}$ ）。蜡烛13~12这一波的成交量持续上涨没有产生应有的结果，这又是一个熊市特征。',
+'images/89e398c8624ca8404ff827377ce83f69903b728eb372af1ac0472ee1a2e1fa26.jpg':'图2-24：我们现在回顾一下大背景。这次从蜡烛15开始的急速下跌，属于超卖行为，最大的可能是震仓。因为前面的吸筹过程已经持续了数月，这次大跌，迅速冲破了最低支撑位，最坚定的公众也会因恐慌而抛掉亏钱的筹码。特别那些每次反弹都抄底的公众，这次震仓把他们清洗出场。',
+'images/4e9dd889d1fb85ef6c154e5de573e52415937ba59a58263eda39180d438dd0e2.jpg':'图2-25：三、底部的进场案例',
+'images/c85da5332593fdf3a788566c97ad55a2da5c303c73f812418d986a14108e0ddf.jpg':'图2-26：蜡烛 8: 是探索阻力位置的供应情况。蜡烛 8~9 的缓慢回落，告诉我们阻力的股票供应很少，这为后面的突破提供了保障。蜡烛 10 是个二次测试。可以进场。 蜡烛 11: 尝试脱离震荡区。但是成交量和阳线长度不少很明显，所以耐心等待测试。',
+'images/9b2581c7e381b00b9b94c103e849fb2ed2f3c4e48841e3bfee36845c30cd366f.jpg':'图2-27：第一就是把震荡区的时间拉长，他们让震荡区持续几年时间。在这么长的时间里，CM使用拖的策略折磨公众，迫使他们割肉。第二就是使用终止震仓，有时使用多次震仓。这种背景下的震仓幅度要更大些，目的也是制造恐慌气氛，迫使公众抛掉股票。',
+'images/e07a17ac84e2f77f74a6b8cc883d097fefed6fe95120cffd51133037d71eeaf9.jpg':'图2-28：一、终极震仓 如图2-28所示，终极震仓是CM制造恐怖气氛的一个策略，经常发生在吸筹的末期。经过长时间的吸筹，CM想最后评估一下还有多少股票在公众手里，于是他们让价格急速穿过所有支撑。',
+'images/3f5127361a82c65cf6903e5bd14146d0c847270b1f73f816170530ca551ebac6.jpg':'图2-29：震仓前预警：如图2-28所示，如果在震荡区内，反弹后价格总是没有到前高点，而且每个高点呈台阶式下降，这种情况容易出现震仓。这些行为背后的故事是这样：如果市面上的股票供应耗尽，CM的最低收购价应该逐渐抬高。',
+'images/a97b3dd06edbd900376ecd5bbe13b1b8a082c6bb286d060da23d7ccb3b6a18ec.jpg':'图2-30：JOC 的出现再次证明了牛市的开始，前面说过 JOC 本身也是 SOS，它后面如果出现缩量回测，属于 LPS，是个好的进场时机。 终极震仓和 SOS（包括 JOC）是确认牛市的重要行为。如果在底部没有看到他们中之一，不要抄底。 （二）再吸筹中的终极震仓',
+'images/bc99ba0ef6d20afa519682c8f07b26474839efc44a5be4efae576563764a81a3.jpg':'图2-31：二次测试：如果震仓时伴随相当大的成交量，我们必须等待二次测试，以确认是否有新的供应进入市场，才能决定是否进场。如果在震仓就盲目 抄底的话，一旦有新的供应进入市场，我们就被市场锁在空中。二次测试必须是小成交量，伴随小的振幅，牛市才能恢复。',
+'images/bd3d4116e8be13ff5a515bd1e3acf9f5c3ee1b09c84cada54bb261f9e854b366.jpg':'图3-1：第一节 以下现象告诉你牛市可能到顶 一、上升的突破幅度递减 如果上涨波的突破幅度递减，表明需求开始减弱或者来自供应的压力增大。突破幅度是两个上升波顶点的距离。但是有时我们看到趋势中很多小的上升波，我们不可能每个波峰都画线。我们要找那些有深度回调的上升波。',
+'images/dfb4523e5bdf5710a3982f83b0fbcbfcc4f0d0bb4d8aa24478c3055f2cfb6cef.jpg':'图3-2：在牛市中，需求的持续主导地位使价格上涨，价格出现回落是正常的价格行为，是因为上涨中遇到了一定压力，这种压力来自于临时的供应扩大现象，或者说价格的上涨遇到了供应。一旦这些短暂的供应不再持续，需求必须恢复原有的力度才能使价格持续上涨。',
+'images/3176934bd3ca2d69b34c15f0322b3e8a911e784fbd6edc26e55d98c0a8168d0e.jpg':'图3-3：我们用一个例子解释这个原则。比如在牛市中，价格从10块涨到20块，那么回调 $50\\%$ 的位置就是15块。如果回调没有低于15块，说明上升保持强势。反之，如果跌破15块的幅度比较大，说明趋势减弱。',
+'images/53b13b661d0742c3904a79f7b01085a51c1ee4ef970dc41c617fbd7a5e20e668.jpg':'图3-4：如图 3-3 所示，X~Y 的 50% 回调位置是 3883 附近，牛市没有受到威胁，因为 Y~Z 这个回调远远高于 3883，市场会继续创新高。如果你要进场，现在是好时机。',
+'images/78b482cf200befd668b4dab75412d4f65014fa31e27e9d0cb0f3b343bf428e77.jpg':'图3-5：自 CM 的出货开始了。到这里位置，市场已经给了出货的初步证据，下面我们观察需求是否耗尽以及供应是否继续扩大的证据。此时我们要从观念上有所改变，告诉自己市场的背景已经改变。 柱 2 的急速反弹说明 CM 在建立支撑，目的是在这个支撑之上派发。',
+'images/415a9590e64755709887cfba5cc3ae16be984ff42c1ed333294696dd383d003a.jpg':'图3-6：四、自然回落和二次测试 抢购高潮之后的市场行为是自然回落和二次测试。其中二次测试的成功标志着牛市的终止，如果你还在持仓，应该考虑离场了。如果因为消息的鼓动还想买股票，此时无论你有多么好的预期，都不要买入。',
+'images/3204a615b4b67c295505b587af474a18ee43b2627f0440305077acdac5336726.jpg':'图3-7：段，我们才能确认市场是否在派发阶段。我们尽量避免在震荡区内交易，应该耐心等待震荡区右手边出现明显强势或弱势特征。 第三节 第二阶段：派发的确认阶段 在这个阶段，我们通过测试行为来确认市场在派发阶段。这些测试行为包括：熊市初显（SOW），上冲回落（UT）。',
+'images/1152d3200ec76f9bbf076c12eba4e2a1f1f1ad28515f39b5a0b75f8ccf02dc17.jpg':'图3-8：二、弱势出现（SOW） 如图 3-5, SOW 是市场进入熊市的信号。SOW 的特点是放量长阴, 必须出现在震荡区的右手边才有效。当这种行为出现的时候, 市场只是出现了可能的 SOW, 它必须要经过紧接着的无量上涨才能确认。SOW 有两种 表现方式。',
+'images/f9862bc07d90419955d8ce5ed8922a5c9681e4a1414475ce4211b26ca4e5dbff.jpg':'图3-9：一、抢购高潮，二次测试，CM建出货支撑 如图 3-9 所示，我们看黄金 2011 年第四季度的 3 日线。市场在 X 的位置的成交量扩大，但是涨幅缩小，说明供应扩大。这是初始供应，一部分开始出货。',
+'images/7543977ce0b33be14e9b70155c35bf7d34274851fcf9d3be399f98d03bc220c0.jpg':'图3-10：天，蜡烛5~6的上涨经历了43天，但是成交量大幅缩小，表明供应大于需求。这种现象告诉我们蜡烛4~5是SOW，并且蜡烛5~6的上涨过程（LP-SY）确认了SOW。我们可以在蜡烛7后面的反弹做空。',
+'images/d6efabcac2717edb1a21c15135ed5219d7aa46f5a8d4148ebdc55d0f6bcffcc2.jpg':'图3-11：如果出现 SOW，或者带量上冲回落，说明这个震荡区是再派发，然后熊市继续。 蜡烛 8~9 的上涨势头很好，这一点可以从连续的阳线和递增的成交量看出。这种上涨被蜡烛 9 的放量阴线压住，如果是吸筹，说明 CM 的收购还没结束。',
+'images/fe02de233ebfa84606d6287905e3e590ba50a5872e411400252a8f5c9f1e1085.jpg':'图3-12：蜡烛 13 是反弹后回调的第一根柱，成交量大幅增加。只有供应扩大我们才能看到这种现象。蜡烛 13 非常小，不容易引起人们的注意，它告诉我们两个市场现状：第一，价格没有出现上面所说的强势阳线，表明下面的支撑将失效。',
+'images/9ec3bdeb07656d03af1980e9842b9120e524edc8b816812c91e526509d448f2f.jpg':'图3-13：二、低位派发 下面这个例子是低位派发，这种派发没发生在顶部，而是发生在SOW之后。这种情况往往给人错觉，认为市场在做底（如上面的案例），但是在你做决定之前，要仔细分析其中的供求关系。在这个派发区间内，供应是否在枯竭，需求是否在大量吸收供应。',
+'images/5f387911a0aea20289e3f16195a4334956196c59741f941571b1fbf383e63478.jpg':'图3-14：看下面的图3-14。蜡烛4的上冲回落之后，价格出现了放量阴线下 挫，这是对上冲回落的肯定和跟随，说明供应超过需求。这再一次提醒抄底的公众，不能再心存侥幸，灾难很快到来。如果已经抄底，需要看到SOS来确认这个震荡区是吸筹，但是我们没有看到SOS，所以要及时离场。',
+'images/679a00af31b6ba7ad2d939b859dec35b5925a53403ff5a28172598649046dc6d.jpg':'图3-15：继续看图3-15。需求的匮乏导致价格最终破冰，然后价格急速下跌。如果你还没有出场的话，现在为时已晚。',
+'images/0a9ed89226a238bc601f78c04795608134e33447a6e780551b7b13060c544076.jpg':'图3-16：三、2015 年中国股指案例，观察 CM 的离场策略（制造临时支撑，引诱公众追高）',
+'images/27e7686ed55e1f3969806eef0b7345a0a148cc593bc0a6301ac622d032f9c999.jpg':'图3-17：6. 蜡烛 6 的成交量略有上升，但是关键的是它的收盘低于前一天，这 说明 CM 开始降价满足公众的需求（此时公众认为股票便宜，还在买）。这个是最重要的熊市信号，但是很容易被人忽视。 7. 蜡烛6~7的暴跌是SOW，特别是蜡烛7，放量突破了冰线。',
+'images/058b653f48837bd940e1b786cafe7f6e77de1efb4432ce022c3da57d221e4483.jpg':'图3-18：蜡烛 10 的放量下挫，是熊市的真正开始。它的含义和蜡烛 6 是一样的，CM 在开始降价派发。 四、没有抢购高潮的派发 很多时候，牛市不是以抢购高潮结束，只是蜡烛和成交量逐步递减，这种现象是需求耗尽。确认这种牛市结束的方法是市场上股票供应在价格回落中剧增。',
+'images/ef6660145e759212265ced3b222db37eae3554c15f67ff7a826651500306ae96.jpg':'图3-19：蜡烛 7~8: 这个情况和蜡烛 5~6 相似。价格急涨后，成交量和蜡烛在阻力区立刻缩小，然后是带量下挫（蜡烛 8）。蜡烛 9~10 的是更严重的放量下挫，这是供应剧增的现象。如果这是 SOW，接下来的应该有低量回升来确认 SOW。蜡烛 11 确认了 SOW。',
+'images/0a4d01451cac6fab02a5cce3f9041cc606b3ffc6ce2750696874c72e81044071.jpg':'图3-20：蜡烛2的情况和蜡烛1相似，只是成交量再次创新高。但是接下来蜡 烛2的增量卖盘没有出现被吸收的现象，反而出现卖盘的跟随，这是个比较严重的警告。蜡烛b是对蜡烛2的卖盘跟随。它告诉我们市场尝试着恢复牛市，但是供应的出现使这个尝试失败。',
+'images/b37ab5c9d17e59200248ad8d408f9bc91623667fe0f125f2db06f78038487263.jpg':'图3-21：六、这个案例，我们讨论市场自我否定行为',
+'images/98a4dfe83ec5172175ac875af6b60812182492e12d83393ca96c03831aaa6dca.jpg':'图3-22：右肩：属于测试阶段。如果是二次测试，测试过程必须是小成交量和蜡烛，表明需求耗尽，从而确认牛市结束。从右肩下跌时，可能出现SOW。或者当价格测试右肩的时候，出现上冲回落，表明供应强劲。 我们不能死记图形，应该在理解其背后供求关系。',
+'images/d16be76cda0837ba9177a3de4306151daf766364fefdc04f88a1625b1dc790ea.jpg':'图3-23：蜡烛 1 和 2 是成交量增加和上冲回落，说明初始供应出现。紧接着是蜡烛 3 和 4 的抢购高潮（放量新高）。蜡烛 5 是二次测试，没有低量测试说明测试成功，牛市可能终止。然后价格快速下跌。蜡烛 6 是个弹簧效应，足以看出抄底的很多。',
+'images/887f9b2b376524955baad0871fc640f3aeb7e9e9f254fb7b13452a2c5f1966a1.jpg':'图3-24：上冲回落的派发模式是比较特殊的一种，不是经常发生，但是一旦发生，是个很好的做空时机。如图3-23所示，牛市中出现了抢购高潮和自然回落，二次测试确认表明牛市终止，然后市场进开始形成震荡区。在震荡区右手边出现价格尝试突破阻力向上的现象。',
+'images/b9cde8b7f43a061bdcc3e4291cae3e79c83e51daea164b1dc15b23f15a53fe19.jpg':'图3-25：判断市场是否到顶以及在哪里开始做空，有几个步骤：首先判断牛市结束，其次判断供应增强和需求耗尽，再次确认派发已经发生。判断牛市接近终止，主要是看需求是否开始减弱。这里我们先用趋势线的方法盘趋 势的变化。我们使用的方法是 $50\\%$ 原则和突破幅度减小。',
+'images/b952ad477132ad8ecf7798a76fde2d541f4fffb44f9d26b087ba42fb44b82d72.jpg':'图3-26：十、派发和破冰案例（二） 判断这次牛市受打压，我们同样用 $50\\%$ 原则和突破幅度减小的方法。 我们知道当回调超过 $50\\%$ 的时候，行情看跌；当回调不到 $50\\%$ 的时候，行情看涨。这种方法要和其他市场行为结合才有效。',
+'images/dd5bb44f9a91971b88efbe44dd9a4b0dc855a4ae111c86a6364f581696935705.jpg':'图4-1：如果给 Spring 一个定义的话，就是价格迅速突破支撑，然后迅速返回支撑上方，它本身是个下跌走势的停止行为。',
+'images/e5d561172bf24802edfba8a03677c2c53bd1562d7ecf66d409eec40a215431cc.jpg':'图4-2：6. 如果在牛市中，连续出现失败的 Spring，说明市场行为有变化，这是个预警信号。 二、Spring 的种类 按照突破支撑的力度和成交量，我们把 Spring 分为三种。看图 4-2:',
+'images/3a6f0bf01db69f0e75dff9dc4cef05d6c056a2b9df7fbe4a6c49966208e1521f.jpg':'图4-3：一、上升中的 Spring 在牛市回调中，行情进入区间交易。蜡烛X是大量买单流入市场，并超过了卖单，导致强烈反弹。这种强势需求试图冲破阻力，准备好恢复牛市，但是蜡烛Y说明需求没有跟上，导致价格回到震荡区。',
+'images/d739f27b7fe9b34e970467f57be36760ed27606265319cf4fcd0f7c3d3d21862.jpg':'图4-5：Spring 之后（如图 4-4 所示），价格稳定上涨，说明需求保持强劲。虽然成交量没有明显增长，但是从不断出现的阳线上，我们知道成交量小，是缺乏供应所致，不是因为需求减弱。这个 Spring 是否失败还在于它能否把价格带出震荡区。',
+'images/6e8747b74656a1eea4ccaccd166921449c95ddf01780acd6bce8f7269191bff8.jpg':'图4-6：牛市中，我们经常看到价格强劲突破前高之后，然后回调形成区间交易。当价格突破这个区间的底部（支撑），有可能出现 Spring。但是有时冲底的时候成交量很大，说明有供应存在，面对这种情况，聪明钱耐心等待二次测试。',
+'images/7c58fe350de7c93d685e6462081e3adfb14638a4debe6adbd50d4269a6f76d6b.jpg':'图4-8：如图4-7所示，Spring之后，价格持续回升，并连续创新高。当价格回落到蜡烛3的时候，又出现一个Spring，成交量比较小，预示需求会再次把价格推高，我们在这里进场。',
+'images/d2d0b34d06a741cd66fed877bd410f89220d0b1bc3671977dda1522282ec4dcb.jpg':'图4-9：图4-8是美元期货2010年6月的小时图。图中蜡烛1突破支撑，形成Spring。从小成交量和小蜡烛来看，这是个不错的Spring，同时价格也回到了前期的支撑位置。假如在蜡烛1进场后期待回升。但是反弹后极低的成交量说明根本没有需求进来（没吸引到买单）。',
+'images/e19cf88bfec1cef6190622af700fa556ded0d8dd1f621f0a4e88e48a1fb54748.jpg':'图4-10：四、吸筹中的 Spring 测试',
+'images/8a0a7757be927627a8e64a49417a740814adc48cb592d4b95e73304e32fce718.jpg':'图4-11：后有剩余，或者说需求过剩。我们知道蜡烛9是下跌的终止行为，如果蜡烛9之后不是阳线，而是继续下跌，说明需求不够吸收供应，而使得供应有了剩余，或者说供应过剩（导致蜡烛9之后价格下跌）。',
+'images/0dae5b488513d93c066e1fdb607fa64f45fc530d7066075348720697bbccd67a.jpg':'图4-12：五、吸筹阶段的 Spring 从图4-12的左边开始，首先看0到1之间的小区间，其中0号柱已经给出卖盘提示，因为新高是上影线，伴随成交量扩大，说明价格的上涨遇到了卖盘，供应初次出现。',
+'images/4abf2ba42dd3f9680d3cd2847469ab3bf7a7daa6cdc5397b5a5ebfd7fde48f02.jpg':'图4-13：5号蜡烛：这是对Spring的测试，这次测试低成交量告诉我们供应耗尽，说明蜡烛3底部的支撑依然有效。如果单独看蜡烛2之后的走势，我们可以把最后的震荡区当成吸筹。',
+'images/1d7d226ad7e17bb9b5c4325e21dff095ad7a16a8b3698d681f6335250314d161.jpg':'图4-14：背景中有两个阴线的成交量很大，告诉我们市场背景是卖盘控制，这是 Spring 失败的前提。从蜡烛 1 到蜡烛 2 的上升，缩小的蜡烛和成交量说明没有需求进场。蜡烛 3 再次尝试向上突破失败说明供应大于需求。既然没有需求进场，市场的背景依然是卖盘控制。',
+'images/35e742b7ab4df3f6eaf19040434cc50524bce835822ef9eac2eef9ca85c109d0.jpg':'图4-15：七、窄幅盘整的 Spring 如图4-15所示，牛市中出现了窄幅盘整，按照常规，市场经过窄幅盘整之后，只要没有出现大量卖单，价格应该继续上涨。蜡烛1在盘整底部出现了Spring。',
+'images/508dca9164d4f8d93cde1eb3a0d89043046fbb225be0725dcd3d27de0376b1c2.jpg':'图4-16：图 4-16 是后来的走势，蜡烛 3 是回测 JOC 的突破点，这里应该是个进场点，特别是蜡烛 3 在支撑出现了 Spring 和终止行为（大量卖单流入，但是下跌没有进展，这是努力没产生结果，从图上看是高量对应小蜡烛）。',
+'images/6de8367cd7d057e9e144a212a313d18b6d9f4754f6286554ebc33b751ccefc40.jpg':'图4-17：蜡烛 5 的低收盘立刻拒绝了反弹，特别是这根阴线的成交量大幅升高，说明了市场上的供应剧增。这种现象不是我们所期待的，我们或者等待价格触发止损，或者立刻离场。这个案例再次提醒我们，在卖盘控制的市场背景下，抢反弹经常失败。',
+'images/36211daafd6a526f17b757d9412bc8fdd77c2f75e9b3692c99a7979ba17a2356.jpg':'图4-18：八、卖盘背景下的 Spring 会失败 如图 4-18 所示，底部吸筹过程结束之后，市场背景是牛市。JOC 之后，市场急速上涨中，遇到大量高抛卖盘以及跟随，导致价格开始回落。在回落过程中，卖盘的力量依然大于买盘（这个可以从回的低量和无力看出）。',
+'images/b00dcc361ca895fcf34f8fdefa35d57ef99fe99361e13dcc2334c4cfbaaacd37.jpg':'图4-19：图4-19是行情接下来的发展，蜡烛5尝试反弹，但是缩小的成交量 告诉我们没有需求，导致蜡烛6放量下挫。因此我们放弃了进场计划。',
+'images/3859f28450dbd63dbe4bb5db83fcc8e657c09aca75d8852cf07ac8620802acf8.jpg':'图4-20：九、熊市背景下的 Spring',
+'images/0a3c312a1c695cf2d5ff96bb6b45f2612ba87f8fd85c21ab4b9a743977e8f1e6.jpg':'图4-21：蜡烛 2 是 Spring 的跟随，因为它收于高位，成交量剧增说明反弹已经吸引了大量买盘。蜡烛 3 的过程是这样的：开盘后价格下探，然后大量买盘涌入把价格推向高位，这样剧增的买盘应该把价格推得更高，但是突破幅度不大，上涨遇到了供应。',
+'images/fdb49c7ee71c1cbf78896e04992fee4a1c90a42ba9a3e84a9078c1dfeb102a69.jpg':'图5-1：当我们看走势图的时候，观察方法应该深入到价格背后，而不是表象。对市场的判断，首先要有理论基础，当我们在图上找到使理论基础成了价量关系的时候，就形成了判断。比如突破阻力的理论基础是：阻力上的任何卖盘（包括非常有威胁的卖盘）都被需求全部吸收，并且需求占上风。',
+'images/be201e92d5742fc32bfcddb375eaa019600ac961abed2fe16b95aee48840c09e.jpg':'图5-2：b. 跌幅缩短，供应开始减少，需求乘机进入。 但是无论哪种情况，我们都要看到需求扩大。即使价格跌幅缩短，供应开始减少，如果没有大量需求进入，趋势还是不会反转。',
+'images/736d0390b9ceb05dd71f1ef503f2ebcecf03492786cf3ef5daf218e633347d15.jpg':'图5-3：危机管理：如果接下来说日线是阴线，而且成交量增长，这是供应恢复了力量，无论当时是否亏赚，一定出场。 图二：供应背景下的无需求反弹交易法 价格上涨说明需求大于供应，但是如果上涨发生在供应控制的大环境下，我们必须看到超过供应（大环境下的供应）的需求出现，...',
+'images/8e69965e872f3bc0a829ef971c4ee332b6340cc6f562499934294a81a913a451.jpg':'图5-4：它是停止行为，低量说明需求不足，上影线说明卖盘轻易把价格压下来。蜡烛C是停止行为的跟随，表明供应继续控制市场，支撑线会失效。 交易计划：在支撑线上出现无需求反弹是非常危险的，现在关键点已经转移到A之后的回调。',
+'images/ed3a3528731573c7f20f2644f1cd0560ef31252ca9962e70a20c4c697aeee3f1.jpg':'图5-5：图四：JOC，上升通道，支撑上的无力反弹（无需求反弹交易法） 如图 5-5 所示，黄金处于上升轨道背景，价格上升中出现 JOC（跳离区间），特点是扩大的成交量和高低价差，这是进场预备信号，如果出现 低量回测或者价格没有出现大幅下跌的情况，我们可以买入。',
+'images/989152be83cc37c3a345301dcff97a1d7ecf44d57b8272e277dd115814ba47b5.jpg':'图5-6：危机管理：如果在支撑线买入，我们希望看到强势特征（连续的上涨伴随成交量递增），那样告诉我们支撑上的需求愿意接收供应。因为目前市场处于供应大于需求的局面，所以必须有强劲需求进入才能吸收供应并扭转局面。',
+'images/9c18bb1eec4ff0ac75ebcb45715a40911cd70f63d75cf882ad88eb2d5f5eb1ba.jpg':'图5-7：图六：需求背景下的 50% 回调 我们先看图5-7，仔细分析后面会怎么走，你的判断依据是什么？需要考虑的因素是： 市场大背景，哪里画线，需求和供应扩大的位置，停止行为在哪里……',
+'images/89733dd80184b4cf0d55c2125f1fc816f4816766f15d3b3246a9cd3ac143c8e5.jpg':'图5-8：下面是我的观察和分析： 如图 5-8 所示，蜡烛 D 同前一天相比，高低价差大幅缩小，但是成交量在扩大，这是停止行为，价格上涨因供应扩大而遇阻，这是个危险信号。停止行为经常导致价格回落，如果回落是阴线伴随扩大的成交量，属于对停止行为的跟随，价格会继续下跌。',
+'images/9e08c71973385402243ed9d4e1b45c8cb0983eff8e8157e850d287c3ae08f1f5.jpg':'图5-9：交易计划：从 E 的无量回调，说明需求还没上来，但是如果接下来又卖盘跟随，而且成交量扩大，说明供应扩大，我们应该放弃买入的计划。如果 E 之后的回调还是小蜡烛伴随小成交量，我们可以在 CD 的 50% 进场。',
+'images/9a592bdf93dc3c8c647f488ff5614de9951cd103a0d90e1d8f9ffb13ebf7f959.jpg':'图5-10：第三支撑是1~3的50%位置：如果下跌超过50%，熊市恢复。 图八：SOT，停止行为交易法 如图 5-10 所示，蜡烛 1 反弹突破了供应线，需求克服供应，随后的 2 根蜡烛线价格继续上涨，这是强势特征，唯一的缺点是阳线长度在递减，这是 SOT，属于停止行为，...',
+'images/3f2c0958d2667b8f229111091f9f316bc8206624ba3b348ce299f60946332915.jpg':'图5-11：危机管理：如果上涨至阻力位置的过程是成交量和高低价差都很小，说明蜡烛2和3的行为没有能吸引到更多的需求进场，那么我们立刻离场。 图九：震荡区 这个是裸图，大家先自己分析下行情，然后预测下一步怎么走？先问自己，这个趋势是什么？',
+'images/b8ed5ee3272d246ae0ea42c2ebedf279de6f02fcde7aba6bb0addd969ccc2c66.jpg':'图5-13：如果在阻力位（供应区）出现带量阴线，说明供应再次扩大，那样的话，熊市可能会继续，我们会放弃做多计划，等待机会做空。 图十：震仓的作用 如图 5-13 所示，蜡烛 1 突破阻力立刻返回，这是上冲回落（UT），典型的供应进入市场表现。',
+'images/4e733c00e70aaf0eab879e0ee4c0160fd1f6779736e01e08ff9b20ce6c01252c.jpg':'图5-14：行情展望：价格会继续创新高，如果价格出现小幅回调，可以进场，第一阻力是蜡烛1的供应区。 图十一：如何分析支撑上的供求关系 图5-14中背景是牛市，现在处于回调中，价格正在测试支撑。支撑的形成是因为蜡烛7是垂直需求柱。',
+'images/b7cc13732ba323cee438ef1b25cf2c991c8a279e867a9745ea9ad8835ad522eb.jpg':'图5-15：危机管理：进场后，我们吸引看到连续的上涨，并伴随递增的成交量，即使出现再次测试，我们吸引看到小蜡烛和小成交量。但是一旦出现相反的行为，我们立刻出场。 图十二：如何分析阻力上的吸收行为 先看图5-15，不看下面的解释，自己先分析未来的走势。',
+'images/45d60ca39feb520eed73e20f0eb44c4db21a1794240f419423a4c0221742d8da.jpg':'图5-16：蜡烛 3 大幅下跌并吞没蜡烛 2，成交量扩大，供应大量涌入市场，追高的公众在低价位得到满足。但是 3~4 的下跌速度反映出超卖行情，我们知道超卖之后价格至少有个反弹。',
+'images/67c9399359bcc11c441b1fae7f63c7af8878a6c6a7c07f5feb2b44a7c5bc55dd.jpg':'图5-17：很多人热衷于利用解读消息来选股，这种方法有点像赌桌上的猜大小。要知道主力机构的行为影响着市场的走势。他们凭借资金优势，有能力提前得到消息。',
+'images/46fb4969ea01fdda2e52bdc9defc3cf941cc60077e72bc21fcc9df3c9a078836.jpg':'图5-18：在 1 和 1a 的位置，个股和大盘都创了新低。回升后，看价格回落幅度 2 和 2a，大盘回落接近 50%，但是个股回调仅仅 30%，说明个股强于大盘。同样 3 和 3a 相比，个股强于大盘。',
+'images/8ec2853ee94049028d1b024056745adc33b2a9a468455cdf8aa834f306dea546.jpg':'图5-19：危机管理：价格无量回落是我们期待的行为，如果出现放量阴线回到区间内的情况，我们立刻离场。 图十四：如何判断回测是否成功 我们看到非常明显的JOC（跳离震荡区）出现，吸筹结束，CM已经撤掉阻力并允许价格上涨。下面要等的就是无量回测，然后进场。',
+'images/20dde5bb35cfeed8ab48a10a936059c09ee48480d76e9da5df1aad1b2f37b12d.jpg':'图5-20：交量，这是需求匮乏，立刻离场。 图十五：这个对做短线很有帮助 图中市场背景是牛市后形成震荡区间（简称 TR），每次价格触及阻力位后放量下跌，这是阻力位的供应开始扩大的现象，我们的第一感觉是价格会回到震荡区的底部，顶部供应很强劲。',
+'images/71450b65b089a426b4529f55e6112163e1c9c9acaac0584858ed77100811890a.jpg':'图5-21：交易计划：综合以上风险，我们更倾向市场在进行再吸筹，不是派发。如果认为蜡烛5那波是震仓，我们在阳线后轻仓进场，止损放在蜡烛4的下方低一点的位置，然后看市场是否对震仓有成功的低量测试。',
+'images/390c9bbf5b6212e511b962ecc590e95dc40bcb5fe614af1c5f96f002c2be3185.jpg':'图5-22：危机管理：如果回落 JOC 跳离点的时候是高量阴线，我们继续等新的二次测试。如果新的二次测试还是高成交量的阴线，我们放弃进场计划。 图十七：阻力上出现供应后，跟随很重要 先看图5-22，价格回到阻力区，下一步是上还是下，如果做准备？',
+'images/a713211d25657f03def2eef98eb80e03a7a5aa2b2b9a0505f9676727313648b9.jpg':'图5-23：交易计划：如果有卖盘跟随蜡烛2，而且成交量继续扩大，说明供应开始扩大，导致价格下跌，我们可以在反弹时做空。相反，如果明天没有跟随，说明供应没有扩大，如果出现反弹立刻拒绝蜡烛2的下跌，说明新的需求吸收了全部的供应，我们可以进场。危机管理是不能再次出现放量阴线。',
+'images/8e3590beac80206b39180e86e3e71231b85ce4f829605bbcaa86c8e7f4893c87.jpg':'图5-24：3. 价格是否处于超买状态（突破超买线）。 市场背景是牛市，看方框内部蜡烛，贴着需求线小幅波动，但是没有任何反弹，从这点能看出需求匮乏。一般需求匮乏将导致价格回调，但不 一定导致趋势反转。要想使牛市变为熊市，我们必须需要供应扩大。',
+'images/986bd0085f9905ec3050fd1098b2b6779992ad7d82cd6bd49c3fe080a5def17d.jpg':'图6-1：更多分析案例请登录 www.duoshou108.com 观看视频课程。',
+'images/c7a20231a5e0cac39d8d2ac470e68b5c933509ae0b1370d4a85180f5d61d2de0.jpg':'图6-2：进入需求主导的牛市。我们看到，每次JOC后（F和G），价格的回调力度都小于上涨力度，这是需求控制市场的体现。从日线上看，吸筹阶段不明显，类似V型反转，因此小时图的重要性就体现出来，它可以让我们看到清楚的吸筹阶段。',
+'images/32ef717055641eba6447d60ea4fe825fdb4a5266ca0469bb180cc3dbc59b5561.jpg':'图6-3：图6-3是走势的延续，蜡烛E的迅速带量反弹，证明了前面的长阴是震仓，买方希望需求继续控制市场，但是E之后的两天成交量急速下跌，说明需求的后续力量没有跟上。此时买方的希望就放在接下来的回调上了，如果是低量回调，说明卖盘稀少，价格会继续涨，否则价格会继续跌。',
+'images/3e040916c752875e82f41531b1e9fe56ee351b0fd339e14a5634cf33f6060080.jpg':'图6-4：在冰线出现卖盘跟随（X后面一根），确认了SOT的停止行为。',
+'images/86fc7b0a28f71ba9bbb06f1199348ab9fc691acd241c583cbec09dff171a1439.jpg':'图6-6：蜡烛 2，价格回到了 JOC 的支撑位，这是我们需要仔细观察的关键位置，因为我们可能会在这里进场。但是其成交量很大，说明供应没有枯竭，不符合我们的进场要求，我们要耐心等二次测试。蜡烛 2 之后的反弹非常虚弱，这给我们决定是否进场造成障碍，因为我们没有看到需求。',
+'images/0deed18b312b7afaf11837def968f749f6e8412bf7c1f916e19274f0df9e5e03.jpg':'图6-7：蜡烛 4 是新的二次测试，小成交量告诉我们没有卖盘扩大的现象，目前持仓安全。第二天的阳线是测试的结果，说明需求在底部吸收了供应并占上风。从蜡烛 4 起来的反弹突破了最新的下降趋势线，既巩固了蜡烛 4 的支撑，又说明需求超过了供应。',
+'images/3369c20ccc41b327b675f9e64b6e54be0a849458e0306b8d500b51cfceb9800f.jpg':'图6-9：蜡烛 10 反弹这波是 SOS，后面的低量测试确认了 SOS。市场依然处于牛市。 如图 6-9 所示，蜡烛 E 之后，价格没有继续回调，而选择立刻上扬，说明需求吸收了短暂供应后继续恐慌市场，如果进场，可以在 E 之后蜡烛进场。',
+'images/5be31fd6f54013820a1c4615c005b0ac0e889c8b9b4c97639af4dc47d7dd983e.jpg':'图6-10：蜡烛 3 之后，价格进入调整，回调蜡烛的收盘价全部在蜡烛 3 的低点之上，其中有一次有危险的阴线下探，被需求立刻阻止。说明这个调整属于吸收阶段。同时，在蜡烛 3 的 50% 位置出现 Spring，这是进场点。',
+'images/17e2e201e3afc6edb2512cab83b3c7c685b183dca6788d3f7d3b7b8b9252522a.jpg':'图6-12：蜡烛 5 是回测，但是成交量很大且收盘在低位，表明供应仍然比较大，还需要一个二次测试来确认供应萎缩。但是从蜡烛 5 起来的反弹，成交量递减，这是个警告，表明反弹过程需求匮乏，这不是牛市的特征，这里应该减仓或出场，如果向下突破死角，则平仓。',
+'images/34c7be0d87f45a6571694ee4acbb676689d9d2b84014387a722a8cd4c62ee6b3.jpg':'图6-13：后续走势，我们没有看到小幅回调，失去了进场机会。价格回升到供应区，没能吸引大量需求进入，导致供应再次进入，如图6-13所示，当价格再次回到阻力区的时候，大量卖盘充斥市场，导致价格下跌。',
+'images/400484116cfa61c928a8bc9dc6e303d13b550711610403c68c3d49e2202a56fa.jpg':'图6-14：如图 6-14 所示，蜡烛 12 是成功的二次测试，证明下跌趋势终止。从',
+'images/83eeaa63b4bca497ef82cf531429656b4db774539f141332f312c63bdf03588b.jpg':'图6-15：CM 的角度讲，蜡烛 12 说明他们在故意压价来引诱空方，但是低成交量说明空方没进入，导致价格恢复上涨。蜡烛 12 之后价格出现带量上涨，说明蜡烛 12 吸引了买盘跟随，也说明二次测试的结果是需求强劲，价格会继续上涨。',
+'images/02a56a406324d4b5b85ab1a6a8736d9db105ecad867407aee352bffd1fd722c8.jpg':'图6-16：如图 6-16 所示，蜡烛 6 之后，卖盘有跟随。接下来的反弹没有过 50%，根据威科夫 50% 原则，市场继续看跌，这是个做空点。第二个做空点在破冰后回测冰层位置。',
+'images/8914c5119e9ad39e8cffc04a0e78a1de344bdb665c81020e8cf36c66245c4a8f.jpg':'图6-17：蜡烛 d 是 JOC 回测，可以进场，然后出现连续的阳线，特点是更高的最高价、最低价和收盘价，这是牛市特征，确认了我们的进场。如果没有这种情况出现，价格可能进入横盘整理阶段（我们等待下一个 JOC 和回测再进场）。',
+'images/f7825d6f0683a372078480fd9cce5f1056e7f89e24f6c8ed343538f3ee2cdc28.jpg':'图6-19：如图 6-18 所示，蜡烛 2 是测试结果：需求大于供应。蜡烛 1 本身有停止行为的倾向，因为它的成交量并没有减少，说明卖方在努力，但是缩小的高低价差和收在支撑之上，说明卖方的努力没有成功，从这方面我们看出支撑附近的需求依然很大，...',
+'images/8add9ef8ceb12ea41d9b3e7d3a1eca13d0a07a5509feda72b33f4b0ddb628996.jpg':'图6-20：量\uff09，这是个威胁，关键是接下来的回落中供应的力度，如果供应耗尽，我们可以进场，否则必须等待新的机会。 蜡烛8之后，价格回调，成交量没有扩大说明供应没有出现，需求还是占上风，可以进场。',
+'images/6276536a891bafa8de23182d70af33a586b0e1ece3ea9d6fc2b55302b07bec61.jpg':'图6-21：蜡烛2没有卖盘跟随。蜡烛3的成交量超过蜡烛2，有更多的需求在吸收集盘。 蜡烛 3 之后的反弹乏力，让我们开始怀疑开始的判断，因为这种供应出现后的无需求反弹会导致价格继续下跌，目前价格的回落过程和二次测试决定着价格是否继续下跌。',
+'images/1cb5987d3c3abae15c5bd84b85f84e5ddb0cfe8602f0c5710d6066562a3aabe9.jpg':'图6-22：目前为止，市场处于关键阶段，但是从蜡烛3起来的走势中，下跌幅度明显小于上涨幅度，说明供应在耗尽，需求在保持力量。如果出现放量下挫的情况，是对蜡烛2的跟随。蜡烛4之后的阳线收盘高于蜡烛4，说明需求吸收卖盘后继续控制市场，导致JOC出现。',
+'images/65f0372e748d3338d4dc0f85a50438640c5ecab8919fb11030a73a96ec6861df.jpg':'图6-23：下面的图 6-23 是接下来的走势。',
+'images/5730a3a0b28673f58db10d9688439b19c8012609ea9538c61a52f4a348f37ae1.jpg':'图6-24：价格迅速跌破蜡烛 1 和蜡烛 2 处的支撑，有些超卖的味道。随后市场继续下跌，蜡烛 6 是前期支撑处的 Spring，是下降停止行为（也是小型抛售高潮），我们需要二次测试来观察后续市场的供应是否缩小或衰竭。',
+'images/e30d376c59f87f030af5166caddd13b7779b0d8bf9f92d5eea18518efea1988b.jpg':'图6-26：如图 6-26 所示，在到达第一目标后有停顿，停顿期间连续的高成交量说明供应依然强劲。市场并没有改变当前的熊市背景。我们说过，要想熊市背景转变，必须看到需求柱，此图中并没有出现需求柱。相反，经过一段时间的停顿后，市场在供应的控制下，价格大幅度下跌。',
+'images/653f433aafd472dfad209fb9cbfa94a103c930bea94b7758196489d3efbb6d07.jpg':'图6-28：如图 6-27 所示，SOS 后测试结果是阳线出现，表明需求继续控制市场，可以进场。接下来出现 JOC，确认了我们的进场。在回测 JOC 的时候，我们有了新的进场点。 蜡烛 2 后面需求进场，价格上扬，我们可以进场，接下来的连续上涨确认了我们的进场。',
+'images/59f9a01e3633030919c1482d75ffc29bcebf04912864e3d4a8e44fbbd8a34fe1.jpg':'图6-30：Spring 之后，出现增量阴线，这个阴线不仅下跌突破了震荡区，而且也跌破了上升趋势线（需求线），需求没有恢复力量，我们不能行动。如果后面出现反弹并突破跳空柱的时候，说明需求战胜供应，我们可以进场。 这个例子再次证明在卖盘控制的背景下，Spring 经常失败。'
+};
+const concepts=[
+{t:'CM',f:'Composite Man (大资金/主力)',d:'代表市场中的大资金操盘手，利用雄厚资金操纵短期价格波动和走势，引诱公众犯错。'},
+{t:'Spring',f:'弹簧效应/下冲反弹',d:'价格短暂跌破支撑后迅速回升。CM制造Spring的目的是收购恐慌抛售的股票，评估支撑附近供应数量。'},
+{t:'JOC',f:'Jump Over Creek (跳离震荡区)',d:'价格放量跳出震荡区间。吸筹结束进入牛市的标志，回测JOC是重要进场点。'},
+{t:'SOS',f:'Sign of Strength (强势出现)',d:'需求强劲的信号，带量上涨突破阻力。是吸筹第四阶段进入牛市的标志。'},
+{t:'SOW',f:'Sign of Weakness (弱势出现)',d:'供应增大信号。派发确认阶段的关键行为，预示熊市即将开始。'},
+{t:'SOT',f:'Shortening of Thrust (突破幅度递减)',d:'上涨波突破幅度逐渐缩小。说明需求减弱或供应压力增大，是牛市到顶的预警。'},
+{t:'UT',f:'Upthrust (上冲回落)',d:'价格短暂突破阻力后回落。派发阶段CM利用假突破引诱公众追高接盘。'},
+{t:'OKR',f:'Outside Key Reversal (反转柱)',d:'一根蜡烛完全包含前一根，表示市场行为转变。在阻力位出现是反转信号。'},
+{t:'冰线',f:'Ice Line (CM设立的支撑)',d:'CM为高位派发设立的支撑位。派发完毕后撤去防守，冰线突破意味着旧趋势终结。'},
+{t:'TR',f:'Trading Range (震荡区)',d:'价格在一定范围内横向波动。吸筹和派发都在震荡区内完成。'},
+{t:'供应',f:'Supply (卖盘力量)',d:'来自卖方的力量。表现为阴线和扩大的成交量，推动价格下跌。'},
+{t:'需求',f:'Demand (买盘力量)',d:'来自买方的力量。表现为阳线和扩大的成交量，推动价格上涨。'},
+{t:'吸筹',f:'Accumulation',d:'CM在低位大量买入股票的阶段。经历初次支撑→恐慌抛售→自动反弹→二次测试→吸筹→JOC→牛市。'},
+{t:'派发',f:'Distribution',d:'CM在高位卖出股票的阶段。经历初始供应→抢购高潮→自然回落→二次测试→UT/SOW→破冰→熊市。'},
+{t:'停止行为',f:'Stopping Action',d:'趋势即将改变的信号。包括SOT、Spring、恐慌抛售等。停止行为后需要"跟随"来确认。'},
+{t:'二次测试',f:'Secondary Test',d:'对关键价位的再次测试验证供需。低量二次测试确认供应枯竭；高量则需继续等待。'},
+{t:'恐慌抛售',f:'Selling Climax',d:'公众因恐惧大量抛售。超长阴线+超高成交量。CM接盘产生的需求使下跌停止，是熊市终止的关键步骤。'},
+{t:'自动反弹',f:'Automatic Rally',d:'恐慌抛售后的正常反弹，常是空头回补。不能在此抄底，需等二次测试。'},
+{t:'初次支撑',f:'Preliminary Support',d:'熊市中CM提前介入阻止下跌。熊市终止的第一个步骤，需求首次大规模进场。'},
+{t:'震仓',f:'Shakeout (终极Spring)',d:'CM故意制造急跌恐吓散户割肉。吸筹接近尾声时扫清最后浮动供应的手段。'},
+{t:'抢购高潮',f:'Buying Climax',d:'牛市顶部公众疯狂抢购。CM利用公众热情大量出货，是派发开始的标志。'},
+{t:'50%原则',f:'50% Principle',d:'回调50%以内=趋势未受威胁。超过50%=趋势减弱。结合成交量判断。'},
+{t:'死角',f:'Apex (三角收敛)',d:'趋势线和阻力线交叉点，供求相持。任一方稍作努力就会剧烈突破。'},
+{t:'跟随',f:'Follow-through',d:'关键信号后的确认行为。没有跟随的信号不可靠。是验证市场真实意图的关键。'},
+{t:'无需求反弹',f:'No-demand Rally',d:'低量小蜡烛反弹。买方不积极，在供应背景下导致继续下跌。'},
+{t:'Bag Holding',f:'接盘/大口袋接',d:'CM在底部大量接收散户抛出的股票。表现为缓慢下跌伴随持续大成交量。'},
+{t:'努力vs结果',f:'Effort vs Result',d:'核心分析原则。大成交量(努力)应产生大价格变动(结果)。努力没有结果=反方向力量在吸收。'},
+{t:'因果关系',f:'Cause and Effect',d:'震荡区(因)的时间和幅度决定后续趋势(果)的幅度。长时间吸筹=大牛市。'}
+];
+
+const CH0=[
+{id:'p1',t:'用市场自身行为判断走势',c:['CM','供应','需求'],q:'为什么技术指标会导致公众亏损？',
+pts:['价格波动反映参与者的动机和行为，其中包括可以操纵短期走势的大资金','指标无法分辨价格背后的陷阱，只根据表象产生信号','必须掌握市场本质(第二层面)来甄别表象(第一层面)的真伪','掌握操纵者的行为习惯，以不变应万变'],
+quiz:{q:'市场表象(第一层面)包括什么？',o:['CM的真实意图','价格、成交量和技术指标','供求关系','吸筹过程'],a:1}},
+{id:'p2',t:'主力机构的行为习惯和手段',c:['CM','吸筹','派发'],q:'CM操纵市场的核心手段有哪些？',
+pts:['CM的基本行为模式：低价吸筹→拉升→高价派发→做空打压→再低价吸筹','操纵手段：制造假突破、控制消息面、利用公众的贪婪和恐惧','CM需要公众参与才有利润来源，没有公众则无"剪羊毛"对象','面对CM必须了解市场自身行为规律，用供求关系分析真实意图'],
+quiz:{q:'CM的基本循环模式是什么？',o:['追涨杀跌','吸筹→拉升→派发→打压→再吸筹','随机交易','跟随指标'],a:1}}
+];
+
+const CH1=[
+{id:'1-1',t:'聪明钱的看盘顺序',c:['CM','供应','需求'],q:'专业交易员看图的正确顺序是什么？',
+pts:['五步看盘法：背景→价量形态→形态性质→结论/预测→措施/行动','背景决定一切：先判断当前处于牛市/熊市/震荡的哪个阶段','价量形态分析：蜡烛长度、成交量高度、变化速度','小蜡烛小成交量回调=供应未进入=价格会继续上涨'],
+quiz:{q:'聪明钱看盘的第一步是什么？',o:['看技术指标','分析背景','画趋势线','计算均线'],a:1}},
+{id:'1-2',t:'供求关系主导趋势',c:['供应','需求','停止行为'],q:'供求关系如何决定价格方向？',
+pts:['需求>供应=价格上涨(牛市)；供应>需求=价格下跌(熊市)','上涨趋势：阳线力度>阴线，上涨波成交量>下降波','下跌趋势：阴线力度>阳线，下跌波成交量>上涨波','趋势改变需要对立力量扩大的证据'],
+quiz:{q:'牛市中哪种现象表明趋势健康？',o:['阴线大于阳线','上涨波成交量和力度大于下降波','成交量持续缩小','价格横盘不动'],a:1}},
+{id:'1-3',t:'支撑和阻力的供求应用',c:['供应','需求','停止行为'],q:'如何用供求关系判断支撑/阻力的质量？',
+pts:['不是所有支撑都能进场——必须看供求关系确认','支撑有效：需求进入超过供应(放量止跌+反弹)','支撑失效：供应超过需求(放量突破+无力反弹)','阻力被突破：需求吸收了阻力上的供应(高收盘+放量)'],
+quiz:{q:'支撑有效的供求关系证据是什么？',o:['价格碰到支撑就反弹','放量止跌后需求超过供应','成交量消失','蜡烛变短'],a:1}},
+{id:'1-4',t:'如何识别供应和需求扩大',c:['供应','需求','恐慌抛售','抢购高潮'],q:'供应或需求扩大时有什么价量特征？',
+pts:['需求扩大：放量长阳、连续阳线递增成交量、恐慌抛售后的接盘','供应扩大：放量长阴、连续阴线递增成交量、抢购高潮后的出货','恐慌抛售=熊市中需求扩大的标志(CM接盘)','抢购高潮=牛市中供应扩大的标志(CM出货)'],
+quiz:{q:'恐慌抛售在供求关系中代表什么？',o:['供应扩大','需求扩大(CM接盘)','供求平衡','市场休市'],a:1}},
+{id:'1-5',t:'因果关系',c:['因果关系','TR','吸筹','派发'],q:'震荡区的"因"如何决定趋势的"果"？',
+pts:['震荡区(因)的时间长度和价格幅度决定后续趋势(果)的幅度','长时间吸筹=后续牛市幅度大；短时间吸筹=牛市幅度小','因果关系帮助设定价格目标','没有充分的"因"(吸筹/派发)就没有持久的"果"(趋势)'],
+quiz:{q:'长时间的吸筹震荡区意味着什么？',o:['熊市继续','后续牛市幅度大','市场不活跃','应该做空'],a:1}},
+{id:'1-6',t:'努力和结局关系',c:['努力vs结果','供应','需求'],q:'什么是"努力没有结果"？',
+pts:['努力=成交量(买卖双方的投入)，结果=价格变动','大成交量应产生大价格变动——这是正常的努力有结果','大成交量但价格没按预期方向移动=努力没有结果=反向力量在吸收','例：大卖盘(努力)但价格不跌(无结果)=需求在吸收供应'],
+quiz:{q:'放量下跌但价格跌幅很小，说明什么？',o:['供应强劲会继续跌','需求在吸收供应(努力没有结果)','市场不活跃','应该追空'],a:1}}
+];
+
+const CH2=[
+{id:'2-1',t:'熊市终止的四个步骤',c:['初次支撑','恐慌抛售','自动反弹','二次测试'],q:'从理论上讲，熊市是如何终止的？',
+pts:['四步终止：初次支撑→恐慌抛售→自动反弹→二次测试','初次支撑：CM需求首次进场阻止下跌(如巴菲特买高盛)','恐慌抛售：超长阴线+超高成交量，CM接盘产生持久牛市基础','二次测试：成交量大幅缩小证明供应耗尽=熊市终止确认'],
+quiz:{q:'确认熊市终止的关键步骤是什么？',o:['价格反弹','技术指标金叉','成功的二次测试(量缩)','出现一根大阳线'],a:2}},
+{id:'2-2',t:'停止行为',c:['停止行为','供应','需求'],q:'什么是停止行为？它有什么意义？',
+pts:['停止行为=趋势改变的第一个信号','表现：高成交量伴随缩小的蜡烛(或下影线)','含义：一方的努力被另一方吸收，推进被阻止','停止行为后必须有"跟随"才能确认趋势真正改变'],
+quiz:{q:'停止行为之后必须看到什么才能确认？',o:['更多停止行为','有跟随(后续确认)','成交量消失','价格横盘'],a:1}},
+{id:'2-3',t:'吸筹过程与CM的疲劳战术',c:['吸筹','CM','TR'],q:'CM在吸筹阶段如何迫使公众割肉？',
+pts:['吸筹=CM在底部大量买入便宜股票的过程','CM制造极其萧条的市场背景，让公众因绝望而割肉','疲劳战术：长时间横盘消磨公众耐心','吸筹过程中供应逐渐减少，需求逐渐增加'],
+quiz:{q:'CM使用疲劳战术的目的是什么？',o:['让价格快速上涨','消磨公众耐心迫使其割肉以买入廉价股票','吸引更多公众入场','制造牛市假象'],a:1}},
+{id:'2-4',t:'吸筹确认：SOS与JOC',c:['SOS','JOC','吸筹'],q:'什么行为标志着吸筹结束牛市开始？',
+pts:['SOS(强势出现)：放量突破阻力，需求强劲表明吸筹接近尾声','JOC(跳离震荡区)：价格放量跳出TR，背景改变的确认','JOC之前CM会试探阻力(吸收行为)，高收盘=阻力供应被吸收','JOC后低量回测=最佳进场点'],
+quiz:{q:'JOC后的理想回测是什么样的？',o:['放量大阴线','小成交量小蜡烛','无任何回测','跳空下跌'],a:1}},
+{id:'2-5',t:'震仓：特殊的Spring',c:['震仓','Spring','CM'],q:'震仓与普通Spring有什么区别？',
+pts:['震仓=吸筹接近尾声时CM制造的终极Spring','目的：扫清底部最后的浮动供应，恐吓公众割肉','特点：突破支撑时成交量大幅扩大(大口袋接盘)','震仓后必须有二次测试确认供应耗尽，才能进场'],
+quiz:{q:'震仓发生在吸筹的什么阶段？',o:['最初阶段','接近尾声','牛市中','派发阶段'],a:1}}
+];
+
+const CH3=[
+{id:'3-1',t:'牛市到顶预警：SOT与50%原则',c:['SOT','50%原则'],q:'哪些现象暗示牛市可能到顶？',
+pts:['SOT(突破幅度递减)：连续上涨波的突破幅度越来越小=需求减弱','50%原则：回调超过上涨的50%=趋势减弱，供应在扩大','两者结合使用：SOT+回调超50%=牛市暂停，可能进入派发','一旦趋势线(支撑线)被突破=供应超过需求，必须离场'],
+quiz:{q:'SOT(突破幅度递减)反映什么市场状态？',o:['需求持续强劲','需求减弱或供应压力增大','供应枯竭','CM在吸筹'],a:1}},
+{id:'3-2',t:'派发过程：从高潮到出货',c:['抢购高潮','派发','CM'],q:'CM的派发过程经历哪些阶段？',
+pts:['第一阶段：初始供应→抢购高潮→自然回落→二次测试(停止上涨)','第二阶段：UT(上冲回落)+SOW(弱势出现)确认派发','抢购高潮：CM利用公众疯狂时大量出货，长阳放天量','CM建立"冰线"作为出货时的临时支撑，引诱公众在支撑上追高'],
+quiz:{q:'抢购高潮时谁在买谁在卖？',o:['CM在买公众在卖','CM在卖公众在买','双方都在买','双方都在卖'],a:1}},
+{id:'3-3',t:'UT、SOW与冰线突破',c:['UT','SOW','冰线'],q:'派发确认阶段的关键行为是什么？',
+pts:['UT(上冲回落)：假突破阻力引诱公众追高，然后迅速回落','SOW(弱势出现)：价格跌破支撑，供应开始主导市场','冰线=CM设立的出货支撑。破冰=CM派发完毕不再防守','破冰后价格深度下跌，因为没有CM力挺=没有重要需求'],
+quiz:{q:'冰线被突破的深层含义是什么？',o:['暂时调整','CM派发完毕，旧趋势终结','需求增加','震仓行为'],a:1}},
+{id:'3-4',t:'2015年A股派发案例',c:['派发','CM','抢购高潮','冰线'],q:'2015年A股崩盘中CM使用了哪些手段？',
+pts:['急速拉升制造疯狂(抢购高潮)，媒体配合制造"牛市永恒"假象','CM在高位设立冰线支撑，引诱公众在"回调买入"','公众满仓后需求耗尽，CM撤去冰线防守','破冰后公众恐慌踩踏，价格雪崩'],
+quiz:{q:'CM在派发阶段制造冰线的目的是什么？',o:['保护散户','引诱公众在支撑上持续追高接盘','增加自己的持仓','稳定市场'],a:1}}
+];
+
+const CH4=[
+{id:'4-1',t:'Spring的定义与核心意义',c:['Spring','停止行为','CM'],q:'Spring对CM和交易者分别意味着什么？',
+pts:['定义：价格迅速突破支撑后迅速返回支撑上方，是下跌的停止行为','CM的目的：收购恐慌抛售的股票+评估支撑附近供应数量','交易意义：Spring后供不应求持续=进场正确；遇到强供应=立刻离场','大卫维斯："懂得使用Spring和UT可以让我们以交易为生"'],
+quiz:{q:'Spring后如果遇到强大供应应该怎么做？',o:['继续持有','加仓','当机立断离场','等待更多信号'],a:2}},
+{id:'4-2',t:'Spring的种类与判断',c:['Spring','二次测试','供应'],q:'三种Spring分别如何应对？',
+pts:['第一种(大量大蜡烛突破)：供应过大，不是好Spring，需等二次测试→常是震仓','第二种(小量小蜡烛突破)：最佳Spring，供应枯竭可直接进场','第三种(略微放量突破)：有供应但不足以压垮需求，等低量二次测试后进场','Spring失败：反弹无力+无持续上涨=牛市可能结束的预警'],
+quiz:{q:'哪种Spring可以直接进场？',o:['大量大蜡烛突破的','小量小蜡烛突破的(供应枯竭)','跳空突破的','无论哪种都可以'],a:1}},
+{id:'4-3',t:'Spring的位置与使用场景',c:['Spring','JOC','吸筹'],q:'Spring最常出现在哪些位置？',
+pts:['牛市中震荡区底部：回调结束牛市恢复的信号','JOC回测时：价格回测跳离点出现Spring','吸筹尾声：CM终极震仓扫清最后供应','千万不要在熊市中找Spring！熊市中Spring是陷阱'],
+quiz:{q:'在什么背景下绝对不能依赖Spring？',o:['牛市回调中','震荡区底部','熊市/供应控制的背景','JOC回测时'],a:2}},
+{id:'4-4',t:'Spring失败的意义',c:['Spring','供应','跟随'],q:'Spring失败透露什么重要信息？',
+pts:['卖盘控制的背景下Spring经常失败——是做空信号','Spring后反弹没有跟随(无力)=Spring失败','连续Spring失败=市场行为改变的预警信号','失败原因：供应太大，需求无法吸收并推高价格'],
+quiz:{q:'供应控制背景下的Spring通常是什么信号？',o:['买入信号','做空信号(陷阱)','中性信号','趋势确认'],a:1}}
+];
+
+const CH5=[
+{id:'5-1',t:'利用时间框架分析走势',c:['JOC','多级别分析','背景'],q:'不同时间框架如何配合分析？',pts:['大级别确定背景(牛/熊)，小级别寻找进场点','日线看不清的吸筹过程可在小时图上看到','小时图确认后在日线等待跟随确认'],quiz:{q:'为什么需要多时间框架分析？',o:['指标更准','大级别定方向小级别找进场','增加复杂度','没有必要'],a:1}},
+{id:'5-2',t:'供应背景下的无需求反弹交易',c:['无需求反弹','供应','做空'],q:'什么是无需求反弹交易法？',pts:['供应扩大后的反弹如果量小蜡烛小=无需求','无需求反弹=做空机会','做空后看供应是否持续(跟随)'],quiz:{q:'无需求反弹后应该怎么操作？',o:['买入','做空','观望','加仓多头'],a:1}},
+{id:'5-3',t:'需求背景下的50%回调',c:['50%原则','需求','Spring'],q:'牛市中50%回调如何操作？',pts:['需求占上风背景下回调到50%是正常的','50%位置出现停止行为(Spring/SOT)=进场点','回调过程小量小蜡烛=供应不足，牛市未受威胁'],quiz:{q:'牛市中回调未超过50%说明什么？',o:['熊市开始','牛市保持强势','应该卖出','趋势不明'],a:1}},
+{id:'5-4',t:'SOT停止行为交易法',c:['SOT','停止行为','跟随'],q:'如何利用SOT寻找交易机会？',pts:['SOT在阻力位=上涨停止=可能回落','SOT在支撑位=下跌停止=可能反弹','关键看SOT后是否有跟随确认'],quiz:{q:'SOT的核心含义是什么？',o:['趋势加速','涨跌幅度缩小=趋势力量减弱','成交量扩大','突破即将发生'],a:1}},
+{id:'5-5',t:'震荡区交易与震仓',c:['TR','震仓','Spring','二次测试'],q:'震荡区内如何判断突破方向？',pts:['震荡区底部Spring=需求测试供应','震仓=终极Spring，CM扫清最后供应','关键看二次测试中供应是否枯竭','JOC出现=方向确认'],quiz:{q:'震仓的目的是什么？',o:['制造恐慌让CM出货','扫清底部最后浮动供应为上涨扫清障碍','结束牛市','技术性调整'],a:1}},
+{id:'5-6',t:'支撑上的供求关系分析',c:['供应','需求','支撑','停止行为'],q:'如何判断支撑是否有效？',pts:['到达支撑时看是否出现停止行为(量增蜡烛缩)','停止行为后需要买盘跟随确认','供应未枯竭则等二次测试','Bag Holding(CM接盘)=缓慢下跌配大量'],quiz:{q:'支撑处出现量增蜡烛缩说明什么？',o:['供应加速','停止行为(需求在吸收供应)','无关紧要','应该卖出'],a:1}},
+{id:'5-7',t:'阻力上的吸收行为',c:['吸收','JOC','阻力'],q:'阻力上的吸收行为如何导致突破？',pts:['阻力区高收盘蜡烛=需求在吸收阻力上的供应','持续吸收导致供应枯竭→JOC(突破)','JOC后低量回测=进场机会'],quiz:{q:'阻力区高收盘蜡烛代表什么？',o:['供应在增加','需求在吸收阻力上的供应','应该卖出','趋势反转'],a:1}},
+{id:'5-8',t:'如何判断回测是否成功',c:['二次测试','JOC','供应枯竭'],q:'成功的回测有什么特征？',pts:['成功回测：小成交量+小蜡烛=供应枯竭','失败回测：大成交量+大阴线=供应仍存','回测目标通常是JOC跳离点或50%位置','成功回测是进场/加仓的最佳时机'],quiz:{q:'回测时成交量大幅缩小说明什么？',o:['需求消失','供应枯竭(成功回测)','趋势反转','应该做空'],a:1}},
+{id:'5-9',t:'超卖线的使用',c:['超卖线','Spring','震仓'],q:'超卖线如何帮助判断底部？',pts:['连接连续波谷画线延长形成超卖线','价格触及超卖线=超卖，至少有反弹','超卖线提供底部参考位置','终极震仓常在超卖线附近完成'],quiz:{q:'超卖线是如何绘制的？',o:['连接波峰','连接连续波谷并延长','水平画线','随意画线'],a:1}},
+{id:'5-10',t:'阻力上供应后跟随的重要性',c:['跟随','SOT','50%原则'],q:'阻力位出现供应后关键看什么？',pts:['阻力位SOT是停止行为→价格回落','关键看有无卖盘跟随','有跟随+量增=供应扩大→做空','无跟随=供应被吸收→可做多'],quiz:{q:'停止行为后没有跟随说明什么？',o:['信号确认','信号不可靠(供应被吸收)','应该做空','趋势反转确认'],a:1}},
+{id:'5-11',t:'Spring失败与二次测试',c:['Spring','二次测试','Bag Holding','SOS'],q:'Spring失败后该如何应对？',pts:['供应大背景下Spring常失败','失败的Spring需要二次测试来寻找新机会','Bag Holding(缓跌配大量)=CM在接盘','SOS出现后低量回测=安全进场点'],quiz:{q:'缓慢下跌伴随持续大成交量(Bag Holding)说明什么？',o:['恐慌抛售','CM在底部大量接盘','供应枯竭','需求消失'],a:1}},
+{id:'5-12',t:'从细节判断供需力量',c:['供应','需求','冰线','细节分析'],q:'哪些容易被忽视的细节暗示方向？',pts:['反弹最低价高于前低=需求暂时占上风','阴线扩大+高量下跌=非牛市特点=背景改变','供应背景下Spring是陷阱不要抄底','冰线突破+无需求反弹=继续下跌'],quiz:{q:'反弹的最低价逐步抬高暗示什么？',o:['供应在增加','需求在积累力量(CM收购价抬高)','趋势反转','应该卖出'],a:1}}
+];
+
+const CH6=[
+{id:'6-1',t:'小时图与日线配合确认',c:['JOC','多级别分析'],pts:['小时图看到清楚吸筹→日线确认跟随','JOC后回调力度<上涨力度=需求控制'],quiz:{q:'日线V型反转时用什么级别看吸筹？',o:['月线','小时图','分钟图','周线'],a:1}},
+{id:'6-2',t:'恐慌抛售vs震仓的判断',c:['恐慌抛售','震仓','无需求反弹'],pts:['长阴天量后立刻强势反弹=震仓','长阴天量后无需求反弹=可继续做空','需求后续力量决定后市方向'],quiz:{q:'震仓后的正常表现是什么？',o:['继续下跌','立刻强势反弹','长时间横盘','成交量消失'],a:1}},
+{id:'6-3',t:'二次测试成功与CM策略',c:['二次测试','CM'],pts:['CM压价引诱空方，低量=空方没进入=下跌终止','买盘跟随确认二次测试成功','JOC后低量回调=第二进场点'],quiz:{q:'低量二次测试说明什么？',o:['供应在扩大','空方没进入下跌终止','需求枯竭','应该做空'],a:1}},
+{id:'6-4',t:'OKR反转与冰线突破',c:['OKR','冰线','50%原则'],pts:['阻力位高量阴线包含前蜡烛=OKR=背景转变','50%原则：反弹未过50%=继续看跌','破冰=CM派发完毕=深度下跌'],quiz:{q:'OKR在阻力位出现意味着什么？',o:['牛市确认','背景由牛转熊','需求强劲','震仓行为'],a:1}},
+{id:'6-5',t:'卖盘背景Spring失败再验证',c:['Spring','供应'],pts:['供应控制背景Spring是做空信号','Spring后增量阴线突破=确认失败','需要反弹突破关键位确认需求恢复'],quiz:{q:'本课核心原则是什么？',o:['Spring一定有效','供应背景下Spring常失败是做空信号','成交量不重要','只看形态'],a:1}},
+{id:'6-6',t:'CM撤出与冰线突破',c:['冰线','CM','无需求反弹'],pts:['CM派发完毕不再防守冰线','无CM力挺=无重要需求=持续下滑','冰线突破=原趋势终结新趋势开始'],quiz:{q:'CM不再防守冰线的原因是？',o:['被套牢','已完成派发不再需要该支撑','市场休市','成交量太小'],a:1}}
+];
+
+const AFTERWORD=[
+{t:'掌握吸筹/派发才能赚钱',x:'价量行为只在吸筹或派发时表现最清晰。其他时候价格移动随意，应该休息。'},
+{t:'识别CM的障眼法',x:'长期下跌后天量长阴不是真下跌——是CM制造恐慌在底部吸筹的障眼法。'},
+{t:'远离技术指标组合',x:'威科夫方法独立完整，不需要也不应该与任何指标系统组合使用。'},
+{t:'从一两个方法开始实践',x:'先掌握一种方法(如牛市回调)：确认牛市→判断回调特征→识别停止行为→进场。反复实战形成赚钱机器。'},
+{t:'完整交易链条',x:'判断背景→确认回调特征→识别停止行为→进场→危机管理(1-5根蜡烛内甄别)。'},
+{t:'危机管理不可或缺',x:'进场后1-5根蜡烛内判断时机是否正确。发现失误必须无借口立刻出场。'},
+{t:'交易笔记坚持不懈',x:'每天记录进出场和感悟。学的不是方法，学的是盈利。坚持就是自我进步。'},
+{t:'CM也是人',x:'CM仗着资本耍阴谋，但贪婪也是他们本性。掌握市场行为规律就能以不变应万变。'}
+];
+
+const QUIZ=[
+{q:'威科夫方法中解读市场的三个基本要素是什么？',o:['K线形态、指标、消息','价格、成交量、走势速度','均线、布林带、MACD','开盘价、收盘价、最高价'],a:1},
+{q:'CM的基本循环模式是什么？',o:['随机交易','追涨杀跌','吸筹→拉升→派发→打压→再吸筹','只买不卖'],a:2},
+{q:'熊市终止的四个步骤正确顺序是？',o:['恐慌抛售→初次支撑→反弹→测试','初次支撑→恐慌抛售→自动反弹→二次测试','二次测试→恐慌抛售→反弹→支撑','支撑→反弹→抛售→测试'],a:1},
+{q:'"努力没有结果"的含义是什么？',o:['交易亏损','大成交量但价格没按预期移动(反向力量在吸收)','价格不动','停止交易'],a:1},
+{q:'吸筹结束进入牛市的标志是什么？',o:['价格小幅上涨','出现一根大阳线','SOS(强势出现)+JOC(跳离震荡区)','成交量消失'],a:2},
+{q:'抢购高潮时市场上发生了什么？',o:['CM大量买入','公众疯狂买入而CM大量出货','供需平衡','市场休市'],a:1},
+{q:'冰线被突破意味着什么？',o:['暂时调整即将反弹','CM派发完毕不再防守，价格将深度下跌','需求增加','震仓洗盘'],a:1},
+{q:'最佳的Spring(可直接进场)有什么特征？',o:['大量大蜡烛突破支撑','小量小蜡烛突破支撑(供应枯竭)','跳空突破','任何突破都可以'],a:1},
+{q:'在什么背景下Spring最容易失败？',o:['需求控制的牛市','供应占上风/卖盘控制的市场','低成交量环境','长期横盘'],a:1},
+{q:'50%原则的核心含义是什么？',o:['仓位管理用50%','回调50%以内=趋势未受威胁，超过=趋势减弱','涨50%就卖','跌50%就买'],a:1},
+{q:'成功的二次测试应该表现为什么？',o:['放量大跌突破前低','成交量和蜡烛大幅缩小(供应枯竭)','长阳线上涨','跳空高开'],a:1},
+{q:'无需求反弹的特征是什么？',o:['放量大阳线','低成交量+小蜡烛的反弹','跳空高开','新高放量'],a:1},
+{q:'因果关系中"因"是什么？',o:['技术指标','新闻消息','震荡区(吸筹/派发)的时间和幅度','单根蜡烛'],a:2},
+{q:'作者建议如何运用威科夫方法？',o:['与各种指标组合使用','独立使用，从一两个方法开始反复实战','只看K线形态','完全自动化交易'],a:1},
+{q:'危机管理的本质是什么？',o:['设好止损就行','进场后1-5根蜡烛内甄别时机正确性，错则立走','每周检查一次','看新闻决定'],a:1}
+];
+
+// === STATE ===
+let S=JSON.parse(localStorage.getItem('wk_s2')||'null')||{m:{},n:{},t:'light',min:0};
+const save=()=>localStorage.setItem('wk_s2',JSON.stringify(S));
+const allL=[...CH0,...CH1,...CH2,...CH3,...CH4,...CH5,...CH6];
+
+// === RENDER ===
+function init(){
+  renderNav();renderConcepts();
+  renderCh('ch0L',CH0);renderCh('ch1L',CH1,'ch1S');renderCh('ch2L',CH2,'ch2S');
+  renderCh('ch3L',CH3,'ch3S');renderCh('ch4L',CH4,'ch4S');renderCh('ch5L',CH5,'ch5S');
+  renderCh('ch6L',CH6,'ch6S');renderEnd();renderQuiz();updDash();
+  if(S.t==='dark')document.documentElement.setAttribute('data-theme','dark');
+}
+function renderNav(){
+  const secs=[['s-dash','学习仪表盘'],['s-concepts','核心概念体系']];
+  const chs=[['s-ch0','前言',CH0],['s-ch1','第一章 工具',CH1],['s-ch2','第二章 吸筹',CH2],['s-ch3','第三章 派发',CH3],['s-ch4','第四章 Spring',CH4],['s-ch5','第五章 实战',CH5],['s-ch6','第六章 综合',CH6]];
+  let h='';
+  secs.forEach(s=>h+=`<div class="ni" onclick="goSec('${s[0]}')" data-s="${s[0]}">${s[1]}</div>`);
+  chs.forEach(c=>{
+    h+=`<div class="ng">${c[1]}</div>`;
+    c[2].forEach((l,i)=>{
+      const dn=S.m[l.id]?' dn':'';
+      h+=`<div class="ni${dn}" onclick="goL('${c[0]}','${l.id}')" data-s="${l.id}" data-q="${l.t} ${(l.c||[]).join(' ')}"><span class="ck">${dn?'&#10003;':''}</span><span>${l.t}</span></div>`;
+    });
+  });
+  h+=`<div class="ng">总结与测验</div>`;
+  h+=`<div class="ni" onclick="goSec('s-end')" data-s="s-end">后记学习要诀</div>`;
+  h+=`<div class="ni" onclick="goSec('s-quiz')" data-s="s-quiz">综合知识测验</div>`;
+  document.getElementById('nav').innerHTML=h;
+}
+function renderConcepts(){
+  let h='';concepts.forEach(c=>h+=`<div class="cc" onclick="this.classList.toggle('op')"><div class="ct">${c.t}</div><div class="cf">${c.f}</div><div class="cd">${c.d}</div></div>`);
+  document.getElementById('cgd').innerHTML=h;
+}
+function renderCh(cid,lessons,sid){
+  const el=document.getElementById(cid);
+  if(sid){const t=lessons.length,d=lessons.filter(l=>S.m[l.id]).length;document.getElementById(sid).innerHTML=`<span class="sb2 st">共${t}课</span><span class="sb2 sd">已掌握${d}</span><span class="sb2 srem">剩余${t-d}</span>`;}
+  let h='';
+  lessons.forEach((l,i)=>{
+    const m=S.m[l.id],nt=S.n[l.id]||'',imgs=IMGS[l.id]||[];
+    h+=`<div class="lc" id="c-${l.id}"><div class="lh" onclick="tgL('${l.id}')"><div class="ln${m?' ok':''}">${i+1}</div><div class="lt"><h3>${l.t}</h3><div class="tg">${(l.c||[]).map(c=>'<span>'+c+'</span>').join('')}${imgs.length?'<span>'+imgs.length+'图</span>':''}</div></div><span class="lv">&#9660;</span></div>`;
+    h+=`<div class="lb">`;
+    if(l.q)h+=`<div class="bb bq"><h4>&#129300; 学前思考</h4><p>${l.q}</p></div>`;
+    if(l.pts)h+=`<div class="bb bc"><h4>&#128218; 核心要点</h4><ul>${l.pts.map(p=>'<li>'+p+'</li>').join('')}</ul></div>`;
+    if(imgs.length)h+=`<div class="ig"><h4>&#128202; 图表分析 (${imgs.length}张)</h4><div class="ig-g${imgs.length===1?' single':''}">${imgs.map((p,pi)=>`<figure style="margin:0"><img src="${p}" alt="图表${pi+1}" loading="lazy" onclick="openImg('${l.id}',${pi})"><figcaption style="font-size:11px;color:var(--text2);margin-top:4px;line-height:1.5">${IMGD[p]||''}</figcaption></figure>`).join('')}</div></div>`;
+    if(l.plan)h+=`<div class="bb bp"><h4>&#128200; 交易计划</h4><p>${l.plan}</p></div>`;
+    if(l.risk)h+=`<div class="bb br"><h4>&#9888; 危机管理</h4><p>${l.risk}</p></div>`;
+    if(l.quiz)h+=`<div class="bb bz"><h4>&#129504; 自我检测</h4><p>${l.quiz.q}</p><ul class="qo" id="qo-${l.id}">${l.quiz.o.map((o,oi)=>`<li onclick="chkQ('${l.id}',${oi},${l.quiz.a})">${o}</li>`).join('')}</ul><div class="qr" id="qr-${l.id}"></div></div>`;
+    h+=`<div class="bb bn"><h4>&#128221; 笔记(费曼法)</h4><textarea class="na" placeholder="用自己的话复述本课核心..." oninput="svN('${l.id}',this.value)">${nt}</textarea></div>`;
+    h+=`</div><div class="lf"><button class="btn btn-ok${m?' dn':''}" onclick="tgM('${l.id}')">${m?'&#9989; 已掌握':'标记已掌握'}</button></div></div>`;
+  });
+  el.innerHTML=h;
+}
+function renderEnd(){
+  let h='';AFTERWORD.forEach(a=>h+=`<div class="ic"><h4>${a.t}</h4><p>${a.x}</p></div>`);
+  document.getElementById('endC').innerHTML=h;
+}
+function renderQuiz(){
+  let h='';QUIZ.forEach((q,i)=>h+=`<div class="qs" id="qq-${i}"><h3>第${i+1}题</h3><p style="margin-bottom:10px">${q.q}</p><ul class="qo" id="qqo-${i}">${q.o.map((o,oi)=>`<li onclick="chkMQ(${i},${oi},${q.a})">${o}</li>`).join('')}</ul><div class="qr" id="qqr-${i}"></div></div>`);
+  h+=`<div style="text-align:center;margin:16px 0"><button class="btn" onclick="showQR()" style="background:var(--acc);color:#fff;border-color:var(--acc);padding:10px 28px;font-size:14px">查看结果</button></div>`;
+  document.getElementById('quizC').innerHTML=h;
+}
+
+// === NAV ===
+function goSec(id){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));document.getElementById(id).classList.add('act');document.querySelectorAll('.ni').forEach(n=>n.classList.remove('act'));const ne=document.querySelector(`[data-s="${id}"]`);if(ne)ne.classList.add('act');window.scrollTo(0,0);if(innerWidth<860)document.getElementById('sb').classList.remove('show');}
+function goL(sec,lid){goSec(sec);setTimeout(()=>{const el=document.getElementById('c-'+lid);if(el){el.scrollIntoView({behavior:'smooth',block:'start'});if(!el.classList.contains('op'))el.classList.add('op');}document.querySelectorAll('.ni').forEach(n=>n.classList.remove('act'));const ne=document.querySelector(`[data-s="${lid}"]`);if(ne)ne.classList.add('act');},100);}
+function tgL(id){document.getElementById('c-'+id).classList.toggle('op');}
+function tgSb(){const sb=document.getElementById('sb');innerWidth<860?sb.classList.toggle('show'):sb.classList.toggle('hide');}
+function fNav(v){v=v.toLowerCase();document.querySelectorAll('#nav .ni[data-q]').forEach(n=>{n.style.display=(!v||(n.getAttribute('data-q')||'').toLowerCase().includes(v))?'':'none';});}
+
+// === LESSON ===
+function tgM(id){S.m[id]=!S.m[id];save();renderNav();['ch0L','ch1L','ch2L','ch3L','ch4L','ch5L','ch6L'].forEach((c,i)=>{const d=[[CH0],[CH1,'ch1S'],[CH2,'ch2S'],[CH3,'ch3S'],[CH4,'ch4S'],[CH5,'ch5S'],[CH6,'ch6S']][i];renderCh(c,d[0],d[1]);});updDash();const el=document.getElementById('c-'+id);if(el)el.classList.add('op');}
+function svN(id,v){S.n[id]=v;save();renderNl();}
+function chkQ(lid,sel,ans){const c=document.getElementById('qo-'+lid);const r=document.getElementById('qr-'+lid);c.querySelectorAll('li').forEach((li,i)=>{li.classList.add('dis');if(i===ans)li.classList.add('ok');if(i===sel&&i!==ans)li.classList.add('no');});r.style.display='block';r.innerHTML=sel===ans?'<span style="color:var(--ok)">&#9989; 正确</span>':'<span style="color:var(--err)">&#10060; 错误，正确答案已标出</span>';}
+
+// === QUIZ ===
+let mqA={};
+function chkMQ(qi,sel,ans){mqA[qi]=sel;const c=document.getElementById('qqo-'+qi);c.querySelectorAll('li').forEach((li,i)=>{li.classList.remove('ok','no','dis');if(i===sel)li.classList.add(i===ans?'ok':'no');});}
+function showQR(){let sc=0;QUIZ.forEach((q,i)=>{const c=document.getElementById('qqo-'+i);c.querySelectorAll('li').forEach((li,j)=>{li.classList.add('dis');if(j===q.a)li.classList.add('ok');});if(mqA[i]===q.a)sc++;});document.getElementById('quizR').style.display='block';document.getElementById('quizSc').innerHTML=sc+'<span>/'+QUIZ.length+'</span>';const p=sc/QUIZ.length*100;document.getElementById('quizMsg').textContent=p>=90?'优秀！核心原理掌握扎实。':p>=70?'不错！复习错题对应课程可更进一步。':p>=50?'及格。建议重新学习薄弱章节。':'需要加强。建议从第一章开始逐课学习。';}
+function rstQuiz(){mqA={};document.getElementById('quizR').style.display='none';renderQuiz();}
+
+// === FLASHCARD ===
+let fcI=0,fcO=[];
+function goFc(){fcO=concepts.map((_,i)=>i).sort(()=>Math.random()-.5);fcI=0;showFc();goSec('s-fc');}
+function showFc(){if(fcI>=fcO.length){fcI=0;fcO.sort(()=>Math.random()-.5);}const c=concepts[fcO[fcI]];document.getElementById('fcf').textContent=c.t;document.getElementById('fcfl').textContent=c.f;document.getElementById('fcds').textContent=c.d;document.getElementById('fcd').classList.remove('fl');document.getElementById('fcp').textContent=(fcI+1)+'/'+concepts.length;}
+function flipFc(){document.getElementById('fcd').classList.toggle('fl');}
+function fcN(){fcI++;showFc();}
+
+// === TOOLS ===
+let curImgLid='',curImgIdx=0;
+function openImg(lid,idx){curImgLid=lid;curImgIdx=idx;const imgs=IMGS[lid]||[];if(!imgs.length)return;document.getElementById('imgFull').src=imgs[idx];document.getElementById('imgCap').textContent=(IMGD[imgs[idx]]||(idx+1)+'/'+imgs.length);document.getElementById('imgM').classList.add('show');document.addEventListener('keydown',imgKey);}
+function closeImg(e){if(e.target.tagName==='IMG')return;document.getElementById('imgM').classList.remove('show');document.removeEventListener('keydown',imgKey);}
+function navImg(d){const imgs=IMGS[curImgLid]||[];if(!imgs.length)return;curImgIdx=(curImgIdx+d+imgs.length)%imgs.length;document.getElementById('imgFull').src=imgs[curImgIdx];document.getElementById('imgCap').textContent=(IMGD[imgs[curImgIdx]]||(curImgIdx+1)+'/'+imgs.length);}
+function imgKey(e){if(e.key==='Escape'){document.getElementById('imgM').classList.remove('show');document.removeEventListener('keydown',imgKey);}else if(e.key==='ArrowLeft')navImg(-1);else if(e.key==='ArrowRight')navImg(1);}
+function tgNp(){document.getElementById('np').classList.toggle('op');renderNl();}
+function renderNl(){let h='';allL.forEach(l=>{if(S.n[l.id]&&S.n[l.id].trim())h+=`<div class="ne"><div class="nt">${l.t}</div><div class="nx">${S.n[l.id]}</div></div>`;});document.getElementById('nl').innerHTML=h||'<p style="color:var(--text3);font-size:12px;text-align:center;padding:24px">暂无笔记</p>';}
+let tmR=false,tmS=25*60,tmI;
+function tgTm(){if(tmR){clearInterval(tmI);tmR=false;document.getElementById('tb').classList.remove('on');}else{tmR=true;document.getElementById('tb').classList.add('on');tmI=setInterval(()=>{tmS--;if(tmS<=0){clearInterval(tmI);tmR=false;tmS=25*60;document.getElementById('tb').classList.remove('on');S.min+=25;save();updDash();alert('25分钟学习完成！休息5分钟。');}updTd();},1000);}updTd();}
+function updTd(){const m=Math.floor(tmS/60),s=tmS%60;document.getElementById('td').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+function tgTh(){S.t=S.t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',S.t==='dark'?'dark':'');save();}
+function updDash(){const t=allL.length,d=allL.filter(l=>S.m[l.id]).length;document.getElementById('dT').textContent=t;document.getElementById('dD').textContent=d;document.getElementById('dC').textContent=concepts.length;document.getElementById('dM').textContent=S.min;const p=t>0?Math.round(d/t*100):0;document.getElementById('pp').textContent=p+'%';document.getElementById('pf').style.width=p+'%';}
+
+init();
+</script>
+</body>
+</html>
