@@ -18,6 +18,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
 .hd-logo svg{width:22px;height:22px;flex-shrink:0}
 .hd-logo .hd-t{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.3px}
 .hd-logo .hd-dot{width:4px;height:4px;border-radius:50%;background:var(--pri);display:inline-block;margin:0 2px}
+
+/* ===== SVG Icons ===== */
+.icn{width:16px;height:16px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.icn-sm{width:14px;height:14px}
+.icn-lg{width:20px;height:20px}
+.icn-xl{width:28px;height:28px}
 .hb{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--rs);border:1px solid var(--bdr);background:var(--card);cursor:pointer;color:var(--text2);transition:.15s;flex-shrink:0}
 .hb:hover{background:var(--bg2);color:var(--text)}
 .hb svg{width:16px;height:16px;fill:currentColor}
@@ -103,11 +109,11 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
     <span class="hd-t">书籍导航</span>
   </div>
   <div class="sch-w">
-    <span class="sch-i">&#128269;</span>
+    <span class="sch-i"><svg class="icn" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg></span>
     <input type="text" placeholder="搜索文件..." id="searchInput" oninput="onSearch(this.value)" spellcheck="false">
   </div>
   <div class="hd-r">
-    <button class="hb" onclick="tgTh()" title="切换主题">&#9790;</button>
+    <button class="hb" onclick="tgTh()" title="切换主题"><svg class="icn" id="themeIcn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
   </div>
 </header>
 
@@ -121,13 +127,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15
 <main class="ct" id="ct">
   <!-- Welcome -->
   <div class="wl" id="wl">
-    <div class="wl-i">&#128218;</div>
+    <div class="wl-i"><svg class="icn-xl" viewBox="0 0 24 24" stroke-width="1.2" style="color:var(--pri)"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 7h7M9 11h7M9 15h4"/></svg></div>
     <h2>欢迎使用知识导航</h2>
     <p>从左侧目录选择一个文件开始阅读。<br>系统已加载 <strong id="wlCount">0</strong> 个文件供您查阅。</p>
     <div class="wl-feats">
-      <div class="wf"><span>&#8981;</span> 快捷键 <kbd>/</kbd> 搜索</div>
-      <div class="wf"><span>&#9790;</span> 切换主题</div>
-      <div class="wf"><span>&#128196;</span> iframe 完整渲染</div>
+      <div class="wf"><svg class="icn icn-sm" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01"/></svg> 快捷键 <kbd>/</kbd> 搜索</div>
+      <div class="wf"><svg class="icn icn-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg> 切换主题</div>
+      <div class="wf"><svg class="icn icn-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> iframe 完整渲染</div>
     </div>
   </div>
   <!-- Iframe -->
@@ -158,7 +164,7 @@ async function init() {
     }
   } catch (e) {
     document.getElementById('nav').innerHTML = `<div style="padding:28px 20px;color:var(--err);text-align:center;font-size:13px">
-      <p>&#10060; 无法加载 sitemap.json</p>
+      <p><svg class="icn" viewBox="0 0 24 24" style="vertical-align:middle"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> 无法加载 sitemap.json</p>
       <p style="margin-top:8px;color:var(--text3)">请先运行 <code style="background:var(--bg2);padding:1px 6px;border-radius:3px;font-size:12px">node generate-sitemap.js</code></p>
     </div>`;
   }
@@ -191,15 +197,15 @@ function renderNav(filter) {
     const actClass = gi === 0 ? ' op' : '';
     h += `<div class="fg${actClass}" data-g="${gi}">`;
     h += `<div class="fg-h" onclick="tgFg(${gi})">`;
-    h += `<span class="fg-i">&#128193;</span><span>${g.name}</span>`;
+    h += `<span class="fg-i"><svg class="icn icn-sm" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span><span>${g.name}</span>`;
     h += `<span class="fg-c">${g.files.length}</span>`;
-    h += `<span class="fg-a">&#9654;</span></div>`;
+    h += `<span class="fg-a"><svg class="icn icn-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span></div>`;
     h += `<div class="fg-b">`;
     files.forEach(f => {
       const curPath = location.hash ? decodeURIComponent(location.hash.slice(1)) : '';
       const act = f.path === curPath ? ' act' : '';
       h += `<div class="fi${act}" onclick="openFile('${esc(f.name)}','${esc(f.path)}','${esc(g.name)}')" data-path="${esc(f.path)}">`;
-      h += `<span class="fi-i">&#128196;</span>`;
+      h += `<span class="fi-i"><svg class="icn icn-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>`;
       h += `<span class="fi-t">${f.name}</span></div>`;
     });
     h += `</div></div>`;
