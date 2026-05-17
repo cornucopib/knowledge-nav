@@ -14,7 +14,7 @@
 .hd-l{display:flex;align-items:center;gap:10px}.hd-l svg{width:26px;height:26px;flex-shrink:0}
 .hd-t{font-size:16px;font-weight:700;letter-spacing:-.3px}.hd-t span{color:var(--acc)}
 .hd-r{display:flex;align-items:center;gap:8px}
-.hb{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.hb{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;transition:.15s}
 .hb:hover{background:rgba(255,255,255,.18)}.hb:active{transform:scale(.92)}
 .hb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 /* HERO */
@@ -26,9 +26,9 @@
 .hero-in{padding:56px 20px 36px;max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1}
 .hero .hi{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--pri-bg),var(--acc-bg));display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
 .hero .hi svg{width:34px;height:34px;color:var(--pri);fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.hero h1{font-size:30px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.5px}
-.hero p{font-size:15px;color:var(--text2);line-height:1.7}
-.hs{display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.hero h1{font-size:30px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.5px;user-select:none}
+.hero p{font-size:15px;color:var(--text2);line-height:1.7;user-select:none}
+.hs{display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap;user-select:none}
 .hs-ic{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rs);box-shadow:var(--sh1)}
 .hs-ic .n{font-size:20px;font-weight:700;color:var(--pri);font-family:var(--serif)}
 .hs-ic .l{font-size:12px;color:var(--text3)}
@@ -40,9 +40,9 @@
 /* CONTENT */
 .sc{width:100%;max-width:960px;padding:0 20px 56px}
 .sc-h{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;margin-bottom:14px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh1)}
-.sc-h-l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--text)}
+.sc-h-l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--text);user-select:none}
 .sc-h-l svg{width:16px;height:16px;flex-shrink:0}
-.sc-h-r{font-size:11px;padding:2px 10px;border-radius:10px;background:var(--pri-bg);color:var(--pri);font-weight:600;white-space:nowrap}
+.sc-h-r{font-size:11px;padding:2px 10px;border-radius:10px;background:var(--pri-bg);color:var(--pri);font-weight:600;white-space:nowrap;user-select:none}
 /* BOOK GRID */
 .bg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
 .bk{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:.2s var(--ease);user-select:none;animation:fI .45s ease both}
@@ -58,7 +58,7 @@
 .bk-arrow{width:28px;height:28px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--text3);transition:.2s;flex-shrink:0;margin-left:8px}
 .bk:hover .bk-arrow{background:var(--pri-bg);color:var(--pri)}
 /* EMPTY */
-.emp{text-align:center;padding:60px 20px;color:var(--text3)}.emp p:first-child{font-size:40px;margin-bottom:12px}
+.emp{text-align:center;padding:60px 20px;color:var(--text3);user-select:none}.emp p:first-child{font-size:40px;margin-bottom:12px}
 /* FOOTER */
 .ft{text-align:center;padding:20px;font-size:12px;color:var(--text3);border-top:1px solid var(--bdr);user-select:none}
 /* ANIMATIONS */
